@@ -1,191 +1,200 @@
-# Introduction
+# Introduktion
 
-> Note: This edition of the book is the same as [The Rust Programming
-> Language][nsprust] available in print and ebook format from [No Starch
+> Not: Denna upplaga av boken är densamma som [Programmeringsspråket
+> Rust][nsprust] tillgänglig i tryckt format och som e-bok från [No Starch
 > Press][nsp].
 
 [nsprust]: https://nostarch.com/rust
 [nsp]: https://nostarch.com/
 
-Welcome to *The Rust Programming Language*, an introductory book about Rust.
-The Rust programming language helps you write faster, more reliable software.
-High-level ergonomics and low-level control are often at odds in programming
-language design; Rust challenges that conflict. Through balancing powerful
-technical capacity and a great developer experience, Rust gives you the option
-to control low-level details (such as memory usage) without all the hassle
-traditionally associated with such control.
+Välkommen till *Programmeringsspråket Rust*, en inledande bok om Rust.
+Programmeringsspråket Rust hjälper dig att skriva snabbare, mer pålitlig
+programvara. Högnivåergonomi och lågnivåkontroll är ofta i strid med varandra
+inom design av programmeringsspråk; Rust utmanar denna konflikten. Genom att
+balansera kraftfull tekniskt kapacitet med en fantastisk utvecklarupplevelse
+ger Rust dig möjligheten till kontroll över lågnivådetaljer (så som
+minnesanvändning) utan allt krångel som traditionellt associeras med sådan
+kontroll.
 
-## Who Rust Is For
+## Vem är Rust till för
 
-Rust is ideal for many people for a variety of reasons. Let’s look at a few of
-the most important groups.
+Rust är lämpligt för många människor av ett antal anledningar. Låt oss titta på
+några av de viktigaste grupperna.
 
-### Teams of Developers
+### Grupper av utvecklare
 
-Rust is proving to be a productive tool for collaborating among large teams of
-developers with varying levels of systems programming knowledge. Low-level code
-is prone to a variety of subtle bugs, which in most other languages can be
-caught only through extensive testing and careful code review by experienced
-developers. In Rust, the compiler plays a gatekeeper role by refusing to
-compile code with these elusive bugs, including concurrency bugs. By working
-alongside the compiler, the team can spend their time focusing on the program’s
-logic rather than chasing down bugs.
+Rust visar sig vara ett produktivt verktyg för samarbete mellan stora grupper
+av utvecklare med olika nivåer av kunskap inom systemprogrammering. Lågnivåkod
+är benägen att ha en mängd subtila fel, vilket i de flesta andra språk bara kan
+fångas upp genom omfattande testning och noggrann kodgranskning av erfarna
+utvecklare. I Rust fungerar kompilatorn som portvakt genom att vägra att
+kompilera kod med denna typ av svårfångade fel, inklusive samtidighetsfel.
+Genom att arbeta tillsammans med kompilatorn kan utvecklargrupper spendera sin
+tid på att fokusera på programmets logik snarare än att jaga fel.
 
-Rust also brings contemporary developer tools to the systems programming world:
+Rust tillhandahåller också med samtida utvecklarverktyg till
+systemprogrammeringsvärlden:
 
-* Cargo, the included dependency manager and build tool, makes adding,
-  compiling, and managing dependencies painless and consistent across the Rust
-  ecosystem.
-* Rustfmt ensures a consistent coding style across developers.
-* The Rust Language Server powers Integrated Development Environment (IDE)
-  integration for code completion and inline error messages.
+* Cargo, den medföljande beroendehanteraren och byggverktyget, gör tillägg,
+  kompilering och hantering av beroenden smärtfritt och konsekvent genom hela
+  Rusts ekosystem.
+* Rustfmt säkerställe en konsekvent kodningsstil för alla utvecklare.
+* Rusts språkserver understödjer integrerade utvecklingsmiljöer (Integrated
+  Development Environment, IDE) vad det gäller kodkomplettering och infogade
+  felmeddelanden.
 
-By using these and other tools in the Rust ecosystem, developers can be
-productive while writing systems-level code.
+Genom dessa och andra verktyg i Rusts ekosystem kan utvecklare vara produktiva
+medan de skriver systemnivåkod.
 
-### Students
+### Studerande
 
-Rust is for students and those who are interested in learning about systems
-concepts. Using Rust, many people have learned about topics like operating
-systems development. The community is very welcoming and happy to answer
-student questions. Through efforts such as this book, the Rust teams want to
-make systems concepts more accessible to more people, especially those new to
-programming.
+Rust är till för studerande och de som är intresserad av att lära sig som
+systemkoncept. Genom att använda Rust har många människor lärt sig om områden
+så som operativsystemsutveckling. Gemenskapen är välkomnande och svarar
+gladeligen på frågor från studerande. Genom insatser så som denna bok vill
+Rust-grupperna göra systemkoncept mer tillgängliga för fler människor,
+speciellt de för vilka programmering är nytt.
 
-### Companies
+### Företag
 
-Hundreds of companies, large and small, use Rust in production for a variety of
-tasks. Those tasks include command line tools, web services, DevOps tooling,
-embedded devices, audio and video analysis and transcoding, cryptocurrencies,
-bioinformatics, search engines, Internet of Things applications, machine
-learning, and even major parts of the Firefox web browser.
+Hundratals företag, stora och små, använder Rust i produktion för en mängd
+olika uppgifter. Dessa uppgifter inkluderar kommandoradsverktyg, webbtjänster,
+DevOps-verktyg, inbäddad mjukvara, ljud- och videoanalys och transkodning,
+kryptovalutor, bioinformatik, söktjänster, applikationer inom Sakernas
+internet, maskinlärning och till och med signifikanta delar av webbläsaren
+Firefox.
 
-### Open Source Developers
+### Utvecklare inom öppen programvara
 
-Rust is for people who want to build the Rust programming language, community,
-developer tools, and libraries. We’d love to have you contribute to the Rust
-language.
+Rust är till för de som vill bygga programmeringsspråket Rust, gemenskapen,
+utvecklarverktyg och bibliotek. Vi skulle gärna se att du bidrar till Rust.
 
-### People Who Value Speed and Stability
+### Människor som värdesätter hastighet och stabilitet
 
-Rust is for people who crave speed and stability in a language. By speed, we
-mean the speed of the programs that you can create with Rust and the speed at
-which Rust lets you write them. The Rust compiler’s checks ensure stability
-through feature additions and refactoring. This is in contrast to the brittle
-legacy code in languages without these checks, which developers are often
-afraid to modify. By striving for zero-cost abstractions, higher-level features
-that compile to lower-level code as fast as code written manually, Rust
-endeavors to make safe code be fast code as well.
+Rust är till för människor som kräver hastighet och stabilitet i ett språk. Med
+hastighet menar vi hastigheten hos de program du kan skapa med Rust samt
+hastigheten med vilken Rust låter dig skriva dem. Rust kompilatorns kontroller
+säkerställer stabilitet genom funktionstillägg och omfaktorisering. Detta står
+i kontrast till gammal, skör kod i språk som saknar dessa kontroller, som
+utvecklare ofta är rädda för att ändra. Genom att sträva efter abstraktioner
+med noll kostnad, högnivå funktioner som kompileras till lågnivå som är lika
+snabb som manuellt skriven kod, försöker Rust att få säker kod att också vara
+snabb kod.
 
-The Rust language hopes to support many other users as well; those mentioned
-here are merely some of the biggest stakeholders. Overall, Rust’s greatest
-ambition is to eliminate the trade-offs that programmers have accepted for
-decades by providing safety *and* productivity, speed *and* ergonomics. Give
-Rust a try and see if its choices work for you.
+Språket Rust hoppas på att även ge stöd till många andra användare; de som
+nämns här är endast några av de största intressenterna. Rusts största ambition
+är att eliminera de avvägningar som programmerare har accepterat under
+årtionden genom att tillhandahålla säkerhet *och* produktivitet, hastighet
+*och* ergonomi. Prova Rust och se om dess val fungerar för dig.
 
-## Who This Book Is For
+## Vem är denna bok till för
 
-This book assumes that you’ve written code in another programming language but
-doesn’t make any assumptions about which one. We’ve tried to make the material
-broadly accessible to those from a wide variety of programming backgrounds. We
-don’t spend a lot of time talking about what programming *is* or how to think
-about it. If you’re entirely new to programming, you would be better served by
-reading a book that specifically provides an introduction to programming.
+Denna bok förutsätter att du har skrivit kod i ett annat programmeringsspråk
+men gör inga förutsättningar kring vilket språk. Vi har försökt att göra
+materialet allmänt tillgängligt för varierande programmeringsbakgrunder. Vi
+spenderar inte en massa tid på att tala om vad programmering *är* eller hur man
+ska tänka kring det. Om programmering är helt nytt för dig, är du troligen
+bättre betjänt av att läsa en bok som specifikt introducerar programmering.
 
-## How to Use This Book
+## Hur du använder denna bok
 
-In general, this book assumes that you’re reading it in sequence from front to
-back. Later chapters build on concepts in earlier chapters, and earlier
-chapters might not delve into details on a topic; we typically revisit the
-topic in a later chapter.
+I allmänhet förutsätter denna bok att du läser den i sekvens från början till
+slut. Senare kapitel bygger på koncept från tidigare kapitel och tidigare
+kapitel går kanske inte på djupet inom ett område; vi återkommer vanligen till
+ett område i ett senare kapitel.
 
-You’ll find two kinds of chapters in this book: concept chapters and project
-chapters. In concept chapters, you’ll learn about an aspect of Rust. In project
-chapters, we’ll build small programs together, applying what you’ve learned so
-far. Chapters 2, 12, and 20 are project chapters; the rest are concept chapters.
+Du hittar två typer av kapitel i denna ok: konceptkapitel och projektkapitel. I
+konceptkapitel kommer du att lära dig om en aspekt av Rust. I projektkapitel
+kommer vi att bygga små projekt tillsammans, genom att tillämpa vad du lärt dig
+så långt. Kapitlen 2, 12 och 20 är projektkapitel; resten är konceptkapitel.
 
-Chapter 1 explains how to install Rust, how to write a Hello, world! program,
-and how to use Cargo, Rust’s package manager and build tool. Chapter 2 is a
-hands-on introduction to the Rust language. Here we cover concepts at a high
-level, and later chapters will provide additional detail. If you want to get
-your hands dirty right away, Chapter 2 is the place for that. At first, you
-might even want to skip Chapter 3, which covers Rust features similar to those
-of other programming languages, and head straight to Chapter 4 to learn about
-Rust’s ownership system. However, if you’re a particularly meticulous learner
-who prefers to learn every detail before moving on to the next, you might want
-to skip Chapter 2 and go straight to Chapter 3, returning to Chapter 2 when
-you’d like to work on a project applying the details you’ve learned.
+Kapitel 1 förklarar hur du installerar Rust och hur skriver ett "Hello,
+world!"-program, och hur man använder Cargo, Rusts pakethanterare och
+byggverktyg. Kapitel 2 är en praktisk introduktion till språket Rust. Här
+omfattas koncept på en hög nivå, där senare kapitel kommer att ge ytterligare
+detaljer. Om du vill börja med en gång är kapitel 2 en lämplig start. Till en
+början kanske du till och med vill hoppa över kapitel 3, vilket omfattar Rusts
+funktioner som liknar de från andra programmeringsspråk och gå direkt till
+kapitel 4 för att lära dig om Rusts ägarsystem. Skulle du vara en särskilt
+noggrann elev som föredrar att lära dig varje detalj innan du går vidare till
+nästa så kanske du bör hoppa över kapitel 2 och gå direkt till kapitel 3 för
+att återgå till kapitel 2 när du vill arbeta på ett projekt som tillämpar de
+detaljer du har lärt dig.
 
-Chapter 5 discusses structs and methods, and Chapter 6 covers enums, `match`
-expressions, and the `if let` control flow construct. You’ll use structs and
-enums to make custom types in Rust.
+Kapitel 5 diskuterar strukturer och metorder och kapitel 6 beskriver
+uppräkningar, `match`-uttryck och kontrollflödeskonstruktionen `if let`. Du
+kommer att använda strukturer och uppräkningar för att skapa anpassade typer i
+Rust.
 
-In Chapter 7, you’ll learn about Rust’s module system and about privacy rules
-for organizing your code and its public Application Programming Interface
-(API). Chapter 8 discusses some common collection data structures that the
-standard library provides, such as vectors, strings, and hash maps. Chapter 9
-explores Rust’s error-handling philosophy and techniques.
+I kapitel 7 kommer du att lära dig om Rusts modulsystem och om sekretessregler
+för att organisera din kod och dess publika
+applikationsprogrammeringsgränssnitt (Application Programming Interface, API).
+Kapitel 8 diskuterar några vanliga samlingsdatastrukturer som
+standardbiblioteket erbjuder, så som vektorer, strängar och hashmappningar.
+Kapitel 9 utforskar Rusts felhanteringsfilosofi och tillhörande tekniker.
 
-Chapter 10 digs into generics, traits, and lifetimes, which give you the power
-to define code that applies to multiple types. Chapter 11 is all about testing,
-which even with Rust’s safety guarantees is necessary to ensure your program’s
-logic is correct. In Chapter 12, we’ll build our own implementation of a subset
-of functionality from the `grep` command line tool that searches for text
-within files. For this, we’ll use many of the concepts we discussed in the
-previous chapters.
+Kapitel 10 gräver sig in i generisk programmering, drag och livstider, vilket
+ger dig möjligheten att definiera kod som fungerar för flera olika typer. Hela
+kapitel 11 handlar om testning, vilket trots Rusts alla säkerhetsgarantier är
+nödvändigt för att säkerställa att ditt programs logik är korrekt. I kapitel 12
+kommer vi att bygga vår egen implementation av en delmängd av funktionen hos
+kommandoradsverktyget `grep` som söker efter text inom filer. När vi gör detta
+kommer vi att använda många av de koncept som diskuteras i de tidigare
+kapitlen.
 
-Chapter 13 explores closures and iterators: features of Rust that come from
-functional programming languages. In Chapter 14, we’ll examine Cargo in more
-depth and talk about best practices for sharing your libraries with others.
-Chapter 15 discusses smart pointers that the standard library provides and the
-traits that enable their functionality.
+Kapitel 13 utforskar höljen och iteratorer: funktioner hos Rust som kommer
+från funktionella programmeringsspråk. I kapitel 14 kommer vi att i detalj
+undersöka Cargo och tala om bästa praxis för att dela dina bibliotek med andra.
+Kapitel 15 diskuterar smarta pekare som tillhandahålls av standard biblioteket
+och de drag som möjliggör att de fungerar.
 
-In Chapter 16, we’ll walk through different models of concurrent programming
-and talk about how Rust helps you to program in multiple threads fearlessly.
-Chapter 17 looks at how Rust idioms compare to object-oriented programming
-principles you might be familiar with.
+I kapitel 16 kommer vi att gå genom olika modeller för samtidig programmering
+och tala om hur Rust hjälper dig att orädd utveckla med multipla trådar.
+Kapitel 17 tittar på hur Rust-idiom kan jämföras med principer från
+objekt-orienterad programmering som du eventuellt är bekant med.
 
-Chapter 18 is a reference on patterns and pattern matching, which are powerful
-ways of expressing ideas throughout Rust programs. Chapter 19 contains a
-smorgasbord of advanced topics of interest, including unsafe Rust, macros, and
-more about lifetimes, traits, types, functions, and closures.
+Kapitel 18 är en referens för mönster och mönstermatchning vilket är ett
+kraftfullt sätt att uttrycka idéer genom hela Rust-program. Kapitel 19
+innehåller ett smörgåsbord av avancerade områden, inklusive osäker Rust, makron
+och mer om livstider, drag, typer, funktioner och höljen.
 
-In Chapter 20, we’ll complete a project in which we’ll implement a low-level
-multithreaded web server!
+I Kapitel 20 kommer vi att färdigställa ett projekt i vilket vi kommer att
+implementera en flertrådad lågnivå webbserver!
 
-Finally, some appendixes contain useful information about the language in a
-more reference-like format. Appendix A covers Rust’s keywords, Appendix B
-covers Rust’s operators and symbols, Appendix C covers derivable traits
-provided by the standard library, Appendix D covers some useful development
-tools, and Appendix E explains Rust editions.
+Avslutningsvis finns det ett antal bilagor som på ett mer referensliknande sätt
+innehåller användbar information om språket. Bilaga A omfattar Rusts nyckelord,
+bilaga B beskriver Rusts operatorer och symboler, bilaga C täcker härledda drag
+som tillhandahålls av standardbiblioteket, bilaga D omfattar några användbara
+utvecklingsverktyg och bilaga E beskriver Rusts versioner.
 
-There is no wrong way to read this book: if you want to skip ahead, go for it!
-You might have to jump back to earlier chapters if you experience any
-confusion. But do whatever works for you.
+Det finns inget felaktigt sätt att läsa denna boken på: om du vill hoppa
+framåt, gör det! Du kanske måste hoppa tillbaka till tidigare kapitel om du
+blir förvirrad, men läs den på det sätt som fungerar för dig.
 
 <span id="ferris"></span>
 
-An important part of the process of learning Rust is learning how to read the
-error messages the compiler displays: these will guide you toward working code.
-As such, we’ll provide many examples that don’t compile along with the error
-message the compiler will show you in each situation. Know that if you enter
-and run a random example, it may not compile! Make sure you read the
-surrounding text to see whether the example you’re trying to run is meant to
-error. Ferris will also help you distinguish code that isn’t meant to work:
+En viktig del av processen att lära sig Rust är att lära sig att läsa
+felmeddelanden som visas av kompilatorn: dessa kommer att vägleda dig till
+fungerande kod. Därför kommer vi att ha många exempel som inte kompilerar
+tillsammans med felmeddelandet som kompilatorn kommer att visa sig i respektive
+situation. Du bör veta att om du matar in och kör ett slumpmässigt exempel, så
+kanske det inte kommer att kompilera! Säkerställ att du har läst den
+omkringliggande texten för att se huruvida exemplet du försöker köra borde ge
+ett fel. Ferris kommer också att hjälpa dig att urskilja kod som inte är menad
+att fungera:
 
-| Ferris                                                                 | Meaning                                          |
+| Ferris                                                                 | Innebörd                                         |
 |------------------------------------------------------------------------|--------------------------------------------------|
-| <img src="img/ferris/does_not_compile.svg" class="ferris-explain"/>    | This code does not compile!                      |
-| <img src="img/ferris/panics.svg" class="ferris-explain"/>              | This code panics!                                |
-| <img src="img/ferris/unsafe.svg" class="ferris-explain"/>              | This code block contains unsafe code.            |
-| <img src="img/ferris/not_desired_behavior.svg" class="ferris-explain"/>| This code does not produce the desired behavior. |
+| <img src="img/ferris/does_not_compile.svg" class="ferris-explain"/>    | Denna kod kompilerar inte!                       |
+| <img src="img/ferris/panics.svg" class="ferris-explain"/>              | Denna kod slutar med panik!                      |
+| <img src="img/ferris/unsafe.svg" class="ferris-explain"/>              | Detta kodblock innehåller osäker kod.            |
+| <img src="img/ferris/not_desired_behavior.svg" class="ferris-explain"/>| Denna kod producerar inte det önskade beteendet. |
 
-In most situations, we’ll lead you to the correct version of any code that
-doesn’t compile.
+I de flesta situationer kommer vi att vägleda dig till den korrekta versionen
+av koden som inte kompilerar.
 
-## Source Code
+## Källkod
 
-The source files from which this book is generated can be found on
-[GitHub][book].
+Källkodsfilerna från vilka denna bok är genererad kan hittas på [GitHub][bok].
 
-[book]: https://github.com/rust-lang/book/tree/master/src
+[bok]: https://github.com/rust-lang/book/tree/master/src
