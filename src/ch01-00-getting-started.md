@@ -1,8 +1,8 @@
-# Getting Started
+# Komma igång
 
-Let’s start your Rust journey! There’s a lot to learn, but every journey starts
-somewhere. In this chapter, we’ll discuss:
+Låt oss påbörja ditt Rust-äventyr! Det finns mycket att lära, men varje äventyr
+börjar någonstans. I detta kapitel kommer vi att diskutera:
 
-* Installing Rust on Linux, macOS, and Windows
-* Writing a program that prints `Hello, world!`
-* Using `cargo`, Rust’s package manager and build system
+* Installera Rust under Linux, macOS och Windows
+* Skriva ett program som skriver ut `Hello, world!`
+* Använda `cargo`, Rusts pakethanterar och byggsystem
