@@ -11,6 +11,7 @@ spellcheck src/ch01-00-getting-started.md
 spellcheck src/ch01-01-installation.md
 spellcheck src/ch01-02-hello-world.md
 spellcheck src/ch01-03-hello-cargo.md
+spellcheck src/ch02-00-guessing-game-tutorial.md
 
 head -1 dict > .dict
 sed -e 1d dict | sort >> .dict
