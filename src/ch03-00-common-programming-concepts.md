@@ -1,21 +1,22 @@
-# Common Programming Concepts
+# Vanliga programmeringskoncept
 
-This chapter covers concepts that appear in almost every programming language
-and how they work in Rust. Many programming languages have much in common at
-their core. None of the concepts presented in this chapter are unique to Rust,
-but we’ll discuss them in the context of Rust and explain the conventions
-around using these concepts.
+Detta kapitel täcker koncept som förekommer i nästan varje annat
+programmeringsspråk och hur de fungerar i Rust. Många programmeringsspråk har
+mycket gemensamt. Inga av koncepten som presenteras i detta kapitel är unika
+för Rust, men vi kommer att diskutera dem i samband med Rust och förklara
+konventionerna runt dessa koncept.
 
-Specifically, you’ll learn about variables, basic types, functions, comments,
-and control flow. These foundations will be in every Rust program, and learning
-them early will give you a strong core to start from.
+Du kommer att lära dig om variabler, grundläggande typer, funktioner,
+kommentarer och kontrollflöde. Dessa grunder kommer att finnas i varje
+Rust-program och att lära sig dem tidigare ger dig en bra bas at utgå från.
 
-> #### Keywords
+> #### Nyckelord
 >
-> The Rust language has a set of *keywords* that are reserved for use by
-> the language only, much as in other languages. Keep in mind that you cannot
-> use these words as names of variables or functions. Most of the keywords have
-> special meanings, and you’ll be using them to do various tasks in your Rust
-> programs; a few have no current functionality associated with them but have
-> been reserved for functionality that might be added to Rust in the future. You
-> can find a list of the keywords in Appendix A.
+> Språket rust har en uppsättning av *nyckelord* som är reserverade för
+> användning enkom av språket självt, precis som de brukar vara i andra språk.
+> Kom ihåg att du inte kan använda dessa ord som namn på variabler eller
+> funktioner. De flesta av nyckelorden har speciella betydelser och du kommer
+> att använda dem för att utföra diverse uppgifter i dina Rust-program; ett
+> fåtal har för närvarande ingen funktionalitet associerad med dem, men har
+> reserverats för funktionalitet som kan komma att läggas till i Rust i
+> framtiden. Du kan hitta en lista över nyckelord i Bilaga A.
