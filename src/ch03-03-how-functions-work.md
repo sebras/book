@@ -1,15 +1,15 @@
-## Functions
+## Funktioner
 
-Functions are pervasive in Rust code. You’ve already seen one of the most
-important functions in the language: the `main` function, which is the entry
-point of many programs. You’ve also seen the `fn` keyword, which allows you to
-declare new functions.
+Funktioner finns överallt i Rust-kod. Du har redan sett en av de viktigaste
+funktionerna i språket: `main`-funktionen, vilket utgör ingångspunkten för
+många program. Du har också sett nyckelordet `fn`, vilket låter dig deklarera
+nya funktioner.
 
-Rust code uses *snake case* as the conventional style for function and variable
-names. In snake case, all letters are lowercase and underscores separate words.
-Here’s a program that contains an example function definition:
+Rust-kod använder av hävd *ormnotation* som stil för funktions- och
+variabelnamn. I ormnotation är alla bokstäver gemena och understreck separerar
+ord. Här är ett program som innehåller ett exempel på en funktionsdefinition:
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">Filnamn: src/main.rs</span>
 
 ```rust
 fn main() {
@@ -23,20 +23,20 @@ fn another_function() {
 }
 ```
 
-Function definitions in Rust start with `fn` and have a set of parentheses
-after the function name. The curly brackets tell the compiler where the
-function body begins and ends.
+Funktionsdefinition i Rust börjar med `fn` och har ett par parenteser efter
+funktionsnamnet. Klammerparenteserna berättar för kompilatorn var
+funktionskroppen börjar och slutar.
 
-We can call any function we’ve defined by entering its name followed by a set
-of parentheses. Because `another_function` is defined in the program, it can be
-called from inside the `main` function. Note that we defined `another_function`
-*after* the `main` function in the source code; we could have defined it before
-as well. Rust doesn’t care where you define your functions, only that they’re
-defined somewhere.
+Vi kan anropa en funktion vi har definierat genom att mata in dess namn åtföljt
+av ett par parenteser. Eftersom `another_function` definierats i programmet
+kan den anropas inuti `main`-funktionen. Notera att vi har definierat
+`another_function` *efter* `main`-funktionen i källkoden; vi hade kunnat göra
+det före också. Rust bryr sig inte om var du definierar dina funktioner, bara
+att de finns definierade någonstans.
 
-Let’s start a new binary project named *functions* to explore functions
-further. Place the `another_function` example in *src/main.rs* and run it. You
-should see the following output:
+Låt oss påbörja ett nytt binärprojekt med namnet *functions* för att utforska
+funktioner vidare. Placera `another_function`-exemplet i *src/main.rs* och kör
+det. Du bör se följande utmatning:
 
 ```text
 $ cargo run
@@ -47,24 +47,23 @@ Hello, world!
 Another function.
 ```
 
-The lines execute in the order in which they appear in the `main` function.
-First, the “Hello, world!” message prints, and then `another_function` is
-called and its message is printed.
+Raderna kör i den ordning de kommer i `main`-funktionen. Först skrivs
+meddelandet ”Hello, world!” ut, sedan anropas `another_function` och dess
+meddelande skrivs ut.
 
-### Function Parameters
+### Funktionsparametrar
 
-Functions can also be defined to have *parameters*, which are special variables
-that are part of a function’s signature. When a function has parameters, you
-can provide it with concrete values for those parameters. Technically, the
-concrete values are called *arguments*, but in casual conversation, people tend
-to use the words *parameter* and *argument* interchangeably for either the
-variables in a function’s definition or the concrete values passed in when you
-call a function.
+Funktioner kan också definieras till att ta *parametrar*, vilket är speciella
+variabler som är en del av funktionens signatur. När en funktion har parametrar
+kan du ange konkreta värden för de parametrarna. Tekniskt kallas de konkreta
+värdena för *argument*, men i vardagligt tal tenderar programmerare till att
+använda orden *parameter* och *argument* som synonymer för antingen variabler i
+en funktions definition eller de konkreta värden som skickas in när du anropar
+en funktion.
 
-The following rewritten version of `another_function` shows what parameters
-look like in Rust:
+Följande version av `another_function` visar hur parametrar ser ut i Rust:
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">Filnamn: src/main.rs</span>
 
 ```rust
 fn main() {
@@ -76,7 +75,7 @@ fn another_function(x: i32) {
 }
 ```
 
-Try running this program; you should get the following output:
+Prova att kör detta program; du bör få följande utmatning:
 
 ```text
 $ cargo run
@@ -86,20 +85,20 @@ $ cargo run
 The value of x is: 5
 ```
 
-The declaration of `another_function` has one parameter named `x`. The type of
-`x` is specified as `i32`. When `5` is passed to `another_function`, the
-`println!` macro puts `5` where the pair of curly brackets were in the format
-string.
+Deklarationen av `another_function` har en parameter med namnet `x`. Typen för
+`x` är angiven som `i32`. När `5` skickas in till `another_function` kommer
+`println!`-makrot att ersätta paret av klammerparenteser i formatsträngen med
+`5`.
 
-In function signatures, you *must* declare the type of each parameter. This is
-a deliberate decision in Rust’s design: requiring type annotations in function
-definitions means the compiler almost never needs you to use them elsewhere in
-the code to figure out what you mean.
+I funktionssignaturer *måste* du deklarera typen för varje parameter. Detta är
+ett avsiktligt beslut i Rusts design: att kräva typnoteringar i
+funktionsdefinitioner innebär att kompilatorn nästan aldrig kräver att du
+använder dem på andra stället i koden för att kunna härleda vad du menar.
 
-When you want a function to have multiple parameters, separate the parameter
-declarations with commas, like this:
+När du vill ha en funktion som tar flera parametrar, separera
+parameterdeklarationerna med komman, så här:
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">Filnamn: src/main.rs</span>
 
 ```rust
 fn main() {
@@ -112,14 +111,14 @@ fn another_function(x: i32, y: i32) {
 }
 ```
 
-This example creates a function with two parameters, both of which are `i32`
-types. The function then prints the values in both of its parameters. Note that
-function parameters don’t all need to be the same type, they just happen to be
-in this example.
+Detta exempel skapar en funktion med två parametrar, båda av typen `i32`.
+Funktionen skriver därefter ut värdena i båda dess parametrar. Notera att
+alla funktionsparametrar inte måste ha samma typ, de bara råkar ha det i detta
+fall.
 
-Let’s try running this code. Replace the program currently in your *functions*
-project’s *src/main.rs* file with the preceding example and run it using `cargo
-run`:
+Låt oss köra denna kod. Ersätt programmet som för närvarande finns i ditt
+*functions*-projekts *src/main.rs*-fil med det föregående exemplet och kör det
+via `cargo run`:
 
 ```text
 $ cargo run
@@ -130,27 +129,26 @@ The value of x is: 5
 The value of y is: 6
 ```
 
-Because we called the function with `5` as the value for  `x` and `6` is passed
-as the value for `y`, the two strings are printed with these values.
+Eftersom vi anropade funktionen med `5` som värdet för `x` och `6` angavs som
+värdet för `y`, kommer de två strängarna att skrivas ut med dessa värden.
 
-### Function Bodies Contain Statements and Expressions
+### Funktionskroppar innehåller satser och uttryck
 
-Function bodies are made up of a series of statements optionally ending in an
-expression. So far, we’ve only covered functions without an ending expression,
-but you have seen an expression as part of a statement. Because Rust is an
-expression-based language, this is an important distinction to understand.
-Other languages don’t have the same distinctions, so let’s look at what
-statements and expressions are and how their differences affect the bodies of
-functions.
+Funktionskroppar utgörs av en serie av satser som ibland avslutas med ett
+uttryck. Så här långt har vi endast gått genom funktioner utan ett avslutande
+uttryck, men du har sett ett uttryck som en del av en sats. Eftersom Rust är
+ett uttrycksbaserat språk är detta ett viktig skillnad att förstå. Andra språk
+har inte samma särmärken, så låt oss titta på vilka satserna och uttrycken är
+och hur deras skillnader påverkar funktionernas kroppar.
 
-We’ve actually already used statements and expressions. *Statements* are
-instructions that perform some action and do not return a value. *Expressions*
-evaluate to a resulting value. Let’s look at some examples.
+Vi har redan använt satser och uttryck. *Satser* är instruktioner som utför en
+åtgärd och inte returnerar något värde. *Uttryck* utvärderas till ett
+returvärde. Låt oss titta på några exempel.
 
-Creating a variable and assigning a value to it with the `let` keyword is a
-statement. In Listing 3-1, `let y = 6;` is a statement.
+Att skapa en variabel och tilldela den ett värde med nyckelordet `let` är en
+sats. I listning 3-1 är `let y = 6;` en sats.
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">Filnamn: src/main.rs</span>
 
 ```rust
 fn main() {
@@ -158,15 +156,16 @@ fn main() {
 }
 ```
 
-<span class="caption">Listing 3-1: A `main` function declaration containing one statement</span>
+<span class="caption">Listning 3-1: Deklaration av en `main`-funktion som
+innehåller en sats</span>
 
-Function definitions are also statements; the entire preceding example is a
-statement in itself.
+Funktionsdefinitioner är också satser; hela det föregående exemplet är en sats
+i sig.
 
-Statements do not return values. Therefore, you can’t assign a `let` statement
-to another variable, as the following code tries to do; you’ll get an error:
+Satser har inga returvärden Du kan därför inte tilldela en `let`-sats till en
+annan variabel, så som följande kod försöker göra; då kommer du att få ett fel:
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">Filnamn: src/main.rs</span>
 
 ```rust,ignore,does_not_compile
 fn main() {
@@ -174,7 +173,7 @@ fn main() {
 }
 ```
 
-When you run this program, the error you’ll get looks like this:
+När du kör detta program kommer felet du får att se ut så här:
 
 ```text
 $ cargo run
@@ -188,21 +187,21 @@ error: expected expression, found statement (`let`)
   = note: variable declaration using `let` is a statement
 ```
 
-The `let y = 6` statement does not return a value, so there isn’t anything for
-`x` to bind to. This is different from what happens in other languages, such as
-C and Ruby, where the assignment returns the value of the assignment. In those
-languages, you can write `x = y = 6` and have both `x` and `y` have the value
-`6`; that is not the case in Rust.
+Satsen `let y = 6` returnerar inte något värde, så det finns ingenting för `x`
+att binda till. Detta skiljer sig från vad som händer i andra språk, så som C
+och Ruby, där tilldelningar returnerar tilldelningens värde. I de språken kan
+du skriva `x = y = 6` och få både `x` och `y` att ha värdet `6`; så är inte
+fallet med Rust.
 
-Expressions evaluate to something and make up most of the rest of the code that
-you’ll write in Rust. Consider a simple math operation, such as `5 + 6`, which
-is an expression that evaluates to the value `11`. Expressions can be part of
-statements: in Listing 3-1, the `6` in the statement `let y = 6;` is an
-expression that evaluates to the value `6`. Calling a function is an
-expression. Calling a macro is an expression. The block that we use to create
-new scopes, `{}`, is an expression, for example:
+Uttryck utvärderas till någonting och utgör större delen av resten av koden som
+du kommer att skriva i Rust. Tänk på en enkel matematisk operation, så som `5 +
+6`, vilken är ett uttryck som utvärderas till värdet `11`. Uttryck kan vara del
+av satser: i listning 3.1 är värdet `6` i satsen `let y = 6;` ett uttryck som
+utvärderas till värdet `6`. Att anropa en funktion är ett uttryck. Att anropa
+ett makro är ett uttryck. Blocket som vi använde för att skapa nya räckvidder,
+`{}` är ett uttryck, till exempel:
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">Filnamn: src/main.rs</span>
 
 ```rust
 fn main() {
@@ -217,7 +216,7 @@ fn main() {
 }
 ```
 
-This expression:
+Detta uttryck:
 
 ```rust,ignore
 {
@@ -226,24 +225,25 @@ This expression:
 }
 ```
 
-is a block that, in this case, evaluates to `4`. That value gets bound to `y`
-as part of the `let` statement. Note the `x + 1` line without a semicolon at
-the end, which is unlike most of the lines you’ve seen so far. Expressions do
-not include ending semicolons. If you add a semicolon to the end of an
-expression, you turn it into a statement, which will then not return a value.
-Keep this in mind as you explore function return values and expressions next.
+är ett block som i detta fall utvärderas till `4`. Det värdet binds till `y`
+som en del av `let`-satsen. Notera raden `x + 1` utan ett semikolon på slutet,
+vilket skiljer sig från de flesta rader du sett så här långt. Uttryck
+kräver inte avslutande semikolon. Om du lägger till ett semikolon på slutet av
+ett uttryck förvandlar du det till en sats, vilken därför inte kommer att
+returnera något värde. Håll detta i minnet medan du utforskar returvärden från
+funktioner och uttryck härnäst.
 
-### Functions with Return Values
+### Funktioner med returvärden
 
-Functions can return values to the code that calls them. We don’t name return
-values, but we do declare their type after an arrow (`->`). In Rust, the return
-value of the function is synonymous with the value of the final expression in
-the block of the body of a function. You can return early from a function by
-using the `return` keyword and specifying a value, but most functions return
-the last expression implicitly. Here’s an example of a function that returns a
-value:
+Funktioner kan returnera värde till koden som anropar dem. Vi namnger inte
+returvärden, men vi deklarerar deras typ efter en pil (`->`). I Rust är
+returvärdet från en funktion synonymt med värdet av det avslutande uttrycket i
+funktionkroppens block. Du kan returnera tidigare från en funktion genom att
+använda nyckelordet `return` och ange ett uttryck, men de flesta funktioner
+returnerar implicit det sista uttrycket. Här är ett exempel på en funktion som
+returnerar ett värde:
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">Filnamn: src/main.rs</span>
 
 ```rust
 fn five() -> i32 {
@@ -257,10 +257,10 @@ fn main() {
 }
 ```
 
-There are no function calls, macros, or even `let` statements in the `five`
-function—just the number `5` by itself. That’s a perfectly valid function in
-Rust. Note that the function’s return type is specified too, as `-> i32`. Try
-running this code; the output should look like this:
+Det finns inte några funktionsanrop, makro eller `let`-satser i funktionen
+`five` — bara siffran `5`, ensam. Detta är en helt giltig funktion i Rust.
+Notera att funktionens returtyp också anges, som `-> i32`. Prova att köra denna
+kod; utmatningen bör se ut så här:
 
 ```text
 $ cargo run
@@ -270,23 +270,23 @@ $ cargo run
 The value of x is: 5
 ```
 
-The `5` in `five` is the function’s return value, which is why the return type
-is `i32`. Let’s examine this in more detail. There are two important bits:
-first, the line `let x = five();` shows that we’re using the return value of a
-function to initialize a variable. Because the function `five` returns a `5`,
-that line is the same as the following:
+`5` i `five` är funktionens returvärde, vilket är varför returtypen är `i32`.
+Låt oss undersöka detta mer detaljerat. Det finns två viktiga bitar: den
+första, raden `let x = five();` visar att vi använder returvärdet för en
+funktion för att initialisera en variabel. då funktionen `five` returnerar `5`,
+är den raden detsamma som att göra följande:
 
 ```rust
 let x = 5;
 ```
 
-Second, the `five` function has no parameters and defines the type of the
-return value, but the body of the function is a lonely `5` with no semicolon
-because it’s an expression whose value we want to return.
+För det andra har funktionen `five` inte några parametrar och definierar typen
+av returvärdet, men kroppen för funktionen är ett ensamt tecken `5` utan något
+semikolon eftersom det är ett uttryck vars värde vi vill returner.
 
-Let’s look at another example:
+Låt oss titta på ett annat exempel:
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">Filnamn: src/main.rs</span>
 
 ```rust
 fn main() {
@@ -300,11 +300,11 @@ fn plus_one(x: i32) -> i32 {
 }
 ```
 
-Running this code will print `The value of x is: 6`. But if we place a
-semicolon at the end of the line containing `x + 1`, changing it from an
-expression to a statement, we’ll get an error.
+Om man kör denna kod kommer den att skriva ut `The value of x is: 6`. Men om vi
+placerar ett semikolon på slutet av readen som innehåller `x + 1`, kommer vi
+att ändra den från ett uttryck till en sats, och kommer därför att få ett fel.
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">Filnamn: src/main.rs</span>
 
 ```rust,ignore,does_not_compile
 fn main() {
@@ -318,7 +318,7 @@ fn plus_one(x: i32) -> i32 {
 }
 ```
 
-Compiling this code produces an error, as follows:
+Kompilering av denna kod producerar ett fel, så som följer:
 
 ```text
 error[E0308]: mismatched types
@@ -335,10 +335,11 @@ error[E0308]: mismatched types
              found type `()`
 ```
 
-The main error message, “mismatched types,” reveals the core issue with this
-code. The definition of the function `plus_one` says that it will return an
-`i32`, but statements don’t evaluate to a value, which is expressed by `()`,
-an empty tuple. Therefore, nothing is returned, which contradicts the function
-definition and results in an error. In this output, Rust provides a message to
-possibly help rectify this issue: it suggests removing the semicolon, which
-would fix the error.
+Huvudfelmeddelandet, ”mismatched type” (type stämmer inte), avslöjar
+huvudproblemet med koden. Definitionen av funktion `plus_one` säger att den
+kommer att returnera en `i32`, men satser evaluerar inte till ett värde,
+vilket uttrycks av `()`, en tom tupel. Därför returneras ingenting vilket
+motsäger funktionsdefinitionen och resulterar i ett fel. I denna utmatning
+tillhandahåller Rust ett meddelande för att försöka hjälpa till att eventuellt
+rätta problemet: det föreslår att ta bort semikolonet, vilket hade åtgärdat
+problemet.
