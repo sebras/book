@@ -1,47 +1,48 @@
-## Comments
+## Kommentarer
 
-All programmers strive to make their code easy to understand, but sometimes
-extra explanation is warranted. In these cases, programmers leave notes, or
-*comments*, in their source code that the compiler will ignore but people
-reading the source code may find useful.
+Alla programmerare strävar efter att göra deras kod lätt att förstå, men ibland
+behövs extra kommentarer. I dessa fall lämnar programmerare noteringar eller
+*kommentarer* i källkoden som kompilatorn kommer att hoppa över, men som
+människor som läser källkoden kan finna hjälpsamma.
 
-Here’s a simple comment:
-
-```rust
-// hello, world
-```
-
-In Rust, comments must start with two slashes and continue until the end of the
-line. For comments that extend beyond a single line, you’ll need to include
-`//` on each line, like this:
+Här är en enkel kommentar:
 
 ```rust
-// So we’re doing something complicated here, long enough that we need
-// multiple lines of comments to do it! Whew! Hopefully, this comment will
-// explain what’s going on.
+// hejsan, världen
 ```
 
-Comments can also be placed at the end of lines containing code:
+I Rust måste kommentarer börja med två snedstreck och de fortsätter till slutet
+på raden. För kommentarer som är längre än en enstaka rad måste du inkludera
+`//` på varje rad, så här:
 
-<span class="filename">Filename: src/main.rs</span>
+```rust
+// Så, vad vi gör här är komplicerat, lång nog att vi måste ha flera
+// rader kommentarer för att göra det! Puh! Förhoppningsvis kommer denna
+// kommentar att förklara vad som pågår.
+```
+
+Kommentarer kan också placeras på slutet av rader som innehåller kod:
+
+<span class="filename">Filnamn: src/main.rs</span>
 
 ```rust
 fn main() {
-    let lucky_number = 7; // I’m feeling lucky today
+    let lucky_number = 7; // Jag har tur idag
 }
 ```
 
-But you’ll more often see them used in this format, with the comment on a
-separate line above the code it’s annotating:
+Men du kommer oftare att se att de används enligt detta format, med kommentaren
+på en separat rad ovanför koden den kommenterar:
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">Filnamn: src/main.rs</span>
 
 ```rust
 fn main() {
-    // I’m feeling lucky today
+    // Jag har tur idag
     let lucky_number = 7;
 }
 ```
 
-Rust also has another kind of comment, documentation comments, which we’ll
-discuss in the “Publishing a Crate to Crates.io” section of Chapter 14.
+Rust har också en annan typ av kommentar, dokumentationskommentarer, vilket vi
+kommer att diskutera i avsnittet ”Publicering av en crate på crates.io” i
+kapitel 14.
