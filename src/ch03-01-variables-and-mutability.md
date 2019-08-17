@@ -1,18 +1,20 @@
-## Variables and Mutability
+## Variabler och föränderlighet
 
-As mentioned in Chapter 2, by default variables are immutable. This is one of
-many nudges Rust gives you to write your code in a way that takes advantage of
-the safety and easy concurrency that Rust offers. However, you still have the
-option to make your variables mutable. Let’s explore how and why Rust
-encourages you to favor immutability and why sometimes you might want to opt
-out.
+Som nämnts i kapitel 2 är variabler som standard oföränderliga. Detta är en av
+flera sätt Rust försöker knuffa dig i rätt riktigt för att skriva kod på ett
+sätt som utnyttjar säkerheten och den lättanvända samtidighet som Rust
+erbjuder. Men du har fortfarande alternativet att göra dina variabler
+föränderliga. Låt oss undersöka hur och varför Rust förespråkar att du i första
+hand använder oföränderliga variabler och varför du ibland kan behöva välja
+något annat.
 
-When a variable is immutable, once a value is bound to a name, you can’t change
-that value. To illustrate this, let’s generate a new project called *variables*
-in your *projects* directory by using `cargo new variables`.
+När en variabel är oföränderlig kan du inte ändra dess värde efter att ett
+värde en gång har bundits till dess namn. För att illustrera detta, låt oss
+generera ett nytt projekt kallat *variables* i din *projects*-katalog genom att
+använda `cargo new variables`.
 
-Then, in your new *variables* directory, open *src/main.rs* and replace its
-code with the following code that won’t compile just yet:
+Öppna sedan *src/main.rs* i din nya *variables*-katalog och ersätt dess kod med
+följande kod, som inte kompilerar riktigt än:
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -25,8 +27,8 @@ fn main() {
 }
 ```
 
-Save and run the program using `cargo run`. You should receive an error
-message, as shown in this output:
+Spara och kör programmet med `cargo run`. Du bör få ett felmeddelande, så som
+visas i denna utmatning:
 
 ```text
 error[E0384]: cannot assign twice to immutable variable `x`
@@ -39,35 +41,35 @@ error[E0384]: cannot assign twice to immutable variable `x`
   |     ^^^^^ cannot assign twice to immutable variable
 ```
 
-This example shows how the compiler helps you find errors in your programs.
-Even though compiler errors can be frustrating, they only mean your program
-isn’t safely doing what you want it to do yet; they do *not* mean that you’re
-not a good programmer! Experienced Rustaceans still get compiler errors.
+Detta exempel visar hur kompilatorn hjälper dig att hitta fel i dina program.
+Även om kompilatorfel kan vara frustrerande innebär de bara att ditt program
+inte gör var du önskar på ett säkert sätt än; de innebär *inte* att du inte är
+en bra programmerare! Erfarna Rust-användare får fortfarande kompilatorfel
 
-The error message indicates that the cause of the error is that you `cannot
-assign twice to immutable variable x`, because you tried to assign a second
-value to the immutable `x` variable.
+Felmeddelandet indikerar att orsaken till felet är att du `cannot assign twice
+to immutable variable x`, eftersom du försökte att tilldela ett andra värde
+till den oföränderliga variabeln `x`.
 
-It’s important that we get compile-time errors when we attempt to change a
-value that we previously designated as immutable because this very situation
-can lead to bugs. If one part of our code operates on the assumption that a
-value will never change and another part of our code changes that value, it’s
-possible that the first part of the code won’t do what it was designed to do.
-The cause of this kind of bug can be difficult to track down after the fact,
-especially when the second piece of code changes the value only *sometimes*.
+Det är viktigt att vi får fel vid kompileringstid när vi försöker att ändra ett
+värde som vi tidigare betecknat som oföränderligt eftersom just denna situation
+kan leda till programfel. Om en del av din kod förutsätter att ett värde aldrig
+kommer att förändras och en annan del av koden ändrar det värdet är det möjligt
+att den första delen av koden inte gör var den designades till att göra.
+Orsaken till denna type av fel kan vara svårt att spåra, speciellt när den
+andra delen av koden bara ändra värdet *ibland*.
 
-In Rust, the compiler guarantees that when you state that a value won’t change,
-it really won’t change. That means that when you’re reading and writing code,
-you don’t have to keep track of how and where a value might change. Your code
-is thus easier to reason through.
+I Rust garanterar kompilatorn att när du säger att ett värde inte kommer att
+ändras, då kommer det verkligen inte att förändras. Detta innebär att när du
+läser eller skriver kod, behöver du inte hålla koll på hur och var ett värde
+kan ändras. Din kod är därför enklare att resonera kring.
 
-But mutability can be very useful. Variables are immutable only by default; as
-you did in Chapter 2, you can make them mutable by adding `mut` in front of the
-variable name. In addition to allowing this value to change, `mut` conveys
-intent to future readers of the code by indicating that other parts of the code
-will be changing this variable value.
+Men föränderlighet kan vara väldigt användbart. Variabler är oföränderliga
+enbart som standard; du kan få dem, som du gjorde i kapitel 2, att vara
+föränderliga genom att lägga till `mut` före variabelnamnet. Förutom att
+tillåta att värdet ändras förmedlar `mut` till framtida läsare av koden att
+andra delar av koden kommer att ändra detta variabelvärde.
 
-For example, let’s change *src/main.rs* to the following:
+Låt oss till exempel ändra *src/main.rs* enligt följande:
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -80,7 +82,7 @@ fn main() {
 }
 ```
 
-When we run the program now, we get this:
+När vi nu kör programmet får vi detta:
 
 ```text
 $ cargo run
@@ -91,71 +93,73 @@ The value of x is: 5
 The value of x is: 6
 ```
 
-We’re allowed to change the value that `x` binds to from `5` to `6` when `mut`
-is used. In some cases, you’ll want to make a variable mutable because it makes
-the code more convenient to write than if it had only immutable variables.
+Vi tillåts ändra värdet som `x` binder till från `5` till `6` när `mut`
+används. I vissa fall kan du komma att vilja göra en variable föränderlig
+eftersom det gör koden enklare att skriva än om den endast hade oföränderliga
+variabler.
 
-There are multiple trade-offs to consider in addition to the prevention of
-bugs. For example, in cases where you’re using large data structures, mutating
-an instance in place may be faster than copying and returning newly allocated
-instances. With smaller data structures, creating new instances and writing in
-a more functional programming style may be easier to think through, so lower
-performance might be a worthwhile penalty for gaining that clarity.
+Det finns flera avvägningar att begrunda utöver förebyggande av buggar. Till
+exempel för fall där du använder stora datastrukturer kan det vara snabbare att
+förändra en instans på plats snarare än att kopiera och returnera nyallokerade
+instanser. Med mindre datastrukturer kan skapande av nya instanser och att
+skriva kod i en mer funktionell programmeringsstil vara enklare att resonera
+kring, så sämre prestanda kan kanske vara värt det för att få denna bättre
+tydlighet.
 
-### Differences Between Variables and Constants
+### Skillnader mellan variabler och konstanter
 
-Being unable to change the value of a variable might have reminded you of
-another programming concept that most other languages have: *constants*. Like
-immutable variables, constants are values that are bound to a name and are not
-allowed to change, but there are a few differences between constants and
-variables.
+Att inte kunna ändra en variabels värde kan ha påmint dig om ett annat
+programmeringskoncept som de flesta andra språk har: *konstanter*. På samma
+sätt som oföränderliga variabler är konstanter värden som är bundna till ett
+namn och inte tillåts ändras, men det finns ett antal skillnader mellan
+konstanter och variabler.
 
-First, you aren’t allowed to use `mut` with constants. Constants aren’t just
-immutable by default—they’re always immutable.
+För det första tillåts du inte använda `mut` med konstanter. Konstanter är inte
+bara oföränderliga som standard, de är alltid oföränderliga.
 
-You declare constants using the `const` keyword instead of the `let` keyword,
-and the type of the value *must* be annotated. We’re about to cover types and
-type annotations in the next section, [“Data Types,”][data-types]<!-- ignore
---> so don’t worry about the details right now. Just know that you must always
-annotate the type.
+Du deklarerar konstanter med nyckelordet `const` istället för nyckelordet
+`let`, och typen för värdet *måste* märkas upp. Vi kommer i nästa avsnitt att
+gå in på typer och typmarkeringar, [”Datatyper”][datatyper]<!-- ignore --> så
+oroa dig inte över detaljerna just nu. Kom bara ihåg att du alltid måste ange
+typen.
 
-Constants can be declared in any scope, including the global scope, which makes
-them useful for values that many parts of code need to know about.
+Konstanter kan deklareras inom vilken räckvidd som helst, inklusive den globala
+räckvidden, vilket gör dem användbara för värden som många delar av koden måste
+känna till.
 
-The last difference is that constants may be set only to a constant expression,
-not the result of a function call or any other value that could only be
-computed at runtime.
+Den sista skillnaden är att konstanter bara får tilldelas ett konstant uttryck,
+inte resultatet av ett funktionsanrop eller ett annat värde som endast kan
+räknas ut i körtid.
 
-Here’s an example of a constant declaration where the constant’s name is
-`MAX_POINTS` and its value is set to 100,000. (Rust’s naming convention for
-constants is to use all uppercase with underscores between words, and
-underscores can be inserted in numeric literals to improve readability):
+Här är ett exempel på en konstantdeklaration där konstantens namn är
+`MAX_POINTS` och dess värde är 100 000. (Rusts namnkonvention för konstanter är
+att använda versaler med understreck mellan ord, och understreck kan även
+skjutas in i numeriska literaler för förbättrad läsbarhet):
 
 ```rust
 const MAX_POINTS: u32 = 100_000;
 ```
 
-Constants are valid for the entire time a program runs, within the scope they
-were declared in, making them a useful choice for values in your application
-domain that multiple parts of the program might need to know about, such as the
-maximum number of points any player of a game is allowed to earn or the speed
-of light.
+Konstanter är giltiga under hela tiden ett program kör, inom den räckvidd de
+deklarerats, vilket gör dem till ett bra val för värden i din programdomän som
+flera delar av programmet behöver känna till, så som maximalt antal poäng eller
+spelar i ett spel kan få eller ljusets hastighet.
 
-Naming hardcoded values used throughout your program as constants is useful in
-conveying the meaning of that value to future maintainers of the code. It also
-helps to have only one place in your code you would need to change if the
-hardcoded value needed to be updated in the future.
+Att namnge hårdkodade värden som används i ditt program som konstanter är
+användbar för de som i framtiden underhåller koden. Det hjälper också att du
+bara behöver ändra på ett stället i koden om det hårdkodade värdet måste
+uppdateras i framtiden.
 
-### Shadowing
+### Skuggning
 
-As you saw in the guessing game tutorial in the [“Comparing the Guess to the
-Secret Number”][comparing-the-guess-to-the-secret-number]<!-- ignore -->
-section in Chapter 2, you can declare a new variable with the same name as a
-previous variable, and the new variable shadows the previous variable.
-Rustaceans say that the first variable is *shadowed* by the second, which means
-that the second variable’s value is what appears when the variable is used. We
-can shadow a variable by using the same variable’s name and repeating the use
-of the `let` keyword as follows:
+Som du såg i handledningen för gissningsspelet i avsnittet [”Jämföra gissningen
+med det hemliga talet”][jämföra-gissningen-med-det-hemliga-talet]<!--- ignore
+--> i kapitel2 kan du deklarera en ny variabel med samma namn som en föregående
+variabel, och den nya variabeln kommer att skugga den föregående variabeln.
+Rust-användar säger att den första variabeln *skuggas* av den andra, vilket
+innebär att den andra variabelns värde är vad som dyker upp när variabeln
+används. Vi kan skugga en variable genom att använda samma variabelnamn och
+repetera användningen av `let`-nyckelordet på detta sätt:
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -171,11 +175,11 @@ fn main() {
 }
 ```
 
-This program first binds `x` to a value of `5`. Then it shadows `x` by
-repeating `let x =`, taking the original value and adding `1` so the value of
-`x` is then `6`. The third `let` statement also shadows `x`, multiplying the
-previous value by `2` to give `x` a final value of `12`. When we run this
-program, it will output the following:
+Detta program binder först `x` till värdet `5`. Sedan skuggar det `x` genom att
+repetera `let x =`, ta originalvärdet och lägga till `1` så att värdet av `x`
+blir `6`. Den tredje `let`-satsen skuggar också `x`, genom att multiplicera det
+föregående värdet med `2` så att `x` får det slutliga värdet `12`. När du kör
+detta program kommer det att mata ut följande:
 
 ```text
 $ cargo run
@@ -185,36 +189,37 @@ $ cargo run
 The value of x is: 12
 ```
 
-Shadowing is different from marking a variable as `mut`, because we’ll get a
-compile-time error if we accidentally try to reassign to this variable without
-using the `let` keyword. By using `let`, we can perform a few transformations
-on a value but have the variable be immutable after those transformations have
-been completed.
+Skuggning skiljer sig från att markera en variabel som `mut`, eftersom vi
+kommer att få ett fel vid kompileringstid om vi råkar försöka tilldela denna
+variabel på nytt utan att använda nyckelordet `let`. Genom att använda `let`
+kan vi utföra ett antal transformationer på värdet men låta variabeln vara
+oföränderlig efter att de transformationerna har slutförts.
 
-The other difference between `mut` and shadowing is that because we’re
-effectively creating a new variable when we use the `let` keyword again, we can
-change the type of the value but reuse the same name. For example, say our
-program asks a user to show how many spaces they want between some text by
-inputting space characters, but we really want to store that input as a number:
+Det andra skillnaden mellan `mut` och skuggning är att eftersom vi i princip
+skapar en ny variabel när vi på nytt använder nyckelordet `let`, kan vi ändra
+värdets typ, men behålla samma namn. Låt säga att ditt program ber en
+användare visa hur många blanksteg den önskar mellan textsträngar genom att
+mata in blanksteg, men vi faktiskt vill spara den inmatningen som ett nummer:
 
 ```rust
 let spaces = "   ";
 let spaces = spaces.len();
 ```
 
-This construct is allowed because the first `spaces` variable is a string type
-and the second `spaces` variable, which is a brand-new variable that happens to
-have the same name as the first one, is a number type. Shadowing thus spares us
-from having to come up with different names, such as `spaces_str` and
-`spaces_num`; instead, we can reuse the simpler `spaces` name. However, if we
-try to use `mut` for this, as shown here, we’ll get a compile-time error:
+Denna konstruktion är tillåten eftersom den första `spaces`-variabeln är av
+strängtyp och den andra `spaces`-variabeln, vilken är en helt ny variabel som
+råkar ha samma namn som den första, är av numerisk typ. Skuggning besparar oss
+därför från att komma på nya namn, så som `spaces_str` och `spaces_num`;
+istället kan vi återanvända det enklare namnet `spaces`. Om vi däremot försöker
+använda `mut` för fallet som visas här kommer vi att få ett fel vid
+kompileringstid:
 
 ```rust,ignore,does_not_compile
 let mut spaces = "   ";
 spaces = spaces.len();
 ```
 
-The error says we’re not allowed to mutate a variable’s type:
+Felet säger att vi inte tillåts förändra en variabels typ:
 
 ```text
 error[E0308]: mismatched types
@@ -227,9 +232,9 @@ error[E0308]: mismatched types
              found type `usize`
 ```
 
-Now that we’ve explored how variables work, let’s look at more data types they
-can have.
+Nu när vi utforskat hur variabler fungerar, låt oss titta på flera av de
+datatyper som de kan ha.
 
-[comparing-the-guess-to-the-secret-number]:
+[jämföra-gissningen-med-det-hemliga-talet]:
 ch02-00-guessing-game-tutorial.html#comparing-the-guess-to-the-secret-number
-[data-types]: ch03-02-data-types.html#data-types
+[datatyper]: ch03-02-data-types.html#data-types
