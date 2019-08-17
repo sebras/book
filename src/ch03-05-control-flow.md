@@ -1,21 +1,21 @@
-## Control Flow
+## Kontrollflöde
 
-Deciding whether or not to run some code depending on if a condition is true
-and deciding to run some code repeatedly while a condition is true are basic
-building blocks in most programming languages. The most common constructs that
-let you control the flow of execution of Rust code are `if` expressions and
-loops.
+Att besluta huruvida viss kod ska köras beroende på om ett villkor är sant
+eller ej, och att ta beslutet att köra viss kod upprepade gånger medan ett
+villkor är sant utgör grundläggande byggstenar i de flesta programmeringsspråk.
+De vanligaste konstruktionerna som låter dig styra körflöde i Rust-kod är
+`if`-uttryck och loopar.
 
-### `if` Expressions
+### `if`-uttryck
 
-An `if` expression allows you to branch your code depending on conditions. You
-provide a condition and then state, “If this condition is met, run this block
-of code. If the condition is not met, do not run this block of code.”
+Ett `if`-uttryck låter dig förgrena din kod beroende på villkor. Du anger ett
+villkor och uppger sedan, ”Om detta villkor uppfylls, kör detta blocket kod. Om
+villkoret inte är uppfyllt, kör inte detta block kod.”
 
-Create a new project called *branches* in your *projects* directory to explore
-the `if` expression. In the *src/main.rs* file, input the following:
+Skapa ett nytt projekt kallat *branches* i din *projects*-katalog för att
+utforska `if`-uttryck. I filen *src/main.rs*, mata in följande:
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">Filnamn: src/main.rs</span>
 
 ```rust
 fn main() {
@@ -29,22 +29,22 @@ fn main() {
 }
 ```
 
-All `if` expressions start with the keyword `if`, which is followed by a
-condition. In this case, the condition checks whether or not the variable
-`number` has a value less than 5. The block of code we want to execute if the
-condition is true is placed immediately after the condition inside curly
-brackets. Blocks of code associated with the conditions in `if` expressions are
-sometimes called *arms*, just like the arms in `match` expressions that we
-discussed in the [“Comparing the Guess to the Secret Number”]
-[comparing-the-guess-to-the-secret-number]<!-- ignore --> section of Chapter 2.
+Alla `if`-uttryck inleds med nyckelordet `if`, vilket åtföljs av ett villkor. I
+detta fall kontrollerar villkoret huruvida variabeln `number` har ett värde
+mindre än 5. Blocket kod vi vill köra om villkoret är sant placeras omedelbart
+efter villkoret inuti klammerparenteser. Block med kod associerade med
+villkoren i `if`-uttryck kallas ibland för *armar*, precis som armarna i
+`match`-uttryck som vi diskuterade i avsnittet [”Jämföra gissningen med det
+hemliga talet”][jamfora-gissningen-med-det-hemliga-talet]<!-- ignore --> i
+kapitel 2.
 
-Optionally, we can also include an `else` expression, which we chose
-to do here, to give the program an alternative block of code to execute should
-the condition evaluate to false. If you don’t provide an `else` expression and
-the condition is false, the program will just skip the `if` block and move on
-to the next bit of code.
+Vi kan också valfritt inkludera ett `else`-uttryck, vilket vi valde att göra i
+detta fallet, för att ge programmet ett alternativt block kod att köra om
+villkoret utvärderas till falskt. Om du inte tillhandahåller ett `else`-uttryck
+och villkoret är falskt kommer programmet bara att hoppa över `if`-blocket och
+köra nästa bit av koden.
 
-Try running this code; you should see the following output:
+Försök att köra denna kod; du bör se följande utmatning:
 
 ```text
 $ cargo run
@@ -54,14 +54,14 @@ $ cargo run
 condition was true
 ```
 
-Let’s try changing the value of `number` to a value that makes the condition
-`false` to see what happens:
+Låt oss försöka att ändra värdet på `number` till ett värde som gör villkoret
+`false` för att se vad som händer:
 
 ```rust,ignore
 let number = 7;
 ```
 
-Run the program again, and look at the output:
+Kör programmet igen, och titta på utmatningen:
 
 ```text
 $ cargo run
@@ -71,11 +71,11 @@ $ cargo run
 condition was false
 ```
 
-It’s also worth noting that the condition in this code *must* be a `bool`. If
-the condition isn’t a `bool`, we’ll get an error. For example, try running the
-following code:
+Det är också värt att notera att villkoret i denna kod *måste* vara en `bool`.
+Om villkoret inte är en `bool` kommer vi att få ett fel. Försök till exempel
+att köra följande kod:
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">Filnamn: src/main.rs</span>
 
 ```rust,ignore,does_not_compile
 fn main() {
@@ -87,8 +87,7 @@ fn main() {
 }
 ```
 
-The `if` condition evaluates to a value of `3` this time, and Rust throws an
-error:
+`if`-villkoret utvärderas till värdet `3` denna gång, och Rust kastar ett fel:
 
 ```text
 error[E0308]: mismatched types
@@ -101,14 +100,14 @@ error[E0308]: mismatched types
              found type `{integer}`
 ```
 
-The error indicates that Rust expected a `bool` but got an integer. Unlike
-languages such as Ruby and JavaScript, Rust will not automatically try to
-convert non-Boolean types to a Boolean. You must be explicit and always provide
-`if` with a Boolean as its condition. If we want the `if` code block to run
-only when a number is not equal to `0`, for example, we can change the `if`
-expression to the following:
+Felet indikerar att rust förväntade sig en `bool`, men fick ett heltal. Till
+skillnad från språk så som Ruby och JavaScript kommer Rust inte automatiskt att
+försöka att konvertera icke-booleska typer till en boolesk datatyp. Du måste
+vara tydlig och alltid förse `if` med en boolesk datatype som dess villkor. Om
+vi vill att `if`-kodblocket ska köras enbart när ett nummer inte är lika med
+`0`, kan vi till exempel ändra `if`-uttrycket enligt följande:
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">Filnamn: src/main.rs</span>
 
 ```rust
 fn main() {
@@ -120,14 +119,15 @@ fn main() {
 }
 ```
 
-Running this code will print `number was something other than zero`.
+Om du kör denna kod kommer den att skriva ut `number was something other than
+zero`.
 
-#### Handling Multiple Conditions with `else if`
+#### Hantera flera villkor med `else if`
 
-You can have multiple conditions by combining `if` and `else` in an `else if`
-expression. For example:
+Du kan ha flera villkor genom att kombinera `if` och `else` i ett `else
+if`-uttryck. Till exempel:
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">Filnamn: src/main.rs</span>
 
 ```rust
 fn main() {
@@ -145,8 +145,8 @@ fn main() {
 }
 ```
 
-This program has four possible paths it can take. After running it, you should
-see the following output:
+Detta program har fyra möjliga vägar som det kan ta. Efter att du kört det bör
+du se följande utmatning:
 
 ```text
 $ cargo run
@@ -156,23 +156,24 @@ $ cargo run
 number is divisible by 3
 ```
 
-When this program executes, it checks each `if` expression in turn and executes
-the first body for which the condition holds true. Note that even though 6 is
-divisible by 2, we don’t see the output `number is divisible by 2`, nor do we
-see the `number is not divisible by 4, 3, or 2` text from the `else` block.
-That’s because Rust only executes the block for the first true condition, and
-once it finds one, it doesn’t even check the rest.
+När detta program exekverar kontrollerar det varje `if`-uttryck i tur och
+ordning och kör den första kroppen för vilket villkoret är sant. Notera att
+även om 6 är dividerbart med 2 kommer vi inte att se utmatningen `number is
+divisible by 2`, inte hellet kommer vi att se texten `number is not divisible
+by 4, 3, or 2` från `else`-blocket. Det är för att Rust enbart kör blocket för
+det första sanna villkoret, och efter att ett hittats kommer de resterande inte
+ens att kontrolleras.
 
-Using too many `else if` expressions can clutter your code, so if you have more
-than one, you might want to refactor your code. Chapter 6 describes a powerful
-Rust branching construct called `match` for these cases.
+Att använda allt för många `else if`-uttryck kan kladda ner din kod, så om du
+har mer än ett kanske du vill omfaktorisera din kod. Kapitel 6 beskriver en
+kraftfull förgreningskonstruktion i Rust som kallas `match` för dessa fall.
 
-#### Using `if` in a `let` Statement
+#### Att använda `if` i en `let`-sats
 
-Because `if` is an expression, we can use it on the right side of a `let`
-statement, as in Listing 3-2.
+Eftersom `if` är ett uttryck kan vi använda det på högersidan om en `let`-sats,
+så som i listning 3-2.
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">Filnamn: src/main.rs</span>
 
 ```rust
 fn main() {
@@ -187,11 +188,11 @@ fn main() {
 }
 ```
 
-<span class="caption">Listing 3-2: Assigning the result of an `if` expression
-to a variable</span>
+<span class="caption">Listning 3-2: Tilldelning av resultatet från ett
+`if`-uttryck till en variabel</span>
 
-The `number` variable will be bound to a value based on the outcome of the `if`
-expression. Run this code to see what happens:
+`number`-variabeln kommer att bindas till ett värde baserat på utkomsten av
+`if`-uttrycket. Kör denna kod för att se vad som händer:
 
 ```text
 $ cargo run
@@ -201,15 +202,14 @@ $ cargo run
 The value of number is: 5
 ```
 
-Remember that blocks of code evaluate to the last expression in them, and
-numbers by themselves are also expressions. In this case, the value of the
-whole `if` expression depends on which block of code executes. This means the
-values that have the potential to be results from each arm of the `if` must be
-the same type; in Listing 3-2, the results of both the `if` arm and the `else`
-arm were `i32` integers. If the types are mismatched, as in the following
-example, we’ll get an error:
+Kom ihåg att block med kod utvärderas till det sista uttrycket i dem och
+ensamma tal är också uttryck. I detta fall beror värdet av hela `if`-uttrycket
+på om vilket block kod om körs. Detta innebär att värden som har potentialen
+att vara resultat från varje arm av `if` måste vara av samma typ; i listning 3-2
+är både resultatet från `if`-armen och `else`-armen `i32`-heltal. Om typerna
+inte stämmer så som i följande exempel, kommer vi att få ett fel:
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">Filnamn: src/main.rs</span>
 
 ```rust,ignore,does_not_compile
 fn main() {
@@ -225,9 +225,9 @@ fn main() {
 }
 ```
 
-When we try to compile this code, we’ll get an error. The `if` and `else` arms
-have value types that are incompatible, and Rust indicates exactly where to
-find the problem in the program:
+När vi försöker att kompilera denna kod kommer vi att få ett fel. `if` och
+`else`-armarna har värdetyper som är inkompatibla och Rust indikerar exakt var
+man hittar problemet i programmet:
 
 ```text
 error[E0308]: if and else have incompatible types
@@ -245,33 +245,35 @@ error[E0308]: if and else have incompatible types
              found type `&str`
 ```
 
-The expression in the `if` block evaluates to an integer, and the expression in
-the `else` block evaluates to a string. This won’t work because variables must
-have a single type. Rust needs to know at compile time what type the `number`
-variable is, definitively, so it can verify at compile time that its type is
-valid everywhere we use `number`. Rust wouldn’t be able to do that if the type
-of `number` was only determined at runtime; the compiler would be more complex
-and would make fewer guarantees about the code if it had to keep track of
-multiple hypothetical types for any variable.
+Uttrycket i `if`-blocket utvärderas till ett heltal och uttrycket i
+`else`-blocket utvärderas till en sträng. Detta kommer inte att fungera då
+variabler måste ha en enda typ. Rust måste vid kompileringstid slutgiltigt veta
+vad typen för variabeln `number` är, så att det kan verifiera vid
+kompileringstid att dess type är giltig på alla ställen vi använder `number`.
+Rust skulle inte kunna göra det om typen för `number` endast bestämts vid
+körtid; kompilatorn skulle behöva mycket mer komplex och kunna utfärda färre
+garantier om koden om det var tvunget att hålla koll på flera hypotetiska typer
+för varje variabel.
 
-### Repetition with Loops
+### Repetition med loopar
 
-It’s often useful to execute a block of code more than once. For this task,
-Rust provides several *loops*. A loop runs through the code inside the loop
-body to the end and then starts immediately back at the beginning. To
-experiment with loops, let’s make a new project called *loops*.
+Det är ofta användbart att köra ett block kod mer än en gång. För denna uppgift
+tillhandahåller Rust flera olika *loopar*. En loop kör genom koden inuti
+loopkroppen till slutet och börjarar därefter direkt om vid början. För att
+experimentera med loopar, låt oss skapa ett nytt projekt kallat *loops*.
 
-Rust has three kinds of loops: `loop`, `while`, and `for`. Let’s try each one.
+Rust har tre sorters loopar: `loop`, `while` och `for`. Låt oss prova var och
+en.
 
-#### Repeating Code with `loop`
+#### Repetera kod med `loop`
 
-The `loop` keyword tells Rust to execute a block of code over and over again
-forever or until you explicitly tell it to stop.
+Nyckelordet `loop` berättar för Rust att det ska köra ett block kod om och om
+igen för evigt, eller tills du uttryckligen ber det att sluta.
 
-As an example, change the *src/main.rs* file in your *loops* directory to look
-like this:
+Som ett exempel ändra filen *src/main.rs* i din *loops*-katalog så den ser ut
+så här:
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">Filnamn: src/main.rs</span>
 
 ```rust,ignore
 fn main() {
@@ -281,10 +283,10 @@ fn main() {
 }
 ```
 
-When we run this program, we’ll see `again!` printed over and over continuously
-until we stop the program manually. Most terminals support a keyboard shortcut,
-<span class="keystroke">ctrl-c</span>, to interrupt a program that is stuck in
-a continual loop. Give it a try:
+När vi kör detta program kommer vi att se `again!` kontinuerligt skrivas ut om
+och om igen tills vi avslutar programmet manuellt. De flesta terminaler har stöd
+för en tangentbordsgenväg, <span class="keystroke">ctrl-c</span>, för att
+avbryta ett program som fastnat i en kontinuerlig loop. Prova det:
 
 ```text
 $ cargo run
@@ -298,26 +300,27 @@ again!
 ^Cagain!
 ```
 
-The symbol `^C` represents where you pressed <span class="keystroke">ctrl-c
-</span>. You may or may not see the word `again!` printed after the `^C`,
-depending on where the code was in the loop when it received the interrupt
-signal.
+Symbolen `^C` representerar där du trycket <span
+class="keystroke">ctrl-c</span>. Du kan eventuellt se ordet `again!` utskrivet
+efter `^C` beroende på var koden var i loopen när det erhöll avbrottssignalen.
 
-Fortunately, Rust provides another, more reliable way to break out of a loop.
-You can place the `break` keyword within the loop to tell the program when to
-stop executing the loop. Recall that we did this in the guessing game in the
-[“Quitting After a Correct Guess”][quitting-after-a-correct-guess]<!-- ignore
---> section of Chapter 2 to exit the program when the user won the game by
-guessing the correct number.
+Som tur är erbjuder Rust ett annat, tillförlitligare sätt att bryta ut ur en
+loop. Du kan placera nyckelordet `break` inuti loopen för att berätta för
+programmet när det ska sluta köra loopen. Kom ihåg att vi gjorde detta i
+gissningsspelet i avsnittet [”Avsluta efter en korrekt
+gissning”][avsluta-efter-en-korrekt-gissning]<!-- ignore --> i kapitel 2 för
+att avsluta programmet när användaren vann spelet genom att gissa det korrekta
+talet.
 
-#### Returning Values from Loops
+#### Returnera värden från loopar
 
-One of the uses of a `loop` is to retry an operation you know might fail, such
-as checking whether a thread has completed its job. However, you might need to
-pass the result of that operation to the rest of your code. To do this, you can
-add the value you want returned after the `break` expression you use to stop
-the loop; that value will be returned out of the loop so you can use it, as
-shown here:
+En av användningsområdena för en `loop` är att prova en åtgärd på nytt som du
+vet skulle kunna misslyckas, så som att kontrollera huruvida en tråd har
+avslutat sitt jobb. Eventuellt behöver du skicka värdet för den åtgärden till
+resten av din kod. För att göra detta kan du lägga till värdet du vill
+returnera efter `break`-uttrycket du använde för att stoppa loopen; det värdet
+kommer att returneras ut från loopen så att du kan använda det, så som visas
+här:
 
 ```rust
 fn main() {
@@ -335,28 +338,29 @@ fn main() {
 }
 ```
 
-Before the loop, we declare a variable named `counter` and initialize it to
-`0`. Then we declare a variable named `result` to hold the value returned from
-the loop. On every iteration of the loop, we add `1` to the `counter` variable,
-and then check whether the counter is equal to `10`. When it is, we use the
-`break` keyword with the value `counter * 2`. After the loop, we use a
-semicolon to end the statement that assigns the value to `result`. Finally, we
-print the value in `result`, which in this case is 20.
+Före loopen deklarerar vi en variabel vid namn `counter` och initialiserar den
+till `0`. Vi deklarerar sedan en variabel med namnet `result` som håller värdet
+som returneras från loopen. För varje iteration i loopen kommer vi att lägga
+till `1` till variabeln `counter`, och sedan kontrollera huruvida räknaren är
+lika med `10`. När den är det kan vi använda nyckelordet `break` med värdet
+`counter * 2`. Efter loopen använder vi ett semikolon för att avsluta satsen
+som tilldelar värdet till `result`. Avslutningsvis skriver vi ut värdet i
+`result`, vilket i detta fallet är 20.
 
-#### Conditional Loops with `while`
+#### Villkorade loopar med `while`
 
-It’s often useful for a program to evaluate a condition within a loop. While
-the condition is true, the loop runs. When the condition ceases to be true, the
-program calls `break`, stopping the loop. This loop type could be implemented
-using a combination of `loop`, `if`, `else`, and `break`; you could try that
-now in a program, if you’d like.
+Det är ofta användbart för att program att utvärdera ett villkor inom en loop.
+Så länge villkoret är sant körs loopen. När villkoret slutar att vara sant
+anropar programmet `break` och avslutar loopen. Denna looptyp skulle kunna
+implementeras med en kombination av `loop`, `if`, `else` och `break`; du skulle
+kunna prova det i ett program nu, om du vill.
 
-However, this pattern is so common that Rust has a built-in language construct
-for it, called a `while` loop. Listing 3-3 uses `while`: the program loops
-three times, counting down each time, and then, after the loop, it prints
-another message and exits.
+Detta mönster är dock så pass vanligt att Rust har en inbyggt språkkonstruktion
+för detta, kallat en `while`-loop. Listning 3-3 använder `while`: programmet
+loopar tre gånger, räknar ner varje gången och sedan, efter loopen, skriver det
+ut ett annat meddelande och avslutar.
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">Filnamn: src/main.rs</span>
 
 ```rust
 fn main() {
@@ -372,19 +376,19 @@ fn main() {
 }
 ```
 
-<span class="caption">Listing 3-3: Using a `while` loop to run code while a
-condition holds true</span>
+<span class="caption">Listning 3-3: Användning av en `while`-loop för att köra
+kod medan ett villkor är sant</span>
 
-This construct eliminates a lot of nesting that would be necessary if you used
-`loop`, `if`, `else`, and `break`, and it’s clearer. While a condition holds
-true, the code runs; otherwise, it exits the loop.
+Denna konstruktion eliminerar en massa nästling som annars skulle behövas om du
+använde `loop`, `if`, `else` och `break`, och det är tydligare. När ett uttryck
+är sant kör korden; annars avslutas loopen.
 
-#### Looping Through a Collection with `for`
+#### Loopa genom en samling med `for`
 
-You could use the `while` construct to loop over the elements of a collection,
-such as an array. For example, let’s look at Listing 3-4.
+Du skulle kunna använda `while`-konstruktionen för att loopa över elementen i
+en samling, så som en array. Låt oss till exempel titta på listning 3-4.
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">Filnamn: src/main.rs</span>
 
 ```rust
 fn main() {
@@ -399,13 +403,13 @@ fn main() {
 }
 ```
 
-<span class="caption">Listing 3-4: Looping through each element of a collection
-using a `while` loop</span>
+<span class="caption">Listning 3-4: Loopa över alla element i en samling med
+hjälp av en `while`-loop</span>
 
-Here, the code counts up through the elements in the array. It starts at index
-`0`, and then loops until it reaches the final index in the array (that is,
-when `index < 5` is no longer true). Running this code will print every element
-in the array:
+Här räknar koden upp för varje element i array:en. Det börjar på index `0` och
+loopar sedan tills det når det sista indexet i array:en (det vill säga när
+`index < 5` inte längre är sant). Om du kör denna kod kommer den att skriva ut
+varje element i array:en:
 
 ```text
 $ cargo run
@@ -419,19 +423,19 @@ the value is: 40
 the value is: 50
 ```
 
-All five array values appear in the terminal, as expected. Even though `index`
-will reach a value of `5` at some point, the loop stops executing before trying
-to fetch a sixth value from the array.
+Alla fem arrayvärdena visas i terminalen, precis som väntat. Även än `index`
+kommer att nå värdet `5` vid någon punkt, kommer loopen att sluta köras innan
+det försöker att hämta ett sjätte värdet från array:en.
 
-But this approach is error prone; we could cause the program to panic if the
-index length is incorrect. It’s also slow, because the compiler adds runtime
-code to perform the conditional check on every element on every iteration
-through the loop.
+Men detta sätt är benäget att ha fel; vi skulle kunna orsaka att programmet får
+en panik om indexlängden är felaktig. Det är också långsamt eftersom
+kompileratorn lägger till kod i körtid för att utföra den villkorade kontrollen
+för varje element vid varje iteration genom loopen.
 
-As a more concise alternative, you can use a `for` loop and execute some code
-for each item in a collection. A `for` loop looks like the code in Listing 3-5.
+Som ett mer koncist alternativt kan du använda en `for`-loop och köra viss kod
+för varje element i en samling. En `for`-loop ser ut som koden i listning 3-5.
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">Filnamn: src/main.rs</span>
 
 ```rust
 fn main() {
@@ -443,31 +447,31 @@ fn main() {
 }
 ```
 
-<span class="caption">Listing 3-5: Looping through each element of a collection
-using a `for` loop</span>
+<span class="caption">Listning 3-5: Loopa genom varje element i en samling via
+en `for`-loop</span>
 
-When we run this code, we’ll see the same output as in Listing 3-4. More
-importantly, we’ve now increased the safety of the code and eliminated the
-chance of bugs that might result from going beyond the end of the array or not
-going far enough and missing some items.
+När vi kör denna kod kommer vi att se samma utmatning som för listning 3-4
+ovan. Väsentligare är att vi nu förbättrat säkerheten i koden och eliminerat
+möjligheten till fel som uppstår när man avancerar bortom slutet på array:en
+eller inte avancerar långt nog och hoppar över några element.
 
-For example, in the code in Listing 3-4, if you removed an item from the `a`
-array but forgot to update the condition to `while index < 4`, the code would
-panic. Using the `for` loop, you wouldn’t need to remember to change any other
-code if you changed the number of values in the array.
+Om du till exempel i koden i listning 3-4 tog bort ett element från array:en
+`a`, men glömt att uppdatera villkoret till `while index < 4` skulle koden få en
+panik. Genom att använda `for`-loopen behöver du inte komma ihåg att ändra
+någon annan kod och du ändrade antalet värden i array:en.
 
-The safety and conciseness of `for` loops make them the most commonly used loop
-construct in Rust. Even in situations in which you want to run some code a
-certain number of times, as in the countdown example that used a `while` loop
-in Listing 3-3, most Rustaceans would use a `for` loop. The way to do that
-would be to use a `Range`, which is a type provided by the standard library
-that generates all numbers in sequence starting from one number and ending
-before another number.
+Säkerheten och koncisheten för `for`-loopar gör dem till den mest frekvent
+använda loopkonstruktionen i Rust. Även i situationer där du kanske vill köra
+vissa kod ett specifikt antal gånger, så som i nedräkningen exemplet som
+använde en `while`-loop i listning 3-3, hade de flesta Rust-användare använt en
+`for`-loop. Sättet att göra det på är genom att använda en `Range`, vilket är
+en typ som tillhandahålls av standardbiblioteket som genererar alla tal i
+sekvens med start från ett tal och med slut vid ett annat tal.
 
-Here’s what the countdown would look like using a `for` loop and another method
-we’ve not yet talked about, `rev`, to reverse the range:
+Så här skulle nedräkningen ha sett ut med en `for`-loop och en annan metod,
+`rev`, som vi ännu inte diskuterat, för att vända på intervallet:
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">Filnamn: src/main.rs</span>
 
 ```rust
 fn main() {
@@ -478,24 +482,24 @@ fn main() {
 }
 ```
 
-This code is a bit nicer, isn’t it?
+Denna koden är lite trevligare, inte sant?
 
-## Summary
+## Sammanfattning
 
-You made it! That was a sizable chapter: you learned about variables, scalar
-and compound data types, functions, comments, `if` expressions, and loops! If
-you want to practice with the concepts discussed in this chapter, try building
-programs to do the following:
+Du klarade det! Det var ett stort kapitel: du har lärt dig variabler, skalära
+och sammansatta datatyper, funktioner, kommentarer, `if`-uttryck och loopar! Om
+du vill öva på koncepten som diskuteras i detta kapitel, försök att bygga
+program för att göra följande:
 
-* Convert temperatures between Fahrenheit and Celsius.
-* Generate the nth Fibonacci number.
-* Print the lyrics to the Christmas carol “The Twelve Days of Christmas,”
-  taking advantage of the repetition in the song.
+* Konvertera temperaturer mellan Fahrenheit och Celsius.
+* Generera de N:te Fibonacci-talet.
+* Skriv ut texten till julsången ”The Twelve Days of Christmas”, genom att dra
+  nytta av repetitionerna i sången.
 
-When you’re ready to move on, we’ll talk about a concept in Rust that *doesn’t*
-commonly exist in other programming languages: ownership.
+När du är redo att gå vidare, kommer vi att tala om ett koncept i Rust som
+vanligen *inte* finns i andra programmeringsspråk: ägarskap.
 
-[comparing-the-guess-to-the-secret-number]:
+[jamfora-gissningen-med-det-hemliga-talet]:
 ch02-00-guessing-game-tutorial.html#comparing-the-guess-to-the-secret-number
-[quitting-after-a-correct-guess]:
+[avsluta-efter-en-korrekt-gissning]:
 ch02-00-guessing-game-tutorial.html#quitting-after-a-correct-guess
