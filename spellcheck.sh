@@ -7,6 +7,7 @@ function spellcheck() {
 pushd "$(dirname "$0")"
 
 spellcheck src/ch00-00-introduction.md
+spellcheck src/ch01-00-getting-started.md
 
 head -1 dict > .dict
 sed -e 1d dict | sort >> .dict

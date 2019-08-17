@@ -1,11 +1,11 @@
-personal_ws-1.1 sv 66 
+personal_ws-1.1 sv 68 
 API
 Application
 applikationsprogrammeringsgränssnitt
 behavior.svg
 beroenden
 bioinformatik
-Cargo
+cargo
 class
 compile.svg
 desired
@@ -38,6 +38,7 @@ let
 lågnivådetaljer
 Lågnivåkod
 lågnivåkontroll
+macOS
 mönstermatchning
 No
 nsp
@@ -63,5 +64,6 @@ unsafe.svg
 webbläsaren
 webbserver
 webbtjänster
+Windows
 välkomnande
 world
