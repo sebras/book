@@ -1,4 +1,4 @@
-personal_ws-1.1 sv 335 
+personal_ws-1.1 sv 354 
 A.
 abcabcabc
 aborting
@@ -7,6 +7,7 @@ API
 Application
 applikationsprogrammeringsgränssnitt
 applikationsprogrammeringsgränssnittet
+assign
 at
 authors
 avinstallationsskript
@@ -22,6 +23,7 @@ big
 bioinformatik
 break
 build
+cannot
 caption
 cargo
 cargo.exe
@@ -47,6 +49,7 @@ comparing-the-guess-to-the-secret-number
 compile
 compile.svg
 Compiling
+const
 continue
 Could
 crate
@@ -60,6 +63,7 @@ cratesio
 Crates.io
 ctrl-c
 curl
+data-types.html
 debug
 debuginfo
 default
@@ -100,6 +104,7 @@ file
 filename
 Finished
 Firefox.
+first
 flertrådad
 fn
 fånga-allt-värdet
@@ -121,6 +126,7 @@ Greater
 guess
 guessed
 guessing
+guessing-game-tutorial.html
 handling-potential-failure-with-the-result-type
 hashmappningar.
 hello
@@ -131,6 +137,7 @@ IDE:ns
 if
 ignore
 img
+immutable
 input
 installation.html
 installed
@@ -144,6 +151,7 @@ iostdin
 iteratorer
 iterera
 JavaScript
+jämföra-gissningen-med-det-hemliga-talet
 js
 keystroke
 källkodsfil
@@ -165,6 +173,7 @@ lågnivåkontroll
 libc
 libcore
 line
+literaler
 länkare
 ls
 macOS
@@ -187,11 +196,14 @@ nsp
 nsprust
 num
 number
+nyallokerade
 nyrad
 nyradstecken
 Obvious
+of
 oföränderlig
 oföränderliga
+oföränderligt
 omatchade
 ombyggnation
 omfaktorisering.
@@ -213,6 +225,7 @@ PATH
 pdb
 periodiskt
 Please
+POINTS
 postar
 powershell
 PowerShell
@@ -264,6 +277,7 @@ skuggning
 snip-
 someproject
 source
+spaces
 span
 språkserver
 src
@@ -292,6 +306,7 @@ Tools
 toppnivåkatalogen
 transkodning
 troubleshooting
+twice
 type
 types
 typinferens.
@@ -304,12 +319,15 @@ Updating
 use
 used
 USERPROFILE
+usize
 UTF-
 utmatning
 utmatningen
 utmatningsfunktionalitet
+value
 variable
 variabler-och-föränderlighet
+variables
 variables-and-mutability
 variables-and-mutability.html
 warn
@@ -319,6 +337,7 @@ webbläsare.
 webbläsaren
 webbserver
 webbtjänster
+versaler
 versionering
 versionshanteringssystem
 which
