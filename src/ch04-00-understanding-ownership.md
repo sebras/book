@@ -1,7 +1,7 @@
-# Understanding Ownership
+# Förstå ägarskap
 
-Ownership is Rust’s most unique feature, and it enables Rust to make memory
-safety guarantees without needing a garbage collector. Therefore, it’s
-important to understand how ownership works in Rust. In this chapter, we’ll
-talk about ownership as well as several related features: borrowing, slices,
-and how Rust lays data out in memory.
+Ägandeskap är Rusts mest unika särdrag, och möjliggör för Rust att utfärda
+garantier kring minnessäkerhet utan att behöva en skräpsamlare. Därför är det
+viktigt att förstå hur ägarskap fungerar i Rust. I detta kapitel kommer vi att
+tala om ägarskarp så väl som fler relaterade funktioner: lån, skivor och hur
+Rust lägger ut data i minnet.
