@@ -8,6 +8,7 @@ pushd "$(dirname "$0")"
 
 spellcheck src/ch00-00-introduction.md
 spellcheck src/ch01-00-getting-started.md
+spellcheck src/ch01-01-installation.md
 
 head -1 dict > .dict
 sed -e 1d dict | sort >> .dict
