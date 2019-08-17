@@ -1,24 +1,25 @@
-## Data Types
+## Datatyper
 
-Every value in Rust is of a certain *data type*, which tells Rust what kind of
-data is being specified so it knows how to work with that data. We’ll look at
-two data type subsets: scalar and compound.
+Varje värdet i Rust är av en särskild *datatyp*, vilken berättar för Rust
+vilken type av data som anges så att det vet hur det ska arbeta med denna data.
+Vi kommer att titta på två delmängder av datatyper: skalärer och sammansatta
+datatyper.
 
-Keep in mind that Rust is a *statically typed* language, which means that it
-must know the types of all variables at compile time. The compiler can usually
-infer what type we want to use based on the value and how we use it. In cases
-when many types are possible, such as when we converted a `String` to a numeric
-type using `parse` in the [“Comparing the Guess to the Secret Number”]
-[comparing-the-guess-to-the-secret-number]<!-- ignore --> section in Chapter 2,
-we must add a type annotation, like this:
+Kom ihåg att Rust är ett *statiskt typat* språk, vilket innebär att det måste
+känna till typerna för alla variabler vid kompileringstid. Kompilatorn kan
+vanligtvis härleda vilken type vi vill använda baserat på värdet och hur vi
+använde det. I fall då många typer är möjligt, så som när vi konverterade en
+`String` till en numeriskt typ med `parse` i avsnittet [”Jämföra en gissning
+med det hemliga talet`][jämföra-gissningen-med-det-hemliga-talet]<!-- ignore
+--> i kapitel 2, måste vi på detta sätt lägga till en typmarkering:
 
 ```rust
 let guess: u32 = "42".parse().expect("Not a number!");
 ```
 
-If we don’t add the type annotation here, Rust will display the following
-error, which means the compiler needs more information from us to know which
-type we want to use:
+Om vi inte lägger till typmarkeringen här kommer Rust att visa följande fel,
+vilket innebär att kompilatorn behöver mer information från oss för att veta
+vilken typ vi vill använda:
 
 ```text
 error[E0282]: type annotations needed
@@ -31,105 +32,111 @@ error[E0282]: type annotations needed
   |         consider giving `guess` a type
 ```
 
-You’ll see different type annotations for other data types.
+Framöver kommer du att se olika typmarkeringar för andra datatyper.
 
-### Scalar Types
+### Skalära typer
 
-A *scalar* type represents a single value. Rust has four primary scalar types:
-integers, floating-point numbers, Booleans, and characters. You may recognize
-these from other programming languages. Let’s jump into how they work in Rust.
+En *skalär* typ representerar ett enstaka värde. Rust har fyra primära
+skalära typer: heltal, flyttal, booleska värden och tecken. Du känner kanske
+igen dessa från andra programmeringsspråk. Låt oss direkt hoppa in i hur de
+fungerar i Rust.
 
-#### Integer Types
+#### Heltalstype
 
-An *integer* is a number without a fractional component. We used one integer
-type in Chapter 2, the `u32` type. This type declaration indicates that the
-value it’s associated with should be an unsigned integer (signed integer types
-start with `i`, instead of `u`) that takes up 32 bits of space. Table 3-1 shows
-the built-in integer types in Rust. Each variant in the Signed and Unsigned
-columns (for example, `i16`) can be used to declare the type of an integer
-value.
+Ett *heltal* är ett tal utan decimaldel. Vi använde en heltalstyp i kapitel 2,
+typen `u32`. Denna typdeklaration indikerar att värdet som den associeras med
+bör vara ett teckenlöst heltal (heltalstyper med tecken inleds med `i`,
+istället för `u`) vilket upptar 32 bitar. Tabell 3-1 visar de inbyggda
+heltalstyper som finns i Rust. Varje variant i kolumnerna ”Med tecken” och
+”Teckenlöst” (till exempel `i16`) kan användas för att deklarera typen av ett
+heltalsvärde.
 
-<span class="caption">Table 3-1: Integer Types in Rust</span>
+<span class="caption">Tabell 3-1: Heltalstyper i Rust</span>
 
-| Length  | Signed  | Unsigned |
-|---------|---------|----------|
-| 8-bit   | `i8`    | `u8`     |
-| 16-bit  | `i16`   | `u16`    |
-| 32-bit  | `i32`   | `u32`    |
-| 64-bit  | `i64`   | `u64`    |
-| 128-bit | `i128`  | `u128`   |
-| arch    | `isize` | `usize`  |
+| Längd      | Med tecken | Teckenlöst |
+|------------|------------|------------|
+| 8 bitar    | `i8`       | `u8`       |
+| 16 bitar   | `i16`      | `u16`      |
+| 32 bitar   | `i32`      | `u32`      |
+| 64 bitar   | `i64`      | `u64`      |
+| 128 bitar  | `i128`     | `u128`     |
+| arkitektur | `isize`    | `usize`    |
 
-Each variant can be either signed or unsigned and has an explicit size.
-*Signed* and *unsigned* refer to whether it’s possible for the number to be
-negative or positive—in other words, whether the number needs to have a sign
-with it (signed) or whether it will only ever be positive and can therefore be
-represented without a sign (unsigned). It’s like writing numbers on paper: when
-the sign matters, a number is shown with a plus sign or a minus sign; however,
-when it’s safe to assume the number is positive, it’s shown with no sign.
-Signed numbers are stored using [two’s complement](https://en.wikipedia.org/wiki/Two%27s_complement) representation.
+Varje variant kan antingen vara med tecken eller teckenlöst och har en
+uttrycklig storlek. *Med tecken* och *teckenlöst* refererar till huruvida det är
+möjligt för talet att vara negativt eller positivt — med andra ord, huruvida
+talet måste ha ett tecken (med tecken) eller huruvida det enbart kan bara
+positivt och därför kan representeras utan ett tecken (teckenlöst). Det är som
+att skriva tal på ett papper: när tecknet spelar roll skrivs ett tal med ett
+plustecken eller ett minustecken; men om det går att förutsätta att talet är
+positivt skrivs inget tecken ut. Tal med tecken sparas enligt
+[två-komplementsrepresentation](https://sv.wikipedia.org/wiki/Tv%C3%A5komplementsform).
 
-Each signed variant can store numbers from -(2<sup>n - 1</sup>) to 2<sup>n -
-1</sup> - 1 inclusive, where *n* is the number of bits that variant uses. So an
-`i8` can store numbers from -(2<sup>7</sup>) to 2<sup>7</sup> - 1, which equals
--128 to 127. Unsigned variants can store numbers from 0 to 2<sup>n</sup> - 1,
-so a `u8` can store numbers from 0 to 2<sup>8</sup> - 1, which equals 0 to 255.
+Varje variant med tecken kan lagra tecken från -(2<sup>n - 1</sup>) till
+2<sup>n - 1</sup> - 1, där *n* är antalet bitar som den varianten använder. Så
+en `i8` kan lagra tal från -(2<sup>7</sup>) till 2<sup>7</sup> -1, det vill
+säga från -128 till 127. Teckenlösa varianter kan lagra tal från 0 till
+2<sup>n</sup> - 1, så en `u8` kan lagra tal från 0 till 2<sup>8</sup>, det vill
+säga från 0 till 255.
 
-Additionally, the `isize` and `usize` types depend on the kind of computer your
-program is running on: 64 bits if you’re on a 64-bit architecture and 32 bits
-if you’re on a 32-bit architecture.
+Dessutom beror typerna `isize` och `usize` på vilken dator ditt program kör på:
+64 bitar om du kör på en 64-bitarsarkitektur och 32 bitar om du kör på en
+32-bitarsarkitektur.
 
-You can write integer literals in any of the forms shown in Table 3-2. Note
-that all number literals except the byte literal allow a type suffix, such as
-`57u8`, and `_` as a visual separator, such as `1_000`.
+Du kan skriva heltalsliteraler enligt formerna som visas i Tabell 3-2. Notera
+att alla numeriska literaler förutom byte-literalen tillåter ett typsuffix, så
+som `57u8` och `_` som en visuell separator, som i `1_000`.
 
-<span class="caption">Table 3-2: Integer Literals in Rust</span>
+<span class="caption">Tabell 3-2: Heltalsliteraler i Rust</span>
 
-| Number literals  | Example       |
-|------------------|---------------|
-| Decimal          | `98_222`      |
-| Hex              | `0xff`        |
-| Octal            | `0o77`        |
-| Binary           | `0b1111_0000` |
-| Byte (`u8` only) | `b'A'`        |
+| Numeriska literaler | Exempel       |
+|---------------------|---------------|
+| Decimal             | `98_222`      |
+| Hex                 | `0xff`        |
+| Octal               | `0o77`        |
+| Binär               | `0b1111_0000` |
+| Byte (endast `u8`)  | `b'A'`        |
 
-So how do you know which type of integer to use? If you’re unsure, Rust’s
-defaults are generally good choices, and integer types default to `i32`: this
-type is generally the fastest, even on 64-bit systems. The primary situation in
-which you’d use `isize` or `usize` is when indexing some sort of collection.
+Så hur kan du veta vilken type av heltal som du ska använda? Om du är osäker är
+Rust standardval generellt bra val, och heltal blir som standard `i32`: denna
+type är generellt sett den snabbaste, även på 64-bitarssystem. Den primära
+situation då du bör använda `isize` eller `usize` är när du indexerar i någon
+form av samling.
 
-> ##### Integer Overflow
+> ##### Heltalsöverspill
 >
-> Let’s say you have a variable of type `u8` that can hold values between 0 and 255.
-> If you try to change the variable to a value outside of that range, such
-> as 256, *integer overflow* will occur. Rust has some interesting rules
-> involving this behavior. When you’re compiling in debug mode, Rust includes
-> checks for integer overflow that cause your program to *panic* at runtime if
-> this behavior occurs. Rust uses the term panicking when a program exits with
-> an error; we’ll discuss panics in more depth in the [“Unrecoverable Errors
-> with `panic!`”][unrecoverable-errors-with-panic] section in Chapter 9.
+> Låt oss säga att du har en variabel av typen `u8` som kan lagra värden mellan
+> 0 och 255. Om du försöker att ändra variabeln till ett värde som ligger
+> utanför det intervallet, så som 256, kommer *heltalsöverspill* att inträffa.
+> Rust har en del intressanta regler för detta beteende. När du kompilerar i
+> felsökningsläge inkluderar Rust kontroller för heltalsöverspill som får ditt
+> program få en *panik* om detta beteende inträffar. Rust använder termen
+> *panik* när ett program avslutas med ett fel; vi kommer i detalj att
+> diskutera *paniker* i avsnittet [”Oåterkalleliga fel med
+> `panic!`”][oåterkalleliga-fel-med-panic] i kapitel 9.
 >
-> When you’re compiling in release mode with the `--release` flag, Rust does
-> *not* include checks for integer overflow that cause panics. Instead, if
-> overflow occurs, Rust performs *two’s complement wrapping*. In short, values
-> greater than the maximum value the type can hold “wrap around” to the minimum
-> of the values the type can hold. In the case of a `u8`, 256 becomes 0, 257
-> becomes 1, and so on. The program won’t panic, but the variable will have a
-> value that probably isn’t what you were expecting it to have. Relying on
-> integer overflow’s wrapping behavior is considered an error. If you want to
-> wrap explicitly, you can use the standard library type [`Wrapping`][wrapping].
+> När du kompilerar i utgåvoläge med flaggan `--release` inkluderar Rust *inte*
+> kontroller för heltalsöverspill som orsakar paniker. Om överspill inträffar
+> kommer Rust istället att utföra *tvåkomplementsvikning*. I korta drag kommer
+> värden som är större än det största värdet som typen kan lagra att ”vikas
+> runt” till det lägsta värdet som typen kan lagra. I fallet med en `u8` kommer
+> 256 att bli 0, 257 blir 1, och så vidare. Programmet kommer inte att få
+> panik, men variabeln kommer att få ett värdet som du förmodligen inte
+> förväntade dig att den skulle få. Att förlita sig på vikningsbeteendet vid
+> heltalsöverspill anses vara ett fel. Om du uttryckligen vill använda vikning
+> så kan du använda standardbibliotekstypen [`Wrapping`][viking].
 
-#### Floating-Point Types
+### Flyttalstyper
 
-Rust also has two primitive types for *floating-point numbers*, which are
-numbers with decimal points. Rust’s floating-point types are `f32` and `f64`,
-which are 32 bits and 64 bits in size, respectively. The default type is `f64`
-because on modern CPUs it’s roughly the same speed as `f32` but is capable of
-more precision.
+Rust har också två primitiva typer för *flyttal*, vilket är tal med
+decimaldel. Rusts flyttalstyper är `f32` och `f64`, vilkas storlek är 32
+respektive 64 bitar. Standardtypen är `f64` eftersom på moderna CPU:er går
+beräkningar med dessa ungefär lika fort som `f32`, men kan hantera en större
+precision.
 
-Here’s an example that shows floating-point numbers in action:
+Här är ett exempel som visar hur flyttal användas:
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">Filnamn: src/main.rs</span>
 
 ```rust
 fn main() {
@@ -139,68 +146,68 @@ fn main() {
 }
 ```
 
-Floating-point numbers are represented according to the IEEE-754 standard. The
-`f32` type is a single-precision float, and `f64` has double precision.
+Flyttal representeras enligt standarden IEEE-754. Typen `f32` är ett
+enkelprecisionsflyttal, och `f64` har dubbelprecision.
 
-#### Numeric Operations
+#### Numeriska operatorer
 
-Rust supports the basic mathematical operations you’d expect for all of the
-number types: addition, subtraction, multiplication, division, and remainder.
-The following code shows how you’d use each one in a `let` statement:
+Rust har stöd för det grundläggande matematiska operationerna som du förväntar
+dig av taltyper: addition, subtraktion, multiplikation, division och rest.
+Följande kod visar hur du använder var och en i en `let`-sats:
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">Filnamn: src/main.rs</span>
 
 ```rust
 fn main() {
     // addition
     let sum = 5 + 10;
 
-    // subtraction
+    // subtraktion
     let difference = 95.5 - 4.3;
 
-    // multiplication
+    // multiplikation
     let product = 4 * 30;
 
     // division
     let quotient = 56.7 / 32.2;
 
-    // remainder
+    // rest
     let remainder = 43 % 5;
 }
 ```
 
-Each expression in these statements uses a mathematical operator and evaluates
-to a single value, which is then bound to a variable. Appendix B contains a
-list of all operators that Rust provides.
+Varje uttryck i dessa satser använder en matematisk operator och utvärderas
+till ett enstaka värde vilket sedan vinds till en variabel. Bilaga B innehåller
+en lista över alla operatorer som Rust tillhandahåller.
 
-#### The Boolean Type
+#### Den booleska typen
 
-As in most other programming languages, a Boolean type in Rust has two possible
-values: `true` and `false`. Booleans are one byte in size. The Boolean type in
-Rust is specified using `bool`. For example:
+Som i de flesta andra programmeringsspråk har en boolesk typ i Rust två möjliga
+värden: `true` och `false`. Booleska typer är en byte stora. Den booleska
+typen i Rust anges genom att använda `bool`, till exempel:
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">Filnamn: src/main.rs</span>
 
 ```rust
 fn main() {
     let t = true;
 
-    let f: bool = false; // with explicit type annotation
+    let f: bool = false; // med uttrycklig typmarkering
 }
 ```
 
-The main way to use Boolean values is through conditionals, such as an `if`
-expression. We’ll cover how `if` expressions work in Rust in the [“Control
-Flow”][control-flow]<!-- ignore --> section.
+Booleska värden används i huvudsak via villkor, så som ett `if`-uttryck. Vi
+kommer att beskriva hur `if`-uttryck fungerar i Rust i avsnittet
+[”Kontrollflöde”][kontrollflöde]<!-- ignore -->.
 
-#### The Character Type
+#### Teckentypen
 
-So far we’ve worked only with numbers, but Rust supports letters too. Rust’s
-`char` type is the language’s most primitive alphabetic type, and the following
-code shows one way to use it. (Note that `char` literals are specified with
-single quotes, as opposed to string literals, which use double quotes.)
+Så här långt har vi bara arbetat med tal, men Rust har även stöd för tecken.
+Rusts `char`-typ är språkets mest primitiva alfabetiska typ, och följande kod
+visar hur man använder den. (Notera att `char`-literaler anges med apostrof
+till skillnad från strängliteraler som använder citationstecken.)
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">Filnamn: src/main.rs</span>
 
 ```rust
 fn main() {
@@ -210,33 +217,33 @@ fn main() {
 }
 ```
 
-Rust’s `char` type is four bytes in size and represents a Unicode Scalar Value,
-which means it can represent a lot more than just ASCII. Accented letters;
-Chinese, Japanese, and Korean characters; emoji; and zero-width spaces are all
-valid `char` values in Rust. Unicode Scalar Values range from `U+0000` to
-`U+D7FF` and `U+E000` to `U+10FFFF` inclusive. However, a “character” isn’t
-really a concept in Unicode, so your human intuition for what a “character” is
-may not match up with what a `char` is in Rust. We’ll discuss this topic in
-detail in [“Storing UTF-8 Encoded Text with Strings”][strings]<!-- ignore -->
-in Chapter 8.
+Rusts `char`-typ är fyra byte stor och representera ett Unicode-skalärvärde,
+vilket innebär att det kan representera mycket mer än bara ASCII. Bokstäver med
+diakritiska tecken, kinesiska, japanska och koreanska tecken, emoji och
+nollbreddsblanksteg är alla giltiga `char`-värden i Rust. Unicode-skalärvärden
+ligger i intervallen från `U+0000` till `U+D7FF` samt från `U+E000` till
+`U+10FFFF`. ”Tecken” är inte ett koncept inom Unicode, så din intuition om vad
+ett ”tecken” är stämmer inte nödvändigtvis med var en `char` är i Rust. Vi
+kommer att diskutera detta ämne i detalj i [”Lagra UTF-8-kodad text med
+strängar”][strängar]<!-- ignore --> i kapitel 8.
 
-### Compound Types
+### Sammansatta type
 
-*Compound types* can group multiple values into one type. Rust has two
-primitive compound types: tuples and arrays.
+*Sammansatta type* kan gruppera ihop flera värden till en typ. Rust har två
+primitiva sammansatta typer: tupler och array:er.
 
-#### The Tuple Type
+#### Tupeltypen
 
-A tuple is a general way of grouping together some number of other values
-with a variety of types into one compound type. Tuples have a fixed length:
-once declared, they cannot grow or shrink in size.
+En tupel är ett generellt sätt att gruppera ett antal värden med olika typer i
+en sammansatt typ. Tupler har en fix längd: efter att de deklarerats kan de
+inte växa eller minska i storlek.
 
-We create a tuple by writing a comma-separated list of values inside
-parentheses. Each position in the tuple has a type, and the types of the
-different values in the tuple don’t have to be the same. We’ve added optional
-type annotations in this example:
+Vi kan skapa en tupel genom att skriva en kommaseparerad lista av värden inuti
+parenteser. Varje position i tupeln har en typ och typerna för de olika värdena
+i tupeln måste inte vara samma. Vi har lagt till valfri typmarkering i detta
+exemplet:
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">Filnamn: src/main.rs</span>
 
 ```rust
 fn main() {
@@ -244,11 +251,12 @@ fn main() {
 }
 ```
 
-The variable `tup` binds to the entire tuple, because a tuple is considered a
-single compound element. To get the individual values out of a tuple, we can
-use pattern matching to destructure a tuple value, like this:
+Variabeln `tup` binder till hela tupeln, eftersom en tupel anses vara en
+enstaka sammansatt element. För att få ut de individuella värdena från en tupel
+kan vi använda mönstermatchning för att destrukturera ett tupelvärde, som i
+detta fallet:
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">Filnamn: src/main.rs</span>
 
 ```rust
 fn main() {
@@ -260,17 +268,17 @@ fn main() {
 }
 ```
 
-This program first creates a tuple and binds it to the variable `tup`. It then
-uses a pattern with `let` to take `tup` and turn it into three separate
-variables, `x`, `y`, and `z`. This is called *destructuring*, because it breaks
-the single tuple into three parts. Finally, the program prints the value of
-`y`, which is `6.4`.
+Detta program skapar först en tupel och binder det till variabeln `tup`. Det
+använder sedan ett mönster med `let` för att ta `tup` och konvertera det till
+tre separata variabler: `x`, `y` och `z`. Detta kallas för *destrukturering*,
+eftersom det bryter upp den enstaka tupeln i tre delar. Avslutningsvid skriver
+programmer ut värdet för `y`, vilket är `6.4`.
 
-In addition to destructuring through pattern matching, we can access a tuple
-element directly by using a period (`.`) followed by the index of the value we
-want to access. For example:
+Utöver att destrukturera via mönstermatchning kan vi också nå tupelelement
+direkt genom att använda en punkt (`.`) åtföljt av indexet för värdet vi vill
+komma åt. Till exempel:
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">Filnamn: src/main.rs</span>
 
 ```rust
 fn main() {
@@ -284,21 +292,21 @@ fn main() {
 }
 ```
 
-This program creates a tuple, `x`, and then makes new variables for each
-element by using their index. As with most programming languages, the first
-index in a tuple is 0.
+Detta program skapar en tupel, `x`, och skapar sedan en ny variabel för varje
+element genom att använda deras respektive index. Som för de flesta
+programmeringsspråk är 0 det första indexet för en tupel.
 
-#### The Array Type
+#### Array-typen
 
-Another way to have a collection of multiple values is with an *array*. Unlike
-a tuple, every element of an array must have the same type. Arrays in Rust are
-different from arrays in some other languages because arrays in Rust have a
-fixed length, like tuples.
+Ett annat sätt att ha en samling av multipla värden är i en *array*. Till
+skillnad från en tupel måste varje element i en array ha samma typ. Array:er i
+Rust skiljer sig från array:er i en del andra språk då array:er i Rust har en
+begränsad längd, på samma sätt som tupler.
 
-In Rust, the values going into an array are written as a comma-separated list
-inside square brackets:
+I Rust skrivs värden som ska in i en array som en kommaseparerad list inuti
+hakparenteser:
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">Filnamn: src/main.rs</span>
 
 ```rust
 fn main() {
@@ -306,54 +314,56 @@ fn main() {
 }
 ```
 
-Arrays are useful when you want your data allocated on the stack rather than
-the heap (we will discuss the stack and the heap more in Chapter 4) or when
-you want to ensure you always have a fixed number of elements. An array isn’t
-as flexible as the vector type, though. A vector is a similar collection type
-provided by the standard library that *is* allowed to grow or shrink in size.
-If you’re unsure whether to use an array or a vector, you should probably use a
-vector. Chapter 8 discusses vectors in more detail.
+Array:er är användbara när du vill att din data ska allokeras på stacken
+snarare än heapen (vi kommer att diskutera stacken och heapen grundligt i
+kapitel 4) eller när du vill säkerställa att du alltid har ett fixt antal
+element. En array är dock inte lika flexibel som vektortypen. En vektor är en
+liknande samlingstyp som tillhandahålls av standardbiblioteket som *kan* växa
+eller minska in storlek. Om du är osäker på huruvida du ska använda en array
+eller en vektor för du antaligen använda en vektor. Kapitel 8 diskuterar
+vektorer utförligt.
 
-An example of when you might want to use an array rather than a vector is in a
-program that needs to know the names of the months of the year. It’s very
-unlikely that such a program will need to add or remove months, so you can use
-an array because you know it will always contain 12 items:
+Ett exempel på när du kanske bör använda en array istället för en vektor är i
+ett program som behöver känns till namnen på årets månader. Det är väldigt
+osannolikt att ett sådant program kommer att behöva lägga till eller ta bort
+månader, så du kan använda en array eftersom du alltid vet att det kommer att
+finnas 12 element:
 
 ```rust
 let months = ["January", "February", "March", "April", "May", "June", "July",
               "August", "September", "October", "November", "December"];
 ```
 
-You would write an array’s type by using square brackets, and within the
-brackets include the type of each element, a semicolon, and then the number of
-elements in the array, like so:
+Du skriver an array:s typ genom att använda hakparenteser, inom hakparenteserna
+inkludera typen för varje element, ett semikolon och sedan antalet element i
+array:en, på följande sätt:
 
 ```rust
 let a: [i32; 5] = [1, 2, 3, 4, 5];
 ```
 
-Here, `i32` is the type of each element. After the semicolon, the number `5`
-indicates the element contains five items.
+Här är `i32` typen för varje element. Efter semikolonet indikerar talet `5` att
+array:en innehåller fem element.
 
-Writing an array’s type this way looks similar to an alternative syntax for
-initializing an array: if you want to create an array that contains the same
-value for each element, you can specify the initial value, followed by a
-semicolon, and then the length of the array in square brackets, as shown here:
+Att skriva en array:s typ på detta sätt liknar en alternativ syntax för att att
+initiera en array: om du vill skapa en array som innehåller samma värde för
+varje element kan du ange det initiala värdet åtföljt av ett semikolon och
+sedan arraylängden inom hakparenteser, så som visas här:
 
 ```rust
 let a = [3; 5];
 ```
 
-The array named `a` will contain `5` elements that will all be set to the value
-`3` initially. This is the same as writing `let a = [3, 3, 3, 3, 3];` but in a
-more concise way.
+Array:en med namnet `a` kommer att innehålla `5` element som alla initialt
+kommer att sättas till värdet `3`. Detta är detsamma som att skriva `let a =
+[3, 3, 3, 3, 3];`, men på ett mer koncist sätt.
 
-##### Accessing Array Elements
+##### Åtkomst av arrayelement
 
-An array is a single chunk of memory allocated on the stack. You can access
-elements of an array using indexing, like this:
+En array är en enstaka bit minne allokerad på stacken. Du kan komma åt element
+i en array genom att använda indexering, på följande sätt:
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">Filnamn: src/main.rs</span>
 
 ```rust
 fn main() {
@@ -364,17 +374,17 @@ fn main() {
 }
 ```
 
-In this example, the variable named `first` will get the value `1`, because
-that is the value at index `[0]` in the array. The variable named `second` will
-get the value `2` from index `[1]` in the array.
+I detta exempel kommer variabeln `first` att få värdet `1`, då detta är värdet
+på index `[0]` i array:en. Variabeln med namnet `second` kommer att få värdet
+`2` från index `[1]` i array:en.
 
-##### Invalid Array Element Access
+##### Ogiltig åtkomst av arrayelement
 
-What happens if you try to access an element of an array that is past the end
-of the array? Say you change the example to the following code, which will
-compile but exit with an error when it runs:
+Vad händer om du försöker att få åtkomst till ett element i sen array som är
+förbi slutet på array:en? Säg att till exempel du ändrar exemplet kod enligt
+följande, vilken kommer att kompilera men avsluta utan fel när den körs:
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">Filnamn: src/main.rs</span>
 
 ```rust,ignore,panics
 fn main() {
@@ -387,7 +397,7 @@ fn main() {
 }
 ```
 
-Running this code using `cargo run` produces the following result:
+Att köra denna kod via `cargo run` producerar följande resultat:
 
 ```text
 $ cargo run
@@ -399,21 +409,21 @@ thread 'main' panicked at 'index out of bounds: the len is 5 but the index is
 note: Run with `RUST_BACKTRACE=1` for a backtrace.
 ```
 
-The compilation didn’t produce any errors, but the program resulted in a
-*runtime* error and didn’t exit successfully. When you attempt to access an
-element using indexing, Rust will check that the index you’ve specified is less
-than the array length. If the index is greater than or equal to the array
-length, Rust will panic.
+Kompileringen producerade inga fel men programmet resulterade i ett
+*körtidsfel* och avslutades inte framgångsrikt. När du försökter att komma åt
+ett element via indexering kommer Rust att kontrollera att det index du anger
+är mindre än arraylängden. Om indexet är större än eller lika med array längden
+kommer Rust att få panik.
 
-This is the first example of Rust’s safety principles in action. In many
-low-level languages, this kind of check is not done, and when you provide an
-incorrect index, invalid memory can be accessed. Rust protects you against this
-kind of error by immediately exiting instead of allowing the memory access and
-continuing. Chapter 9 discusses more of Rust’s error handling.
+Detta är det första exemplet på Rusts säkerhetsprinciper. I många lågnivåspråk
+görs inte denna typ av kontroller, så när du anger ett felaktigt index kan
+ogiltig åtkomst av minne genomföras. Rust skyddar dig mot denna type av fel
+genom att omedelbart avsluta istället för att försöka komma åt minnet och
+fortsätta. Kapitel 9 diskuterar Rusts felhantering i närmre detalj.
 
-[comparing-the-guess-to-the-secret-number]:
+[jämföra-gissningen-med-det-hemliga-talet]:
 ch02-00-guessing-game-tutorial.html#comparing-the-guess-to-the-secret-number
-[control-flow]: ch03-05-control-flow.html#control-flow
-[strings]: ch08-02-strings.html#storing-utf-8-encoded-text-with-strings
-[unrecoverable-errors-with-panic]: ch09-01-unrecoverable-errors-with-panic.html
-[wrapping]: ../std/num/struct.Wrapping.html
+[kontrollflöde]: ch03-05-control-flow.html#control-flow
+[strängar]: ch08-02-strings.html#storing-utf-8-encoded-text-with-strings
+[oåterkalleliga-fel-med-panic]: ch09-01-unrecoverable-errors-with-panic.html
+[viking]: ../std/num/struct.Wrapping.html
