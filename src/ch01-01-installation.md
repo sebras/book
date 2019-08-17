@@ -1,135 +1,145 @@
 ## Installation
 
-The first step is to install Rust. We’ll download Rust through `rustup`, a
-command line tool for managing Rust versions and associated tools. You’ll need
-an internet connection for the download.
+Det första steget är att installera Rust. Vi kommer att hämta Rust via
+`rustup`, ett kommandoradsverktyg för att hantera Rust-versioner och
+tillhörande verktyg. Du kommer att behöva en internetuppkoppling för
+hämtningen.
 
-> Note: If you prefer not to use `rustup` for some reason, please see [the Rust
-> installation page](https://www.rust-lang.org/tools/install) for other options.
+> Notera: Om du av någon anledning föredrar att inte använda `rustup`, se
+> [installationssidan för Rust](https://www.rust-lang.org/tools/install) för
+> andra alternativ.
 
-The following steps install the latest stable version of the Rust compiler.
-Rust’s stability guarantees ensure that all the examples in the book that
-compile will continue to compile with newer Rust versions. The output might
-differ slightly between versions, because Rust often improves error messages
-and warnings. In other words, any newer, stable version of Rust you install
-using these steps should work as expected with the content of this book.
+Följande steg installerar den senaste stabila versionen av Rust-kompilatorn.
+Rusts stabilitetsgarantier säkerställer att alla exemplen i boken som
+kompilerar kommer att fortsätta att kompilera med nyare Rust-versioner. Utdatan
+kanske skiljer sig något mellan versioner då Rust ofta förbättrar fel- och
+varningsmeddelanden. Med andra ord, oavsett vilken nyare stabila version av
+Rust som du installerar via dessa steg bör fungera som förväntat med den här
+bokens innehåll.
 
-> ### Command Line Notation
+> ### Notation för kommandorader
 >
-> In this chapter and throughout the book, we’ll show some commands used in the
-> terminal. Lines that you should enter in a terminal all start with `$`. You
-> don’t need to type in the `$` character; it indicates the start of each
-> command. Lines that don’t start with `$` typically show the output of the
-> previous command. Additionally, PowerShell-specific examples will use `>`
-> rather than `$`.
+> I detta kapitel och genom hela boken kommer vi att visa vissa kommandon som
+> används i terminalen. Alla rader som du kan skriva in i en terminal börjar
+> med `$`. Du behöver inte skriva in dollartecknet `$`; det indikerar början av
+> varje kommando. Rader som inte börjar med `$` visar typiskt utmatning från
+> det föregående kommandot. PowerShell-specifika exempel kommer att använda `>`
+> snarare än `$`.
 
-### Installing `rustup` on Linux or macOS
+### Installera `rustup` under Linux eller macOS
 
-If you’re using Linux or macOS, open a terminal and enter the following command:
+Om du använder Linux eller macOS, öppna en terminal och mata in följande
+kommando:
 
 ```text
 $ curl https://sh.rustup.rs -sSf | sh
 ```
 
-The command downloads a script and starts the installation of the `rustup`
-tool, which installs the latest stable version of Rust. You might be prompted
-for your password. If the install is successful, the following line will appear:
+Kommandot hämtar ett skript och startar installationen av verktyget `rustup`,
+vilket installerar den senaste stabila versionen av Rust. Du kan eventuellt bli
+tillfrågad om ditt lösenord. Om installationen är framgångsrik kommer följande
+rad att visas:
 
 ```text
 Rust is installed now. Great!
 ```
 
-If you prefer, feel free to download the script and inspect it before running
-it.
+Om du föredrar det går det bra att hämta skriptet och inspektera det innan du
+kör det.
 
-The installation script automatically adds Rust to your system PATH after your
-next login. If you want to start using Rust right away instead of restarting
-your terminal, run the following command in your shell to add Rust to your
-system PATH manually:
+Installationsskriptet lägger automatiskt till Rust till din systemsökväg (PATH)
+efter nästa inloggning. Om du vill börja använda Rust direkt istället för att
+starta om din terminal, kör följande kommando i ditt skal för att manuellt
+lägga till Rust till din systemsökväg (PATH):
 
 ```text
 $ source $HOME/.cargo/env
 ```
 
-Alternatively, you can add the following line to your *~/.bash_profile*:
+Alternativt kan du lägga till följande rad i din *~/.bash_profile*:
 
 ```text
 $ export PATH="$HOME/.cargo/bin:$PATH"
 ```
 
-Additionally, you’ll need a linker of some kind. It’s likely one is already
-installed, but when you try to compile a Rust program and get errors indicating
-that a linker could not execute, that means a linker isn’t installed on your
-system and you’ll need to install one manually. C compilers usually come with
-the correct linker. Check your platform’s documentation for how to install a C
-compiler. Also, some common Rust packages depend on C code and will need a C
-compiler. Therefore, it might be worth installing one now.
+Du behöver dessutom en länkare av något slag. Det är troligt att det redan
+finns en installerad, men när du försöker att kompilera ett Rust-program och
+får fel som indikerar att en länkare inte kan köra då innebär det att en
+länkare inte är installerad på ditt system och att du kommer att behöva att
+installera en manuellt. C-kompilatorer kommer ofta med den rätta länkaren.
+Kontrollera dokumentationen för din plattform för hur du installerar en
+C-kompilator. En del vanliga Rust-paket beror på C-kod så de behöver därför en
+C-kompilator. Det kan därför vara löna sig att installera en nu.
 
-### Installing `rustup` on Windows
+### Installera `rustup` under Windows
 
-On Windows, go to [https://www.rust-lang.org/tools/install][install] and follow
-the instructions for installing Rust. At some point in the installation, you’ll
-receive a message explaining that you’ll also need the C++ build tools for
-Visual Studio 2013 or later. The easiest way to acquire the build tools is to
-install [Build Tools for Visual Studio 2019][visualstudio]. The tools are in
-the Other Tools and Frameworks section.
+Under Windows, gå till [https://www.rust-lang.org/tools/install][installera]
+och följ instruktionerna för hur du installerar Rust. Vid en punkt i
+installationen kommer du att få ett meddelande som förklarar att du också
+behöver byggverktyg för C++ från Visual Studio 2013 eller senare. Det enklaste
+sättet att få tag på byggverktygen är att installera [Byggverktyg för Visual
+Studio 2019][visualstudio]. Verktygen finns under avsnittet "Other Tools and
+Frameworks".
 
-[install]: https://www.rust-lang.org/tools/install
+[installera]: https://www.rust-lang.org/tools/install
 [visualstudio]: https://www.visualstudio.com/downloads/#build-tools-for-visual-studio-2019
 
-The rest of this book uses commands that work in both *cmd.exe* and PowerShell.
-If there are specific differences, we’ll explain which to use.
+Resten av denna bok använder kommandon som ska fungera i både *cmd.exe* och
+PowerShell. Om det finns specifika skillnader kommer vi att förklarar vilket du
+kan använda.
 
-### Updating and Uninstalling
+### Uppdatera och avinstallera
 
-After you’ve installed Rust via `rustup`, updating to the latest version is
-easy. From your shell, run the following update script:
+Efter att du installera Rust via `rustup` kan du enkelt uppdatera till den
+senaste versionen. Från ditt skal, kör följande uppdateringsskript:
 
 ```text
 $ rustup update
 ```
 
-To uninstall Rust and `rustup`, run the following uninstall script from your
-shell:
+För att avinstallera Rust och `rustup`, kör följande avinstallationsskript från
+ditt skal:
 
 ```text
 $ rustup self uninstall
 ```
 
-### Troubleshooting
+### Felsökning
 
-To check whether you have Rust installed correctly, open a shell and enter this
-line:
+För att kontrollera huruvida du har Rust installerat korrekt, öppna ett skal
+och skriv in denna rad:
 
 ```text
 $ rustc --version
 ```
 
-You should see the version number, commit hash, and commit date for the latest
-stable version that has been released in the following format:
+Du för se versionsnumret, commit-hashen och commit-datum för den senaste
+stabila versionen som har släppts enligt följande format:
 
 ```text
 rustc x.y.z (abcabcabc yyyy-mm-dd)
 ```
 
-If you see this information, you have installed Rust successfully! If you don’t
-see this information and you’re on Windows, check that Rust is in your `%PATH%`
-system variable. If that’s all correct and Rust still isn’t working, there are
-a number of places you can get help. The easiest is the #beginners channel on
-[the official Rust Discord][discord]. There, you can chat with other Rustaceans
-(a silly nickname we call ourselves) who can help you out. Other great
-resources include [the Users forum][users] and [Stack Overflow][stackoverflow].
+Om du ser denna information har du framgångsrikt installerat Rust! Om du inte
+ser denna information och du kör under Windows, kontrollera att Rust finns i
+systemvariabeln `%PATH%`. Om allt det är korrekt och Rust fortfarande inte
+fungerar, finns det ett flertal ställen där du kan få hjälp. Det enklaste är
+kanalen #beginners på [Rusts officiella Discord][discord]. Där kan du chatta
+med andra Rust-användare (ibland kallas de på engelska för Rustaceans) som kan
+hjälpa dig. Andra bra resurser är [användarforumen][forum] och [Stack
+Overflow][stackoverflow].
 
 [discord]: https://discord.gg/rust-lang
-[users]: https://users.rust-lang.org/
+[forum]: https://users.rust-lang.org/
 [stackoverflow]: http://stackoverflow.com/questions/tagged/rust
 
-### Local Documentation
+### Lokal dokumentation
 
-The installer also includes a copy of the documentation locally, so you can
-read it offline. Run `rustup doc` to open the local documentation in your
-browser.
+Installationen inkluderar också en kopia av dokumentationen lokalt så att du
+kan läsa den även om du är frånkopplad. Kör `rustup doc` för att öppna den
+lokala dokumentationen i din webbläsare.
 
-Any time a type or function is provided by the standard library and you’re not
-sure what it does or how to use it, use the application programming interface
-(API) documentation to find out!
+När en typ eller en funktion tillhandahålls av standardbiblioteket och du inte
+är säker på vad den gör eller hur man använder den, använd dokumentationen för
+applikationsprogrammeringsgränssnittet (Application Programming Interface, API)
+för att ta reda på det!
