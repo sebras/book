@@ -1,8 +1,9 @@
-personal_ws-1.1 sv 449 
+personal_ws-1.1 sv 463 
 A.
 abcabcabc
 aborting
 annotations
+another
 användarforumen
 API
 Application
@@ -87,6 +88,7 @@ curl
 data-types.html
 debug
 debuginfo
+declaration
 default
 dependencies
 dependendencies
@@ -122,6 +124,7 @@ error
 exit
 expect
 expected
+expression
 eyed
 Failed
 false
@@ -146,6 +149,8 @@ foo
 found
 four
 Frameworks
+function
+functions
 game
 ägandeskap
 gcc
@@ -172,6 +177,7 @@ help
 heltalsöverspill
 Hex
 Högnivåergonomi
+Huvudfelmeddelandet
 IDE:er
 IDE:ns
 IEEE-
@@ -310,14 +316,17 @@ quotient
 rand-craten:n
 range
 rb
+räckvidder
 read
 README-filer
 registry
 release
 remainder
+removing
 reproducerbara
 result
 result.rs
+return
 returneras
 rng
 rs
@@ -336,6 +345,7 @@ second
 secret
 secs
 self
+semicolon
 semver
 SemVer
 separator
@@ -356,6 +366,7 @@ sSf
 stackoverflow
 standardbibliotekstypen
 Starch
+statement
 std
 stdin
 storing-utf-
@@ -366,12 +377,14 @@ struct
 strukturer
 successfully
 sum
+synonymer
 systemnivåkod.
 systemprogrammeringsvärlden
 systemsökväg
 tabb.
 t.ex.
 the
+this
 thread
 to
 toml
@@ -406,6 +419,7 @@ Updating
 use
 used
 USERPROFILE
+using
 usize
 UTF-
 utgåvoläge
