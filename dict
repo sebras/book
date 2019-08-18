@@ -1,7 +1,9 @@
-personal_ws-1.1 sv 464 
+personal_ws-1.1 sv 498 
 A.
 abcabcabc
 aborting
+again
+a.iter
 annotations
 another
 användarforumen
@@ -21,6 +23,7 @@ at
 authors
 avinstallationsskript
 avinstallera
+avsluta-efter-en-korrekt-gissning
 b'A'
 backtrace.
 BACKTRACE
@@ -35,10 +38,12 @@ bool
 boolesk
 booleska
 bounds
+branches
 break
 build
 but
 byte-literalen
+Cagain
 cannot
 caption
 cargo
@@ -47,10 +52,12 @@ Cargos
 Cargo.toml
 cat
 cd
+Celsius.
 ch
 char
 chatta
 Checking
+Christmas
 C-kod
 C-kompilator.
 C-kompilatorer
@@ -67,12 +74,14 @@ comparing-the-guess-to-the-secret-number
 compile
 compile.svg
 Compiling
+condition
 consider
 const
 continue
 control-flow
 control-flow.html
 Could
+counter
 CPU:er
 crate
 crate:ar
@@ -86,6 +95,7 @@ cratesio
 ctrl-c
 curl
 data-types.html
+Days
 debug
 debuginfo
 declaration
@@ -102,12 +112,15 @@ didn't
 difference
 dir
 discord
+dividerbart
+divisible
 doc
 does
 Downloading
 due
 E.
 e-bok
+else
 emoji
 encoded-text-with-strings
 enkelprecisionsflyttal
@@ -136,6 +149,7 @@ ferris
 ferris-explain
 FF
 FFFF
+Fibonacci-talet.
 file
 filename
 Finished
@@ -153,6 +167,7 @@ function
 functions
 game
 ägandeskap
+ägarskap.
 gcc
 generisk
 gissas.
@@ -170,6 +185,7 @@ guessing
 guessing-game-tutorial.html
 handling-potential-failure-with-the-result-type
 hashmappningar.
+have
 heapen
 heart
 hello
@@ -185,6 +201,7 @@ if
 ignore
 img
 immutable
+incompatible
 indexerar
 indexering
 infer
@@ -201,6 +218,7 @@ iostdin
 isize
 iteratorer
 iterera
+jamfora-gissningen-med-det-hemliga-talet
 January
 JavaScript
 jämföra-gissningen-med-det-hemliga-talet
@@ -217,6 +235,7 @@ koll
 kommandoradsverktyg
 kommandoradsverktyget
 kompilering-innan-körning
+koncisheten
 kontrollflödeskonstruktionen
 körtidsfel
 kryptovalutor
@@ -228,9 +247,12 @@ lågnivåkontroll
 lågnivåspråk
 libc
 libcore
+LIFTOFF
 line
 literaler
 länkare
+loopa
+loops
 ls
 lucky
 macOS
@@ -256,6 +278,8 @@ note
 now.
 nsp
 nsprust
+nästling
+N:te
 num
 number
 nyallokerade
@@ -270,6 +294,7 @@ oföränderliga
 oföränderligt
 omatchade
 ombyggnation
+omfaktorisera
 omfaktorisering.
 on
 one
@@ -280,7 +305,7 @@ Optimeringarna
 or
 Ordering
 oåterkalleliga-fel-med-panic
-Other
+other
 out
 Overflow
 package
@@ -313,6 +338,7 @@ Puh
 py
 Python
 quit
+quitting-after-a-correct-guess
 quotient
 rand-craten:n
 range
@@ -358,6 +384,7 @@ skriptet
 skuggning
 snip-
 someproject
+something
 source
 spaces
 span
@@ -384,9 +411,12 @@ systemprogrammeringsvärlden
 systemsökväg
 tabb.
 t.ex.
+than
 the
 this
 thread
+three
+tillförlitligare
 to
 toml
 Tom's
@@ -401,6 +431,7 @@ tupel
 tupeln
 Tupeltypen
 tupler
+Twelve
 twice
 tvåkomplementsvikning
 typat
@@ -435,6 +466,7 @@ variables-and-mutability
 variables-and-mutability.html
 warn
 warning
+was
 vcs
 webbläsare.
 webbläsaren
@@ -444,6 +476,7 @@ versaler
 versionering
 versionshanteringssystem
 which
+while
 vikas
 vikning
 vikningsbeteendet
@@ -463,3 +496,4 @@ You
 your
 yyyy-mm-dd
 z'
+zero
