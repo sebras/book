@@ -1,15 +1,15 @@
-## References and Borrowing
+## Referenser och lån
 
-The issue with the tuple code in Listing 4-5 is that we have to return the
-`String` to the calling function so we can still use the `String` after the
-call to `calculate_length`, because the `String` was moved into
+Problemet med tupel-koden i listning 4-5 är att vi måste returnera `String`
+till den anropande funktionen så vi fortfarande kan använda `String` efter
+anropet till `calculate_length`, eftersom `String` flyttades in i
 `calculate_length`.
 
-Here is how you would define and use a `calculate_length` function that has a
-reference to an object as a parameter instead of taking ownership of the
-value:
+Så här skulle du kunna definiera och använda en `calculate_length`-funktion som
+har en referens till ett objekt som en parameter istället för att ta ägandeskap
+över värdet:
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">Filnamn: src/main.rs</span>
 
 ```rust
 fn main() {
@@ -25,25 +25,25 @@ fn calculate_length(s: &String) -> usize {
 }
 ```
 
-First, notice that all the tuple code in the variable declaration and the
-function return value is gone. Second, note that we pass `&s1` into
-`calculate_length` and, in its definition, we take `&String` rather than
+För det första, notera att all tupelkoden i variabeldeklarationen och
+funktionens returvärde är borta. För det andra, notera att vi skickar in `&s1`
+i `calculate_length` och i dess definition tar vi `&String` snarare än
 `String`.
 
-These ampersands are *references*, and they allow you to refer to some value
-without taking ownership of it. Figure 4-5 shows a diagram.
+Dessa och-tecken är *referenser* och de låter dig referera till värden utan att
+ta ägandeskap över dem. Figur 4-5 visare ett diagram.
 
 <img alt="&String s pointing at String s1" src="img/trpl04-05.svg" class="center" />
 
-<span class="caption">Figure 4-5: A diagram of `&String s` pointing at `String
+<span class="caption">Figur 4-5: Ett diagram över hur `&String s` pekar på `String
 s1`</span>
 
-> Note: The opposite of referencing by using `&` is *dereferencing*, which is
-> accomplished with the dereference operator, `*`. We’ll see some uses of the
-> dereference operator in Chapter 8 and discuss details of dereferencing in
-> Chapter 15.
+> Notera: Motsatsen till att referera genom att använda `&` är att
+> *dereferera*, vilket åstadkoms med derefereringsoperatorn, `*`. Vi kommer
+> att se användning av derefereringsoperatorn i kapitel 8 och diskutera
+> detaljerna kring dereferering i kapitel 15.
 
-Let’s take a closer look at the function call here:
+Låt oss ta en närmare titt på funktionsanropet här:
 
 ```rust
 # fn calculate_length(s: &String) -> usize {
@@ -54,34 +54,36 @@ let s1 = String::from("hello");
 let len = calculate_length(&s1);
 ```
 
-The `&s1` syntax lets us create a reference that *refers* to the value of `s1`
-but does not own it. Because it does not own it, the value it points to will
-not be dropped when the reference goes out of scope.
+Syntaxen `&s1` låter oss skapa en referens som *refererar* till värdet i `s1`,
+men äger inte det. Eftersom det inte äger det kommer värdet den pekar till inte
+att frigöras när referensen faller utom räckvidd.
 
-Likewise, the signature of the function uses `&` to indicate that the type of
-the parameter `s` is a reference. Let’s add some explanatory annotations:
+På samma sätt använder signaturen för funktionen `&` för att indikera att typen
+för parametern `s` är en referens. Låt oss lägg till lite förklarande
+noteringar:
 
 ```rust
-fn calculate_length(s: &String) -> usize { // s is a reference to a String
+fn calculate_length(s: &String) -> usize { // s är en referens till en String
     s.len()
-} // Here, s goes out of scope. But because it does not have ownership of what
-  // it refers to, nothing happens.
+} // Här faller s utom räckvidd. Men då den inte har något ägandeskap över det
+  // som den refererar till händer ingenting.
 ```
 
-The scope in which the variable `s` is valid is the same as any function
-parameter’s scope, but we don’t drop what the reference points to when it goes
-out of scope because we don’t have ownership. When functions have references as
-parameters instead of the actual values, we won’t need to return the values in
-order to give back ownership, because we never had ownership.
+Räckvidden inom vilken variabeln `s` är giltig är samma som för andra
+funktionsparameterars räckvidd, men vi frigör inte det som referensen pekar på
+när den faller utom räckvidd eftersom vi inte har tagit ägandeskap. När
+funktioner har referenser som parametrar istället för de faktiska värdena
+behöver vi inte returnera värdena för att återge ägandeskapet, då vi aldrig
+tagit ägandeskapet från första början.
 
-We call having references as function parameters *borrowing*. As in real life,
-if a person owns something, you can borrow it from them. When you’re done, you
-have to give it back.
+Vi kallar att ha funktionsparametrar som referenser för *lån*. På som samma
+sätt som in verkliga livet, om en person äger någonting kan du låna det från
+dem. När du är klar måste du ge tillbaka det du lånat.
 
-So what happens if we try to modify something we’re borrowing? Try the code in
-Listing 4-6. Spoiler alert: it doesn’t work!
+Så vad händer om vi försöker att modifiera någonting vi lånat? Prova koden i
+listning 4-6. Tips: det fungerar inte!
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">Filnamn: src/main.rs</span>
 
 ```rust,ignore,does_not_compile
 fn main() {
@@ -95,9 +97,9 @@ fn change(some_string: &String) {
 }
 ```
 
-<span class="caption">Listing 4-6: Attempting to modify a borrowed value</span>
+<span class="caption">Listning 4-6: Försök att modifiera att lånat värde</span>
 
-Here’s the error:
+Här är felet:
 
 ```text
 error[E0596]: cannot borrow immutable borrowed content `*some_string` as mutable
@@ -109,14 +111,14 @@ error[E0596]: cannot borrow immutable borrowed content `*some_string` as mutable
   |     ^^^^^^^^^^^ cannot borrow as mutable
 ```
 
-Just as variables are immutable by default, so are references. We’re not
-allowed to modify something we have a reference to.
+Variabler är oföränderliga som standard och det gäller referenser också. Vi får
+inte modifiera någonting vi har en referens till.
 
-### Mutable References
+### Föränderliga referenser
 
-We can fix the error in the code from Listing 4-6 with just a small tweak:
+Vi kan fixa felet i koden i listning 4-6 genom en liten ändring:
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">Filnamn: src/main.rs</span>
 
 ```rust
 fn main() {
@@ -130,15 +132,15 @@ fn change(some_string: &mut String) {
 }
 ```
 
-First, we had to change `s` to be `mut`. Then we had to create a mutable
-reference with `&mut s` and accept a mutable reference with `some_string: &mut
-String`.
+Först var vi tvungna att ändra `s` till att vara `mut`. Sedan var vi tvungna
+att skapa en föränderlig referens med `&mut s` och acceptera en föränderlig
+referens med `some_string: &mut String`.
 
-But mutable references have one big restriction: you can have only one mutable
-reference to a particular piece of data in a particular scope. This code will
-fail:
+Men föränderliga referenser har en stor begränsning: du kan bara har en
+föränderlig referens till en specifik bit data i en specifik räckvidd. Denna
+kod kommer att misslyckas:
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">Filnamn: src/main.rs</span>
 
 ```rust,ignore,does_not_compile
 let mut s = String::from("hello");
@@ -149,7 +151,7 @@ let r2 = &mut s;
 println!("{}, {}", r1, r2);
 ```
 
-Here’s the error:
+Här är felet:
 
 ```text
 error[E0499]: cannot borrow `s` as mutable more than once at a time
@@ -164,24 +166,25 @@ error[E0499]: cannot borrow `s` as mutable more than once at a time
   |                        -- first borrow later used here
 ```
 
-This restriction allows for mutation but in a very controlled fashion. It’s
-something that new Rustaceans struggle with, because most languages let you
-mutate whenever you’d like.
+Denna restriktion tillåter föränderlighet men på ett väldigt kontrollerat sätt.
+Det är något som nya Rust-användare har problem med, då de flesta språk låter
+dig förändra saker när du känner för det.
 
-The benefit of having this restriction is that Rust can prevent data races at
-compile time. A *data race* is similar to a race condition and happens when
-these three behaviors occur:
+Fördelen med att ha denna begränsning är att Rust kan förhindra kapplöpning vid
+kompileringstid. *Kapplösning* liknar ett konkurrenstillstånd och inträffar när
+dessa tre beteende förekommer:
 
-* Two or more pointers access the same data at the same time.
-* At least one of the pointers is being used to write to the data.
-* There’s no mechanism being used to synchronize access to the data.
+* Två eller fler pekare arbetar på samma data samtidigt.
+* Åtminstone en av pekarna används för att skriva till datan.
+* Det finns ingen mekanism för att synkronisera åtkomst till datan.
 
-Data races cause undefined behavior and can be difficult to diagnose and fix
-when you’re trying to track them down at runtime; Rust prevents this problem
-from happening because it won’t even compile code with data races!
+Kapplöningar orsakar odefinierat beteende och kan vara svåra att diagnostisera
+och åtgärda när du försöka att språka upp dem i körtid; Rust förhindrar dessa
+problem från att inträffa då det inte ens kommer att låta kod med kapplöpningar
+kompilera!
 
-As always, we can use curly brackets to create a new scope, allowing for
-multiple mutable references, just not *simultaneous* ones:
+Som alltid kan vi använda klammerparenteser för att skapa en ny räckvidd,
+vilket möjliggör för föränderliga referenser, dock inte *samtidigt*:
 
 ```rust
 let mut s = String::from("hello");
@@ -189,90 +192,91 @@ let mut s = String::from("hello");
 {
     let r1 = &mut s;
 
-} // r1 goes out of scope here, so we can make a new reference with no problems.
+} // r1 faller utom räckvidd här så vi kan skapa en ny referens utan problem.
 
 let r2 = &mut s;
 ```
 
-A similar rule exists for combining mutable and immutable references. This code
-results in an error:
+En liknande regel existerar för att kombinera föränderliga och oföränderliga
+referenser. Denna kod resulterar i ett fel:
 
 ```rust,ignore,does_not_compile
 let mut s = String::from("hello");
 
-let r1 = &s; // no problem
-let r2 = &s; // no problem
-let r3 = &mut s; // BIG PROBLEM
+let r1 = &s; // inget problem
+let r2 = &s; // inget problem
+let r3 = &mut s; // STORT PROBLEM
 
 println!("{}, {}, and {}", r1, r2, r3);
 ```
 
-Here’s the error:
+Här är felet:
 
 ```text
 error[E0502]: cannot borrow `s` as mutable because it is also borrowed as immutable
  --> src/main.rs:6:14
   |
-4 |     let r1 = &s; // no problem
+4 |     let r1 = &s; // inget problem
   |              -- immutable borrow occurs here
-5 |     let r2 = &s; // no problem
-6 |     let r3 = &mut s; // BIG PROBLEM
+5 |     let r2 = &s; // inget problem
+6 |     let r3 = &mut s; // STORT PROBLEM
   |              ^^^^^^ mutable borrow occurs here
 7 |
 8 |     println!("{}, {}, and {}", r1, r2, r3);
   |                                -- immutable borrow later used here
 ```
 
-Whew! We *also* cannot have a mutable reference while we have an immutable one.
-Users of an immutable reference don’t expect the values to suddenly change out
-from under them! However, multiple immutable references are okay because no one
-who is just reading the data has the ability to affect anyone else’s reading of
-the data.
+Puh! Vi kan *heller* inte ha en föränderlig referens medan vi har en
+oföränderlig referens. Användare av en oföränderlig referens förväntar sig inte
+att värdet plötsligt kan ändras under deras fötter! Men flera oföränderliga
+referenser är okej eftersom någon som bara läser datan har möjlighet att
+påverkar någon annans läsning av datan.
 
-Note that a reference's scope starts from where it is introduced and continues
-through the last time that reference is used. For instance, this code will
-compile because the last usage of the immutable references occurs before the
-mutable reference is introduced:
 
-<!-- This example is being ignored because there's a bug in rustdoc making the
-edition2018 not work. The bug is currently fixed in nightly, so when we update
-the book to >= 1.35, `ignore` can be removed from this example. -->
+Notera att räckvidden för en referens börjar där den introduceras och
+fortsätter fram till sista gången referensen används. Denna koden kommer till
+exempel att kompilera eftersom den sista användningen av de oföränderliga
+referenserna sker för den oföränderliga referensen introduceras:
+
+<!-- Detta exempel hoppas över eftersom det finns ett fel i rustdoc som gör att
+edition2018 inte fungerar. Felet är för närvarande fixat i nightly, så när vi
+uppdaterar boken till >= 1.35 kan `ignore` tas bort från detta exempel. -->
 
 ```rust,edition2018,ignore
 let mut s = String::from("hello");
 
-let r1 = &s; // no problem
-let r2 = &s; // no problem
+let r1 = &s; // inget problem
+let r2 = &s; // inget problem
 println!("{} and {}", r1, r2);
-// r1 and r2 are no longer used after this point
+// r1 och r2 används inte längre efter denna punkt
 
-let r3 = &mut s; // no problem
+let r3 = &mut s; // inget problem
 println!("{}", r3);
 ```
 
-The scopes of the immutable references `r1` and `r2` end after the `println!`
-where they are last used, which is before the mutable reference `r3` is
-created. These scopes don't overlap, so this code is allowed.
+Räckvidderna för de oföränderliga referenserna `r1` och `r2` slutar efter
+`println!` där de sist används, vilket är före den föränderliga referensen `r3`
+skapas. Dessa räckvidder överlappar inte, så koden tillåts.
 
-Even though borrowing errors may be frustrating at times, remember that it’s
-the Rust compiler pointing out a potential bug early (at compile time rather
-than at runtime) and showing you exactly where the problem is. Then you don’t
-have to track down why your data isn’t what you thought it was.
+Även om lånfel kan vara frustrerande ibland, kom ihåg att det är
+Rust-kompilatorn som pekar ur ut ett eventuellt fel tidigt (vid kompileringstid
+snarare än i körtid) och visar dig exakt var problemet är. Då behöver du inte
+spåra upp var din data plötsligt inte är som du förväntar dig.
 
-### Dangling References
+### Hängande referenser
 
-In languages with pointers, it’s easy to erroneously create a *dangling
-pointer*, a pointer that references a location in memory that may have been
-given to someone else, by freeing some memory while preserving a pointer to
-that memory. In Rust, by contrast, the compiler guarantees that references will
-never be dangling references: if you have a reference to some data, the
-compiler will ensure that the data will not go out of scope before the
-reference to the data does.
+I språk med pekare är det lätt att av misstag skapa en *hängande pekare*, en
+pekare som refererar till en position i minnet som också kan ha givits till
+någon annan, genom att frigöra en bit minne medan pekaren till det minne
+bevaras. I kontrast garanterar kompilatorn i Rust att referenser inte kommer
+att vara hängande referenser: om du har en referens till en bit data så kommer
+kompilatorn att säkerställa att datan inte kommer att fall utom räckvidd innan
+referensen till datan gör det.
 
-Let’s try to create a dangling reference, which Rust will prevent with a
-compile-time error:
+Låt oss försöka att skapa en hängde referens, vilket Rust kommer att förhindra
+med ett fel i kompileringstid:
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">Filnamn: src/main.rs</span>
 
 ```rust,ignore,does_not_compile
 fn main() {
@@ -286,7 +290,7 @@ fn dangle() -> &String {
 }
 ```
 
-Here’s the error:
+Här är felet:
 
 ```text
 error[E0106]: missing lifetime specifier
@@ -300,36 +304,37 @@ error[E0106]: missing lifetime specifier
   = help: consider giving it a 'static lifetime
 ```
 
-This error message refers to a feature we haven’t covered yet: lifetimes. We’ll
-discuss lifetimes in detail in Chapter 10. But, if you disregard the parts
-about lifetimes, the message does contain the key to why this code is a problem:
+Detta felmeddelande refererar till något som vi inte diskuterat än: livstider.
+Vi kommer att diskutera livstider i detalj i kapitel 10. Men om du bortser från
+delarna om livstider så innehåller meddelandet nyckeln till varför denna koden
+är ett problem:
 
 ```text
 this function's return type contains a borrowed value, but there is no value
 for it to be borrowed from.
 ```
 
-Let’s take a closer look at exactly what’s happening at each stage of our
-`dangle` code:
+Låt oss ta en närmare titt på exakt vad som händer vid varje steg i vår
+`dangle`-kod:
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">Filnamn: src/main.rs</span>
 
 ```rust,ignore
-fn dangle() -> &String { // dangle returns a reference to a String
+fn dangle() -> &String { // dangle returnerar en referens till en String
 
-    let s = String::from("hello"); // s is a new String
+    let s = String::from("hello"); // s är en ny String
 
-    &s // we return a reference to the String, s
-} // Here, s goes out of scope, and is dropped. Its memory goes away.
-  // Danger!
+    &s // vi returnerar en referens till vår String, s
+} // Här faller s utom räckvidd och frigörs. Dess minne försvinner.
+  // Farligt!
 ```
 
-Because `s` is created inside `dangle`, when the code of `dangle` is finished,
-`s` will be deallocated. But we tried to return a reference to it. That means
-this reference would be pointing to an invalid `String`. That’s no good! Rust
-won’t let us do this.
+Eftersom `s` skapats inuti `dangle` kommer `s` att avallokeras när koden för
+`dangle` tar slut. Men vi försökte att returnera en referens till den. Det
+innebär att denna referens skulle ha pekat på en ogiltig `String`. Det är inte
+bra! Rust kommer inte tillåta oss att göra detta.
 
-The solution here is to return the `String` directly:
+Lösningen här är att returnera `String` direkt:
 
 ```rust
 fn no_dangle() -> String {
@@ -339,15 +344,14 @@ fn no_dangle() -> String {
 }
 ```
 
-This works without any problems. Ownership is moved out, and nothing is
-deallocated.
+Detta fungerar utan problem. Ägandeskapet flyttas ut och ingenting avallokeras.
 
-### The Rules of References
+### Reglerna för referenser
 
-Let’s recap what we’ve discussed about references:
+Låt oss sammanfatta vad vi diskuterat om referenser:
 
-* At any given time, you can have *either* one mutable reference *or* any
-  number of immutable references.
-* References must always be valid.
+* Vid varje given tidpunkt kan du ha *antingen* en föränderlig referens *eller*
+  ett godtyckligt antal oföränderliga referenser.
+* Referenser måste alltid vara giltiga.
 
-Next, we’ll look at a different kind of reference: slices.
+Härnäst kommer vi att titta på en annan typ av referens: skivor.
