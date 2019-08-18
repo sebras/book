@@ -18,6 +18,7 @@ spellcheck src/ch03-02-data-types.md
 spellcheck src/ch03-03-how-functions-work.md
 spellcheck src/ch03-04-comments.md
 spellcheck src/ch03-05-control-flow.md
+spellcheck src/ch04-00-understanding-ownership.md
 
 head -1 dict > .dict
 sed -e 1d dict | sort >> .dict
