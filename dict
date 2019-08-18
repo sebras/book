@@ -1,4 +1,4 @@
-personal_ws-1.1 sv 463 
+personal_ws-1.1 sv 464 
 A.
 abcabcabc
 aborting
@@ -81,8 +81,8 @@ crate:erna
 crate:n
 crate:s
 crates
+crates.io
 cratesio
-Crates.io
 ctrl-c
 curl
 data-types.html
@@ -232,6 +232,7 @@ line
 literaler
 länkare
 ls
+lucky
 macOS
 main
 main.exe
