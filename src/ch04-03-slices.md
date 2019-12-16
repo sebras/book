@@ -1,26 +1,26 @@
-## The Slice Type
+## Skivtypen
 
-Another data type that does not have ownership is the *slice*. Slices let you
-reference a contiguous sequence of elements in a collection rather than the
-whole collection.
+En annan datatyp som inte har något ägandeskap är *skivan*. Skivor låter dig
+referera till en kontinuerlig sekvens av element i en samling snarare än hela
+samlingen.
 
-Here’s a small programming problem: write a function that takes a string and
-returns the first word it finds in that string. If the function doesn’t find a
-space in the string, the whole string must be one word, so the entire string
-should be returned.
+Här är ett litet programmeringsproblem: skriv en funktion som tar en sträng och
+som returnerar det första order det hittar i den strängen. Om funktionen inte
+hittar ett blanksteg i strängen, måste hela strängen vara ett ord, så hela
+strängen bör returneras.
 
-Let’s think about the signature of this function:
+Låt oss tänka kring signaturen för denna funktion:
 
 ```rust,ignore
 fn first_word(s: &String) -> ?
 ```
 
-This function, `first_word`, has a `&String` as a parameter. We don’t want
-ownership, so this is fine. But what should we return? We don’t really have a
-way to talk about *part* of a string. However, we could return the index of the
-end of the word. Let’s try that, as shown in Listing 4-7.
+Denna funktion, `first_word`, har en `&String` som en parameter. Vi vill inte
+ha ägandeskap så detta går bra. Men vad ska vi returnera? Vi har egentligen
+inget sätt att tala om en *delmängd* av en sträng. Men vi skulle kunna
+returnera indexet för slutet på ordet. Låt oss prova det i listning 4-7.
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">Filnamn: src/main.rs</span>
 
 ```rust
 fn first_word(s: &String) -> usize {
@@ -36,39 +36,41 @@ fn first_word(s: &String) -> usize {
 }
 ```
 
-<span class="caption">Listing 4-7: The `first_word` function that returns a
-byte index value into the `String` parameter</span>
+<span class="caption">Listning 4-7: Funktionen `first_word` som returnerar ett
+byteindex in i `String`-parametern</span>
 
-Because we need to go through the `String` element by element and check whether
-a value is a space, we’ll convert our `String` to an array of bytes using the
-`as_bytes` method:
+Eftersom vi måste gå genom `String` element för element och kontrollera
+huruvida värdet är ett blanksteg kommer vi att konvertera vår `String` till en
+array av bytes med hjälp av metoden `as_bytes`:
 
 ```rust,ignore
 let bytes = s.as_bytes();
 ```
 
-Next, we create an iterator over the array of bytes using the `iter` method:
+Härnäst skapar vi en iterator över bytearrayn via metoden `iter`:
 
 ```rust,ignore
 for (i, &item) in bytes.iter().enumerate() {
 ```
 
-We’ll discuss iterators in more detail in Chapter 13. For now, know that `iter`
-is a method that returns each element in a collection and that `enumerate`
-wraps the result of `iter` and returns each element as part of a tuple instead.
-The first element of the tuple returned from `enumerate` is the index, and the
-second element is a reference to the element. This is a bit more convenient
-than calculating the index ourselves.
+Vi kommer att diskutera iteratorer i ytterligare detalj i Kapitel 13. För
+närvarande räcker det att veta att `iter` är en metod som returnerar varje
+element i en samling och att `enumerate` omsluter resultatet från `iter` och
+returnerar varje element som en del av en tupel istället. Det första element i
+tupeln som returneras från `enumerate` är indexet och det andra elementet är en
+referens till elementet. Detta är lite bekvämare än om vi beräknar indexet
+själva.
 
-Because the `enumerate` method returns a tuple, we can use patterns to
-destructure that tuple, just like everywhere else in Rust. So in the `for`
-loop, we specify a pattern that has `i` for the index in the tuple and `&item`
-for the single byte in the tuple. Because we get a reference to the element
-from `.iter().enumerate()`, we use `&` in the pattern.
+Då metoden `enumerate` returnerar en tupel kan vi använda mönster för att
+destrukturera denna tupel, precis som på all andra platser i Rust. Så i
+`for`-loopen anger vi ett mönster som har `i` för indexert i tupeln och `&item`
+för den enskilda byten i tupeln. Eftersom vi får en referens till elementet
+från `.iter().enumerate()` använder vi `&` i mönstret.
 
-Inside the `for` loop, we search for the byte that represents the space by
-using the byte literal syntax. If we find a space, we return the position.
-Otherwise, we return the length of the string by using `s.len()`:
+Inuti `for`-loopen söker vi efter byten som representerar blanksteg genom att
+använda syntaxen för byteliteraler. Om vi hittar ett blanksteg returnerar vi
+positionen. Annars returnerar vi längden på strängen genom att använda
+`s.len()`:
 
 ```rust,ignore
     if item == b' ' {
@@ -78,15 +80,14 @@ Otherwise, we return the length of the string by using `s.len()`:
 
 s.len()
 ```
+Vi har nu ett sätt att hitta vårt index på slutet av det första ordet i
+strängen, men det finns ett problem. Vi returnerar en separat `usize`, men det
+är bara ett meningsfullt nummer i samband med vår `&String`. Med andra ord, då
+det är ett värde separat från vår `String` så finns det ingen garanti att den
+fortfarande kommer att vara giltig i framtiden. Betänk programmet i listning
+4-8 som använder funktionen `first_word` från listning 4-7.
 
-We now have a way to find out the index of the end of the first word in the
-string, but there’s a problem. We’re returning a `usize` on its own, but it’s
-only a meaningful number in the context of the `&String`. In other words,
-because it’s a separate value from the `String`, there’s no guarantee that it
-will still be valid in the future. Consider the program in Listing 4-8 that
-uses the `first_word` function from Listing 4-7.
-
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">Filnamn: src/main.rs</span>
 
 ```rust
 # fn first_word(s: &String) -> usize {
@@ -104,42 +105,46 @@ uses the `first_word` function from Listing 4-7.
 fn main() {
     let mut s = String::from("hello world");
 
-    let word = first_word(&s); // word will get the value 5
+    let word = first_word(&s); // word kommer att få värdet 5
 
-    s.clear(); // this empties the String, making it equal to ""
+    s.clear(); // detta tömmer strängen, vilket likställer den med ""
 
-    // word still has the value 5 here, but there's no more string that
-    // we could meaningfully use the value 5 with. word is now totally invalid!
+    // word har fortfarande värdet 5 här, men det finns inte längre någon
+    // sträng som vi på ett meningsfullt sätt kan använda värdet 5 med. word är
+    // nu heltigenom ogiltigt!
 }
 ```
 
-<span class="caption">Listing 4-8: Storing the result from calling the
-`first_word` function and then changing the `String` contents</span>
+<span class="caption">Listning 4-8: Att spara värdet från anropet från
+funktionen `first_word` och sedan ändra innehållet i `String`</span>
 
-This program compiles without any errors and would also do so if we used `word`
-after calling `s.clear()`. Because `word` isn’t connected to the state of `s`
-at all, `word` still contains the value `5`. We could use that value `5` with
-the variable `s` to try to extract the first word out, but this would be a bug
-because the contents of `s` have changed since we saved `5` in `word`.
+Detta program kompilerar utan några fel och skulle även göra det om vi använde
+`word` efter att ha anropat `s.clear()`. Då `word` inte alls är länkat till
+tillståndet i `s` kommer `word` fortfarande att innehålla värdet `5`. Vi skulle
+kunna använda värdet `5` tillsammans med variabeln `s` för att extrahera det
+första ordet, men detta skulle vara ett programfel då innehållet i `s` har
+ändrats sedan vi sparade `5` i `word.
 
-Having to worry about the index in `word` getting out of sync with the data in
-`s` is tedious and error prone! Managing these indices is even more brittle if
-we write a `second_word` function. Its signature would have to look like this:
+Att behöva bry sig om att indexet i `word` blir osynkroniserat med datan i `s`
+är tråkigt och benäget att resultera i fel! Att hantera dessa index blir ännu
+mer skört om vi skapare en funktion `second_word`. Dess signatur skulle behöva
+se ut något i stil med:
 
 ```rust,ignore
 fn second_word(s: &String) -> (usize, usize) {
 ```
 
-Now we’re tracking a starting *and* an ending index, and we have even more
-values that were calculated from data in a particular state but aren’t tied to
-that state at all. We now have three unrelated variables floating around that
-need to be kept in sync.
+Vi måste nu hålla reda på både ett inledande *och* ett avslutande index, och vi
+har än fler värden som beräknades från data i ett särskilt tillstånd men som
+inte är alls är sammanlänkade. Vi har nu tre orelaterade variabler som flyter
+runt men som måste hållas synkroniserade.
 
-Luckily, Rust has a solution to this problem: string slices.
+Som tur är har Rust en lösning på detta problem: strängskivor.
 
-### String Slices
+### Strängskivor
 
-A *string slice* is a reference to part of a `String`, and it looks like this:
+En *strängskiva* är en referens till en delmängd av en `String` och ser ut så
+här:
 
 ```rust
 let s = String::from("hello world");
@@ -148,27 +153,28 @@ let hello = &s[0..5];
 let world = &s[6..11];
 ```
 
-This is similar to taking a reference to the whole `String` but with the extra
-`[0..5]` bit. Rather than a reference to the entire `String`, it’s a reference
-to a portion of the `String`.
+Detta liknar att ta en referens till hela strängen `String`, men med den extra
+avslutningen `[0..5]`. Snarare än att ta en referens till hela `String` är det
+en referens till en del av `String`.
 
-We can create slices using a range within brackets by specifying
-`[starting_index..ending_index]`, where `starting_index` is the first position
-in the slice and `ending_index` is one more than the last position in the
-slice. Internally, the slice data structure stores the starting position and
-the length of the slice, which corresponds to `ending_index` minus
-`starting_index`. So in the case of `let world = &s[6..11];`, `world` would be
-a slice that contains a pointer to the 7th byte of `s` with a length value of 5.
+Vi kan skapa skivor genom att använda ett intervall inom klammerparenteser
+genom att ange `[startindex..slutindex]` där `startindex` är den första
+positionen i skivan och `slutindex` är indexet direktefter den sista positionen
+i skivan. Internt sparar datastrukturen för skivan startpositionen och längden
+för skivan, vilket motsvararar `slutindex` minus `startindex`. Så i fallet med
+`let world = &s[6..11];`, kommer `world` att vara en skiva som innehåller en
+pekare till den sjunde byten i `s` med en längd som är 5.
 
-Figure 4-6 shows this in a diagram.
+Figur 4-6 visar detta i ett diagram.
 
-<img alt="world containing a pointer to the 6th byte of String s and a length 5" src="img/trpl04-06.svg" class="center" style="width: 50%;" />
+<img alt="world innhåller en pekare till den sjätte byten i String s och en längd som är 5" src="img/trpl04-06.svg" class="center" style="width: 50%;" />
 
-<span class="caption">Figure 4-6: String slice referring to part of a
-`String`</span>
+<span class="caption">Figur 4-6: Strängskiva som refererar till en delmängd av
+en `String`</span>
 
-With Rust’s `..` range syntax, if you want to start at the first index (zero),
-you can drop the value before the two periods. In other words, these are equal:
+Med Rusts intervallsyntax `..`, kan du om du vill börja med det första indexet
+(noll) genom att hoppa över värdet före de två punkterna. Med andra ord är
+dessa två ekvivalenta:
 
 ```rust
 let s = String::from("hello");
@@ -177,8 +183,8 @@ let slice = &s[0..2];
 let slice = &s[..2];
 ```
 
-By the same token, if your slice includes the last byte of the `String`, you
-can drop the trailing number. That means these are equal:
+På samma sätt kan du hoppa över det avslutande talet om din skiva inkluderar
+den sista byten i `String. Detta innebär att dessa två är ekvivalenta:
 
 ```rust
 let s = String::from("hello");
@@ -189,8 +195,8 @@ let slice = &s[3..len];
 let slice = &s[3..];
 ```
 
-You can also drop both values to take a slice of the entire string. So these
-are equal:
+Du kan också skippa båda värdena för att ta en skiva av hela strängen, så dessa
+är också ekvivalenta:
 
 ```rust
 let s = String::from("hello");
@@ -201,17 +207,17 @@ let slice = &s[0..len];
 let slice = &s[..];
 ```
 
-> Note: String slice range indices must occur at valid UTF-8 character
-> boundaries. If you attempt to create a string slice in the middle of a
-> multibyte character, your program will exit with an error. For the purposes
-> of introducing string slices, we are assuming ASCII only in this section; a
-> more thorough discussion of UTF-8 handling is in the [“Storing UTF-8 Encoded
-> Text with Strings”][strings]<!-- ignore --> section of Chapter 8.
+> Notera: Intervallindex för strängskivor måste ske på giltiga teckengränser
+> för UTF-8-tecken. Om du försöker att skapa en strängskiva i mitten av ett
+> flerbytestecken kommer ditt program att avslutas med ett fel. När vi
+> introducerar strängskivor i detta avsnitt antar vi att endast ASCII används;
+> en mer genomgripande diskussion kring UTF-8-hantering finns i avsnittet
+> [“Lagra UTF-8-kodad text i strängar“][strängar]<!-- ignore --> i kapitel 8.
 
-With all this information in mind, let’s rewrite `first_word` to return a
-slice. The type that signifies “string slice” is written as `&str`:
+Med all denna information friskt i minne, låt oss skriva om `first_word` så att
+den returnerar en skiva. Typen som betecknar “strängskiva“ skrivs som `&str`:
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">Filnamn: src/main.rs</span>
 
 ```rust
 fn first_word(s: &String) -> &str {
@@ -227,32 +233,33 @@ fn first_word(s: &String) -> &str {
 }
 ```
 
-We get the index for the end of the word in the same way as we did in Listing
-4-7, by looking for the first occurrence of a space. When we find a space, we
-return a string slice using the start of the string and the index of the space
-as the starting and ending indices.
+Vi får ett index för slutet av ordet på samma sätt som vi gjorde i listning
+4-7, genom att leta efter den första förekomsten av ett blanksteg. Ni vi hittar
+ett blanksteg returnerar vi en stängskiva från starten av strängen till indexet
+för blanksteget som start- och slutindex.
 
-Now when we call `first_word`, we get back a single value that is tied to the
-underlying data. The value is made up of a reference to the starting point of
-the slice and the number of elements in the slice.
+När vi nu anropar `first_word` får vi tillbaka ett enstaka värde som är länkar
+till den underliggande datan. Värdet består av en referens till startpunkten av
+skivan och antalet i element i skivan.
 
-Returning a slice would also work for a `second_word` function:
+Att returnerar en skiva hade också fungerat för funktionen `second_word`:
 
 ```rust,ignore
 fn second_word(s: &String) -> &str {
 ```
 
-We now have a straightforward API that’s much harder to mess up, because the
-compiler will ensure the references into the `String` remain valid. Remember
-the bug in the program in Listing 4-8, when we got the index to the end of the
-first word but then cleared the string so our index was invalid? That code was
-logically incorrect but didn’t show any immediate errors. The problems would
-show up later if we kept trying to use the first word index with an emptied
-string. Slices make this bug impossible and let us know we have a problem with
-our code much sooner. Using the slice version of `first_word` will throw a
-compile-time error:
+Vi har nu ett enkelt API som det är mycket svårare att göra fel med, då
+kompilatorn kommer att säkertsälla att referenserna in i `String` kommer att
+fortsätta vara giltiga. Kommer du ihåg programfelet i programmet i listning 4-8
+när vi fick indexet till det första ordet men sedan rensade strängen så att
+vårt index blev ogiltigt? Den koden var logiskt felaktig men visade ingen
+uppenbara fel. Problemen hade uppstått senare om vi hade fortsatt att använda
+indexet till det första ordet med en tömd sträng. Skivor gör denna typ av
+programfel omöjlig och låter oss veta att vi har ett problem med vår kod i ett
+mycket tidigare skede. Om vi använder skivversionen av `first_word` kommer vi
+att få ett fel vid kompileringstid.
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">Filnamn: src/main.rs</span>
 
 ```rust,ignore,does_not_compile
 fn main() {
@@ -266,7 +273,7 @@ fn main() {
 }
 ```
 
-Here’s the compiler error:
+Här är kompileringsfelet:
 
 ```text
 error[E0502]: cannot borrow `s` as mutable because it is also borrowed as immutable
@@ -282,51 +289,52 @@ error[E0502]: cannot borrow `s` as mutable because it is also borrowed as immuta
    |                                       ---- immutable borrow later used here
 ```
 
-Recall from the borrowing rules that if we have an immutable reference to
-something, we cannot also take a mutable reference. Because `clear` needs to
-truncate the `String`, it needs to get a mutable reference. Rust disallows
-this, and compilation fails. Not only has Rust made our API easier to use, but
-it has also eliminated an entire class of errors at compile time!
+Kom ihåg från lånereglerna att om vi har en oföränderlig referens till något
+kan vi inte samtidigt ha en föränderlig referens. Eftersom `clear` måste kunna
+trunkera `String`, måste den få en föränderlig referens. Rust tillåter inte
+detta vilket leder till att kompileringen misslyckas. Rust har inte bara gjort
+vårt API enklare att använda, utan har också eliminerat en hel typ av fel redan
+i kompileringstid!
 
-#### String Literals Are Slices
+#### Strängliteraler är skivor
 
-Recall that we talked about string literals being stored inside the binary. Now
-that we know about slices, we can properly understand string literals:
+Kom ihåg att vi talade om att strängliteraler lagras inuti den körbara filen.
+Nu när vi känner till skivor kan vi korrekt förstå strängliteraler:
 
 ```rust
 let s = "Hello, world!";
 ```
 
-The type of `s` here is `&str`: it’s a slice pointing to that specific point of
-the binary. This is also why string literals are immutable; `&str` is an
-immutable reference.
+Typen av `s` här är `&str`: det är en skriva som pekar på den specifika punkten
+av den körbara filen. Detta är också varför strängliteraler är oföränderliga:
+`&str` är en oföränderlig referens.
 
-#### String Slices as Parameters
+#### Strängskivor som parametrar
 
-Knowing that you can take slices of literals and `String` values leads us to
-one more improvement on `first_word`, and that’s its signature:
+Vetskapen om att man kan ta skivor av literaler och `String`-värden leder oss
+till ytterligare en förbättring av `first_word` och det är dess signatur:
 
 ```rust,ignore
 fn first_word(s: &String) -> &str {
 ```
 
-A more experienced Rustacean would write the signature shown in Listing 4-9
-instead because it allows us to use the same function on both `&String` values
-and `&str` values.
+En mer avancerad Rust-användare skulle skriva signaturen som visas i listning
+4-9 istället, då den låter oss använda samma funktion för både `&String`- och
+`&str`-värden.
 
 ```rust,ignore
 fn first_word(s: &str) -> &str {
 ```
 
-<span class="caption">Listing 4-9: Improving the `first_word` function by using
-a string slice for the type of the `s` parameter</span>
+<span class="caption">Listning 4-9: Förbättring av funktionen `first_word`
+genom att använda en strängskiva som typ för parametern `s`</span>
 
-If we have a string slice, we can pass that directly. If we have a `String`, we
-can pass a slice of the entire `String`. Defining a function to take a string
-slice instead of a reference to a `String` makes our API more general and useful
-without losing any functionality:
+Om vi har en strängskiva kan vi skicka den direkt. Om vi har en `String` kan vi
+skicka en skiva av hela `String`. Att definiera en funktion som tar en
+strängskiva istället för en referens till en `String` gör vårt API mer
+generellt och användbart utan att förlora någon funktionalitet:
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">Filnamn: src/main.rs</span>
 
 ```rust
 # fn first_word(s: &str) -> &str {
@@ -343,31 +351,31 @@ without losing any functionality:
 fn main() {
     let my_string = String::from("hello world");
 
-    // first_word works on slices of `String`s
+    // first_word funerar för skivor av `String`-värden
     let word = first_word(&my_string[..]);
 
     let my_string_literal = "hello world";
 
-    // first_word works on slices of string literals
+    // first_word fungerar för skivor av strängliteraler
     let word = first_word(&my_string_literal[..]);
 
-    // Because string literals *are* string slices already,
-    // this works too, without the slice syntax!
+    // Då strängliteraler redan *är* skivor fungerar
+    // det för dessa också utan skivsyntaxen!
     let word = first_word(my_string_literal);
 }
 ```
 
-### Other Slices
+### Andra skivor
 
-String slices, as you might imagine, are specific to strings. But there’s a
-more general slice type, too. Consider this array:
+Strängskivor är, som du förmodligen kan tänka dig, specifika för strängar. Men
+det finns även en mer generell skivtyp. Betänk denna array:
 
 ```rust
 let a = [1, 2, 3, 4, 5];
 ```
 
-Just as we might want to refer to a part of a string, we might want to refer
-to part of an array. We’d do so like this:
+Precis som vi kan vilja referera till en delmängd av en sträng kan vi vilja
+referera till en delmängd av en array. Det hade vi gjort på detta sätt:
 
 ```rust
 let a = [1, 2, 3, 4, 5];
@@ -375,21 +383,22 @@ let a = [1, 2, 3, 4, 5];
 let slice = &a[1..3];
 ```
 
-This slice has the type `&[i32]`. It works the same way as string slices do, by
-storing a reference to the first element and a length. You’ll use this kind of
-slice for all sorts of other collections. We’ll discuss these collections in
-detail when we talk about vectors in Chapter 8.
+Denna skiva har typen `&[i32]`. Den fungerar på samma sätt som strängskivor,
+genom att lagra en referens till det första elementet samt en längd. Du kommer
+att använda denna typ av skiva för alla typer av samlingar. Vi kommer att
+diskutera dessa samlingar i detalj när vi talar om vektorer i kapitel 8.
 
-## Summary
+## Sammanfattning
 
-The concepts of ownership, borrowing, and slices ensure memory safety in Rust
-programs at compile time. The Rust language gives you control over your memory
-usage in the same way as other systems programming languages, but having the
-owner of data automatically clean up that data when the owner goes out of scope
-means you don’t have to write and debug extra code to get this control.
+Koncepten ägandeskap, lång och skivor säkerställer minnessäkerhet i
+Rust-program vid kompileringstid. Programmeringsspråket Rust ger dig kontroll
+över din minnesanvändning på samma sätt som andra systemprogrammeringsspråk,
+men att låta ägaren av data automatiskt städa upp datan när ägaren faller utom
+räckvidd innebär att du inte måste skriva och felsöka extra kod för att få
+detta under kontroll.
 
-Ownership affects how lots of other parts of Rust work, so we’ll talk about
-these concepts further throughout the rest of the book. Let’s move on to
-Chapter 5 and look at grouping pieces of data together in a `struct`.
+Ägandeskap påverkar hur många andra delar av Rust fungerar så vi kommer att
+tala vidare om dessa koncept genom resten av boken. Låt oss gå vidare till
+kapitel 5 och titta på hur man grupperar data tillsammans i en `struct`.
 
-[strings]: ch08-02-strings.html#storing-utf-8-encoded-text-with-strings
+[strängar]: ch08-02-strings.html#storing-utf-8-encoded-text-with-strings
