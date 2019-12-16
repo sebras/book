@@ -21,6 +21,7 @@ spellcheck src/ch03-05-control-flow.md
 spellcheck src/ch04-00-understanding-ownership.md
 spellcheck src/ch04-01-what-is-ownership.md
 spellcheck src/ch04-02-references-and-borrowing.md
+spellcheck src/ch04-03-slices.md
 
 head -1 dict > .dict
 sed -e 1d dict | sort >> .dict

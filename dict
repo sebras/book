@@ -1,4 +1,4 @@
-personal_ws-1.1 sv 591 
+personal_ws-1.1 sv 596 
 A.
 abcabcabc
 aborting
@@ -20,6 +20,7 @@ array:er
 array:s
 arrays
 Array-typen
+ASCII
 ASCII.
 assign
 at
@@ -50,6 +51,7 @@ branches
 break
 build
 but
+bytearrayn
 byte-literalen
 C.
 Cagain
@@ -178,6 +180,7 @@ Finished
 Firefox.
 first
 five
+flerbytestecken
 flertrådad
 fn
 fånga-allt-värdet
@@ -193,7 +196,6 @@ funktionsparameterars
 game
 ägandeskap
 ägandeskapet
-Ägandeskapet
 ägandeskapsfunktionaliteten
 ägandeskapsreglerna
 ägandeskapssystemet
@@ -260,6 +262,7 @@ ioresult
 iostdin
 isize
 it
+iterator
 iteratorer
 iterera
 jamfora-gissningen-med-det-hemliga-talet
@@ -300,6 +303,7 @@ LIFTOFF
 line
 literal
 literaler
+lånereglerna
 länkare
 loopa
 loops
@@ -333,7 +337,6 @@ needed
 new
 nightly
 no
-No
 nollbreddsblanksteg
 note
 nothing
@@ -370,6 +373,7 @@ operatorer
 Optimeringarna
 or
 Ordering
+osynkroniserat
 oåterkalleliga-fel-med-panic
 other
 out
@@ -523,9 +527,10 @@ tupel
 tupeln
 Tupeltypen
 tupler
+två-komplementsrepresentation
+tvåkomplementsvikning
 Twelve
 twice
-tvåkomplementsvikning
 typat
 type
 types
@@ -556,33 +561,33 @@ variabler-och-föränderlighet
 variables
 variables-and-mutability
 variables-and-mutability.html
+vcs
+versaler
+versionering
+versionshanteringssystem
+vikas
+vikning
+vikningsbeteendet
+Visual
+visualstudio
+välkomnande
+vs.
 warn
 warning
 was
-vcs
 webbläsare.
 webbläsaren
 webbserver
 webbtjänster
-versaler
-versionering
-versionshanteringssystem
 which
 while
 width
-vikas
-vikning
-vikningsbeteendet
 win
 Windows
-Visual
-visualstudio
 with
-välkomnande
 world
 world.rs
 Wrapping
-vs.
 x.
 xff
 You
