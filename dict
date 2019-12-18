@@ -1,4 +1,4 @@
-personal_ws-1.1 sv 596 
+personal_ws-1.1 sv 598 
 A.
 abcabcabc
 aborting
@@ -21,7 +21,6 @@ array:s
 arrays
 Array-typen
 ASCII
-ASCII.
 assign
 at
 authors
@@ -149,6 +148,7 @@ encoded-text-with-strings
 enkelprecisionsflyttal
 enumerations
 enum:mar
+enummar
 enum:mens
 enums
 enums.html
@@ -491,6 +491,8 @@ string
 strings.html
 strängliteral
 struct
+structar
+structs
 strukturer
 style
 successfully
