@@ -1,16 +1,16 @@
-## Defining and Instantiating Structs
+## Definiera och instantiera structar
 
-Structs are similar to tuples, which were discussed in Chapter 3. Like tuples,
-the pieces of a struct can be different types. Unlike with tuples, you’ll name
-each piece of data so it’s clear what the values mean. As a result of these
-names, structs are more flexible than tuples: you don’t have to rely on the
-order of the data to specify or access the values of an instance.
+Structar liknar tupler, vilka diskuterades i kapitel 3. Likt tupler kan delarna
+i en struct vara av olika typer. Till skillnad från tupler måste du namnge
+varje datadel för att det är tydligt vad värdet innebär. Som resultat av dessa
+namn, är structar mer flexibla än tupler: du behöver inte förlita dig på
+ordningen av datan för att ange eller komma åt värdena i en instans.
 
-To define a struct, we enter the keyword `struct` and name the entire struct. A
-struct’s name should describe the significance of the pieces of data being
-grouped together. Then, inside curly brackets, we define the names and types of
-the pieces of data, which we call *fields*. For example, Listing 5-1 shows a
-struct that stores information about a user account.
+För att definiera en struct kommer vi att ange nyckelordet `struct` och namnet
+på hela structen. En structs namn bör beskriva betydelsen av den data som
+grupperas ihop. Därefter definierar vi, inom klammerparenteser, namnen och
+typer på varje datadel, vilka vi kallar *fält*. Listning 5-1 visar till exempel
+en struct som lagrar information om ett användarkonto.
 
 ```rust
 struct User {
@@ -21,17 +21,17 @@ struct User {
 }
 ```
 
-<span class="caption">Listing 5-1: A `User` struct definition</span>
+<span class="caption">Listning 5-1: En definition av en `User`-struct</span>
 
-To use a struct after we’ve defined it, we create an *instance* of that struct
-by specifying concrete values for each of the fields. We create an instance by
-stating the name of the struct and then add curly brackets containing `key:
-value` pairs, where the keys are the names of the fields and the values are the
-data we want to store in those fields. We don’t have to specify the fields in
-the same order in which we declared them in the struct. In other words, the
-struct definition is like a general template for the type, and instances fill
-in that template with particular data to create values of the type. For
-example, we can declare a particular user as shown in Listing 5-2.
+För att använda en struct efter att vi definierat den skapar vi en *instans* av
+den structen genom att ange konkreta värden för vart och ett av fälten. Vi
+skapar en instans genom att ange namnet på structen och sedan lägger till
+klammerparenteser innehållandes `nyckel: värde`-par, där nycklarna är namnen på
+fälten och värdena är den data vi vill lagra i fälten. Vi måste inte ange
+fälten i samma ordning som vi deklarerade dem i structen. Med andra ord
+structdefinitionen är som en allmän mall för typen och instanserna fyller i den
+mallen med specifik data för att skapa värden av typen. Vi kan till exempel
+deklarera en specifik användare så som visas i listning 5-2.
 
 ```rust
 # struct User {
@@ -49,14 +49,15 @@ let user1 = User {
 };
 ```
 
-<span class="caption">Listing 5-2: Creating an instance of the `User`
-struct</span>
+<span class="caption">Listning 5-2: Att skapa en instans av
+`User`-structen</span>
 
-To get a specific value from a struct, we can use dot notation. If we wanted
-just this user’s email address, we could use `user1.email` wherever we wanted
-to use this value. If the instance is mutable, we can change a value by using
-the dot notation and assigning into a particular field. Listing 5-3 shows how
-to change the value in the `email` field of a mutable `User` instance.
+För att få tag i ett specifikt värde från en struct kan vi använda
+punktnotation. Om vi bara vill ha denna användarens epostadress skulle vi kunna
+använda `user1.email` på de platser vi vill använda detta värde. Om instansen
+är föränderlig kan vi ändra ett värde genom att använda punktnotation och
+tilldela ett specifikt fält. Listning 5-3 visar hur man ändrar värdet i
+`email`-fältet för en föränderlig `User`-instans.
 
 ```rust
 # struct User {
@@ -76,17 +77,17 @@ let mut user1 = User {
 user1.email = String::from("anotheremail@example.com");
 ```
 
-<span class="caption">Listing 5-3: Changing the value in the `email` field of a
-`User` instance</span>
+<span class="caption">Listning 5-3: Hur man ändrar värdet för `email`-fältet av
+en `User`-instans</span>
 
-Note that the entire instance must be mutable; Rust doesn’t allow us to mark
-only certain fields as mutable. As with any expression, we can construct a new
-instance of the struct as the last expression in the function body to
-implicitly return that new instance.
+Notera att hela instansen måste vara föränderlig: Rust tillåter inte oss att
+endast markera vissa fält som föränderliga. Som med vilket uttryck som helst
+kan vi konstruera en ny instans av structen som sista uttryck i en
+funktionskropp för att implicit returnera denna nya instans.
 
-Listing 5-4 shows a `build_user` function that returns a `User` instance with
-the given email and username. The `active` field gets the value of `true`, and
-the `sign_in_count` gets a value of `1`.
+Listning 5-4 visar en `build_user`-funktion som returnerar en `User`-instans
+med angiven epostadress och användarnamn. Fältet `active` får värdet `true` och
+`sign_in_count` får värdet `1`.
 
 ```rust
 # struct User {
@@ -106,20 +107,20 @@ fn build_user(email: String, username: String) -> User {
 }
 ```
 
-<span class="caption">Listing 5-4: A `build_user` function that takes an email
-and username and returns a `User` instance</span>
+<span class="caption">Listning 5-4: En funktion `build_user` som tar en
+epostadress och ett användarnamn och returnerar en `User`-instans</span>
 
-It makes sense to name the function parameters with the same name as the struct
-fields, but having to repeat the `email` and `username` field names and
-variables is a bit tedious. If the struct had more fields, repeating each name
-would get even more annoying. Luckily, there’s a convenient shorthand!
+Det är vettigt att namnge funktionsparametrarna med samma namn som
+structfälten, men att behöva upprepa fältnamnen `email` och `username` är lite
+trist. Om structen hade haft fler fält hade upprepning av varje namn varit än
+mer irriterande. Lyckligtvis finns det en bekväm kortform!
 
-### Using the Field Init Shorthand when Variables and Fields Have the Same Name
+### Användning av kortformen för fältinitiering när variabler och fler har samma namn
 
-Because the parameter names and the struct field names are exactly the same in
-Listing 5-4, we can use the *field init shorthand* syntax to rewrite
-`build_user` so that it behaves exactly the same but doesn’t have the
-repetition of `email` and `username`, as shown in Listing 5-5.
+Eftersom parameternamn och structfältsnamn är exakt de samma i listning 5-4 kan
+vi använda *kortformen för fältinitiering* för att skriva om `build_user` så
+att den beter sig på exakt samma sätt men inte repeterar `email` och
+`username`, så som visas i listning 5-5.
 
 ```rust
 # struct User {
@@ -139,24 +140,26 @@ fn build_user(email: String, username: String) -> User {
 }
 ```
 
-<span class="caption">Listing 5-5: A `build_user` function that uses field init
-shorthand because the `email` and `username` parameters have the same name as
-struct fields</span>
+<span class="caption">Listning 5-5: En `build_user`-funktion som använder
+kortformen för fältinitiering då parametrarna `email` och `username` har samma
+namn som structfälten</span>
 
-Here, we’re creating a new instance of the `User` struct, which has a field
-named `email`. We want to set the `email` field’s value to the value in the
-`email` parameter of the `build_user` function. Because the `email` field and
-the `email` parameter have the same name, we only need to write `email` rather
-than `email: email`.
+Här skapar vi en ny instans av `User`-structen vilken har ett fält vid namn
+`email`. Vi vill sätta `email` fältets värde till samma värde som
+`build_user`-funktionens `email`-parameter har. Eftersom `email`-fältet och
+`email`-parametern har samma namn behöver vi bara skriva `email` snarare än
+`email: email`.
 
-### Creating Instances From Other Instances With Struct Update Syntax
+### Skapa instanser från andra instanser med structuppdateringssyntax
 
-It’s often useful to create a new instance of a struct that uses most of an old
-instance’s values but changes some. You’ll do this using *struct update syntax*.
+Det är ofta användbart att skapa en ny instans av en struct som använder
+merparten av en gammal instans värden men ändra några stycken. Du kan göra
+detta genom att använda structuppdateringssyntaxen.
 
-First, Listing 5-6 shows how we create a new `User` instance in `user2` without
-the update syntax. We set new values for `email` and `username` but otherwise
-use the same values from `user1` that we created in Listing 5-2.
+Listning 5-6 visar först hur vi skapar en ny `User`-instans i `user2` utan att
+använda uppdateringsyntaxen. Vi sätter nya värden för `email` och `username`,
+men använder för övrigt samma värden från `user1` som vi skapade i listning
+5-2.
 
 ```rust
 # struct User {
@@ -181,12 +184,13 @@ let user2 = User {
 };
 ```
 
-<span class="caption">Listing 5-6: Creating a new `User` instance using some of
-the values from `user1`</span>
+<span class="caption">Listning 5-6: Skapa en ny `User`-instans som använder
+några av värdena från `user1`</span>
 
-Using struct update syntax, we can achieve the same effect with less code, as
-shown in Listing 5-7. The syntax `..` specifies that the remaining fields not
-explicitly set should have the same value as the fields in the given instance.
+Med hjälp av structuppdateringsyntaxen kan vi åstadkomma samma effekt med
+mindre kod, som visas i listning 5-7. Syntaxen `..` anger att återstående
+värden som inte sätts uttryckligen ska ha samma värde som fälten i den angivna
+instansen.
 
 ```rust
 # struct User {
@@ -210,26 +214,26 @@ let user2 = User {
 };
 ```
 
-<span class="caption">Listing 5-7: Using struct update syntax to set new
-`email` and `username` values for a `User` instance but use the rest of the
-values from the fields of the instance in the `user1` variable</span>
+<span class="caption">Listning 5-7: Användning av structuppdateringsyntaxen för
+att sätta nya `email`- och `username`-värden i en `User`-instans, men använder
+resten av värden från fälten från `user1`-variabeln</span>
 
-The code in Listing 5-7 also creates an instance in `user2` that has a
-different value for `email` and `username` but has the same values for the
-`active` and `sign_in_count` fields from `user1`.
+Koden i listning 5-7 skapar också en instans i `user2` som har andra värden för
+`email` och `username`, men som har samma värden för `active`- och
+`sign_in_count`-fälten som `user1`.
 
-### Using Tuple Structs without Named Fields to Create Different Types
+### Användning av tupelstructar utan namngivna fält för att skapa olika typer
 
-You can also define structs that look similar to tuples, called *tuple
-structs*. Tuple structs have the added meaning the struct name provides but
-don’t have names associated with their fields; rather, they just have the types
-of the fields. Tuple structs are useful when you want to give the whole tuple a
-name and make the tuple be a different type from other tuples, and naming each
-field as in a regular struct would be verbose or redundant.
+Du kan också definiera structar som ser ut som tupler, kallade *tupelstructar*.
+Tupelstructar har den ytterligare innebörden som structnamn tillhandahåller men
+har inte namn associerade med sina fält; de har bara typerna för respektive
+fält. Tupelstructar är användbara när du vill ge hela tupeln ett namn och göra
+tupeln till en annan typ än andra tupler, men att namnge varje fält som för en
+vanlig struct hade varit pratigt eller redundant.
 
-To define a tuple struct, start with the `struct` keyword and the struct name
-followed by the types in the tuple. For example, here are definitions and
-usages of two tuple structs named `Color` and `Point`:
+För att definiera en tupelstruct, börja med nyckelordet `struct` och
+structnamnet åtföljt av typerna i tupel. Här är till exempel definition och
+användning av två tupelstructar vid namn `Color` och `Point`:
 
 ```rust
 struct Color(i32, i32, i32);
@@ -239,37 +243,37 @@ let black = Color(0, 0, 0);
 let origin = Point(0, 0, 0);
 ```
 
-Note that the `black` and `origin` values are different types, because they’re
-instances of different tuple structs. Each struct you define is its own type,
-even though the fields within the struct have the same types. For example, a
-function that takes a parameter of type `Color` cannot take a `Point` as an
-argument, even though both types are made up of three `i32` values. Otherwise,
-tuple struct instances behave like tuples: you can destructure them into their
-individual pieces, you can use a `.` followed by the index to access an
-individual value, and so on.
+Notera att värdena `black` och `origin` är olika typer eftersom de är instanser
+av olika tupelstructar. Varje struct du definierar är sin egen type, även om
+fälten inom structen har samma typer. En funktion som till exempel tar en para
+meter av typen `Color` kan ta ta en `Point` som argument, även om båda typerna
+består av tre `i32`-värden. I övrigt beter sig tupelstructar som tupler: du kan
+destrukturera dem till delar, du kan använda `.` följt av ett index för att
+komma åt ett individuellt värde, och så vidare.
 
-### Unit-Like Structs Without Any Fields
+### Enhetsliknande structar utan några fält
 
-You can also define structs that don’t have any fields! These are called
-*unit-like structs* because they behave similarly to `()`, the unit type.
-Unit-like structs can be useful in situations in which you need to implement a
-trait on some type but don’t have any data that you want to store in the type
-itself. We’ll discuss traits in Chapter 10.
+Du kan också definiera structar som inte har några fält! Dessa kallas för
+*enhetsliknande structar* då de beter sig liknande enhetstypen `()`.
+Enhetsliknande structar kan vara användbara i situationer där du måste
+implementera en egenskap för en type men inte har någon data som du vill lagra
+i typen i sig. Vi kommer att diskutera egenskaper i kapitel 10.
 
-> ### Ownership of Struct Data
+> ### Ägandeskap av structdata
 >
-> In the `User` struct definition in Listing 5-1, we used the owned `String`
-> type rather than the `&str` string slice type. This is a deliberate choice
-> because we want instances of this struct to own all of its data and for that
-> data to be valid for as long as the entire struct is valid.
+> I structdefinitionen av `User` i listning 5-1 använde vi den ägda
+> `String`-typen snarare än strängskivetypen `&str`. Detta är ett avsiktligt
+> val då vi vill att instanser av denna struct äger all sin data och att datan
+> är giltig så länge som hela structen är giltig.
 >
-> It’s possible for structs to store references to data owned by something else,
-> but to do so requires the use of *lifetimes*, a Rust feature that we’ll
-> discuss in Chapter 10. Lifetimes ensure that the data referenced by a struct
-> is valid for as long as the struct is. Let’s say you try to store a reference
-> in a struct without specifying lifetimes, like this, which won’t work:
+> Det är möjligt för structar att lagra referenser till data som ägs av
+> någonting annat, men när man gör det så kräver det användning av *livstider*,
+> en Rust-funktion som vi kommer att diskutera i kapitel 10. Livstider
+> försäkraratt datan som refereras till av en struct är giltigt lika länge som
+> structen är giltig. Låt oss säga att du på detta sätt försöker att lagra en
+> referens i en struct utan att ange livstider, då kommer det inte att fungera:
 >
-> <span class="filename">Filename: src/main.rs</span>
+> <span class="filename">Filnamn: src/main.rs</span>
 >
 > ```rust,ignore,does_not_compile
 > struct User {
@@ -289,7 +293,7 @@ itself. We’ll discuss traits in Chapter 10.
 > }
 > ```
 >
-> The compiler will complain that it needs lifetime specifiers:
+> Kompilatorn kommer att klaga på att livstidsangivare behövs:
 >
 > ```text
 > error[E0106]: missing lifetime specifier
@@ -305,6 +309,7 @@ itself. We’ll discuss traits in Chapter 10.
 >   |            ^ expected lifetime parameter
 > ```
 >
-> In Chapter 10, we’ll discuss how to fix these errors so you can store
-> references in structs, but for now, we’ll fix errors like these using owned
-> types like `String` instead of references like `&str`.
+> I kapitel 10 kommer vi att diskutera hur man kan fixa dessa fel så att du kan
+> lagra referenser i structar, men tills vidare kommer vi att fixa problem som
+> detta genom att använda ägda typer som `String` istället för
+> `&str`-referenser.
