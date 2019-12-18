@@ -1,11 +1,11 @@
-# Using Structs to Structure Related Data
+# Att använda structar för att strukturera relaterad data
 
-A *struct*, or *structure*, is a custom data type that lets you name and
-package together multiple related values that make up a meaningful group. If
-you’re familiar with an object-oriented language, a *struct* is like an
-object’s data attributes. In this chapter, we’ll compare and contrast tuples
-with structs, demonstrate how to use structs, and discuss how to define methods
-and associated functions to specify behavior associated with a struct’s data.
-Structs and enums (discussed in Chapter 6) are the building blocks for creating
-new types in your program’s domain to take full advantage of Rust’s compile
-time type checking.
+En *struct* eller *struktur* är en anpassad datatyp som låter dig namnge och
+paketera flera relaterade värden tillsammans så att de utgör en meningsfull
+grupp. Om du är bekant med ett objektorienterat språk är en *struct* som en
+objekts dataattribut. I detta kapitel kommer vi att jämföra tupler med
+structar och ställa dem i kontrast till varandra, demonstrera hur man använder
+structar och diskutera hur man definierar metoder och associerade funktioner
+för att ange beteende associerat med en structs data. Structar och enum:mar
+(diskuteras i kapitel 6) är byggblock för att skapa nya typer inom ditt
+programs domän för att utnyttja Rusts typkontroll vid kompileringstid fullt ut.
