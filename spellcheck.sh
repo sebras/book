@@ -23,6 +23,7 @@ spellcheck src/ch04-01-what-is-ownership.md
 spellcheck src/ch04-02-references-and-borrowing.md
 spellcheck src/ch04-03-slices.md
 spellcheck src/ch05-00-structs.md
+spellcheck src/ch05-01-defining-structs.md
 
 head -1 dict > .dict
 sed -e 1d dict | sort >> .dict

@@ -1,4 +1,4 @@
-personal_ws-1.1 sv 598 
+personal_ws-1.1 sv 605 
 A.
 abcabcabc
 aborting
@@ -153,6 +153,7 @@ enum:mens
 enums
 enums.html
 Environment
+epostadress
 e-postinformation
 Equal
 Err
@@ -253,6 +254,7 @@ Initialization
 input
 installation.html
 installed
+instantiera
 Integrated
 Interface
 internet
@@ -490,9 +492,14 @@ str
 string
 strings.html
 strängliteral
+strängskivetypen
 struct
 structar
+structen
+structfältsnamn
 structs
+structuppdateringssyntax
+structuppdateringsyntaxen
 strukturer
 style
 successfully
