@@ -1,15 +1,15 @@
-## An Example Program Using Structs
+## Ett exempel på ett program som manvänder structar
 
-To understand when we might want to use structs, let’s write a program that
-calculates the area of a rectangle. We’ll start with single variables, and then
-refactor the program until we’re using structs instead.
+För att förstå när vi kan vilja använda structar, låt oss skriva ett program
+som beräknar arean för en rektangel. Vi börjar med enstaka variabler och
+refaktoriserar sedan om programmet tills vi avänder structar istället.
 
-Let’s make a new binary project with Cargo called *rectangles* that will take
-the width and height of a rectangle specified in pixels and calculate the area
-of the rectangle. Listing 5-8 shows a short program with one way of doing
-exactly that in our project’s *src/main.rs*.
+Låt oss skapa ett ny binärprojekt med Cargo kallat *rectangles* som tar bredden
+och höjden för en rektangel angivna i pixlar och beräknar arean för rektangeln.
+Listning 5-8 visar ett kortat program med ett sätta att göra precis detta i
+vårt projekts *src/main.rs*.
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">Filnamn: src/main.rs</span>
 
 ```rust
 fn main() {
@@ -27,38 +27,37 @@ fn area(width: u32, height: u32) -> u32 {
 }
 ```
 
-<span class="caption">Listing 5-8: Calculating the area of a rectangle
-specified by separate width and height variables</span>
+<span class="caption">Listing 5-8: Beräkning av area för en rektangel angiven
+av separata bredd- och höjdvariabler</span>
 
-Now, run this program using `cargo run`:
+Låt oss nu köra programmet via `cargo run`:
 
 ```text
 The area of the rectangle is 1500 square pixels.
 ```
 
-Even though Listing 5-8 works and figures out the area of the rectangle by
-calling the `area` function with each dimension, we can do better. The width
-and the height are related to each other because together they describe one
-rectangle.
+Även om listning 5-8 fungerar och räknar ut rektangelns area genoma tt anropa
+funktionen `area` med varje dimension kan vi göra det bättre. Bredden och
+höjden är relaterade till varandra eftersom de beskriver en enda rektangel.
 
-The issue with this code is evident in the signature of `area`:
+Problemet med denna kod är uppenbart i signaturen för `area`:
 
 ```rust,ignore
 fn area(width: u32, height: u32) -> u32 {
 ```
 
-The `area` function is supposed to calculate the area of one rectangle, but the
-function we wrote has two parameters. The parameters are related, but that’s
-not expressed anywhere in our program. It would be more readable and more
-manageable to group width and height together. We’ve already discussed one way
-we might do that in [“The Tuple Type”][the-tuple-type]<!-- ignore --> section
-of Chapter 3: by using tuples.
+`area`-funktionen är tänkt att beräkna arean för en rektangel, men funktionen
+vi skrev har två parametrar. Parametrarna är relaterade, men det uttrycks
+aldrig någonstans i vårt program. Det vore mer läsbart och mer hanterbart att
+gruppera bredden och höjden tillsammans. Vi har redan disktuerat ett sätt vi
+kan göra det i [“Tupeltypen“][tupeltypen]<!-- ignore -->-avsnittet i kapitel 3:
+genom att använda tupler.
 
-### Refactoring with Tuples
+### Omfaktorisering med tupler
 
-Listing 5-9 shows another version of our program that uses tuples.
+Listning 5-9 visar en annan version av vårt program som använder tupler.
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">Filnamn: src/main.rs</span>
 
 ```rust
 fn main() {
@@ -75,29 +74,28 @@ fn area(dimensions: (u32, u32)) -> u32 {
 }
 ```
 
-<span class="caption">Listing 5-9: Specifying the width and height of the
-rectangle with a tuple</span>
+<span class="caption">Listning 5-9: Bredden och höjden för rektangeln anges med
+en tupel</span>
 
-In one way, this program is better. Tuples let us add a bit of structure, and
-we’re now passing just one argument. But in another way, this version is less
-clear: tuples don’t name their elements, so our calculation has become more
-confusing because we have to index into the parts of the tuple.
+På ett sätt är detta program bättre. Tupler låter oss tillföra lite struktur
+och vi skickar nu bara ett argument. Men på ett annat sätt är denna version
+mindre tylidg: tupler namnger inte sina element,så vår beräkning har blivit mer
+förvirrande eftersom vi måste indexera delarna i tupeln.
 
-It doesn’t matter if we mix up width and height for the area calculation, but
-if we want to draw the rectangle on the screen, it would matter! We would have
-to keep in mind that `width` is the tuple index `0` and `height` is the tuple
-index `1`. If someone else worked on this code, they would have to figure this
-out and keep it in mind as well. It would be easy to forget or mix up these
-values and cause errors, because we haven’t conveyed the meaning of our data in
-our code.
+Det spelar ingen roll om vi blandar ihop bredd och höjd för areauträkningen, men
+om vi vill rita rektangeln på skärmen, då hade det spelat roll! Vi måste komma
+ihåg att att `width` motsvarar tupelindex `0` och `height` motsvarar tupelindex
+`1`. Om någon annan arbetar med denna koden måste de själv lista ut och komma
+ihåg det. Eftersom vi inte har angett betydelsen av datan i vår kod vore det
+enkelt att glömma eller blanda ihop dessa värden och orsaka fel.
 
-### Refactoring with Structs: Adding More Meaning
+### Omfaktorisering med structar: Lägga till ytterligare betydelse
 
-We use structs to add meaning by labeling the data. We can transform the tuple
-we’re using into a data type with a name for the whole as well as names for the
-parts, as shown in Listing 5-10.
+Vi använder structar för att lätta till betydelse genom att sätta etiketter på
+datan. Vi kan transformera tupel vi använder till en datatyp med ett namn för
+helheten så väl som namn för delarna, så som visas i listning 5-10.
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">Filnamn: src/main.rs</span>
 
 ```rust
 struct Rectangle {
@@ -119,26 +117,26 @@ fn area(rectangle: &Rectangle) -> u32 {
 }
 ```
 
-<span class="caption">Listing 5-10: Defining a `Rectangle` struct</span>
+<span class="caption">Listning 5-10: Definition av en `Rectangle`-struct</span>
 
-Here we’ve defined a struct and named it `Rectangle`. Inside the curly
-brackets, we defined the fields as `width` and `height`, both of which have
-type `u32`. Then in `main`, we created a particular instance of `Rectangle`
-that has a width of 30 and a height of 50.
+Här har vi definierat en struct och namngett den `Rectangle`. Inuti
+klammerparenteserna har vi definiera fälten `width` och `height`, båda av typen
+`u32`. I `main` har vi sedan skapat en särskilt instans av `Rectangle` som har
+bredden 30 och höjden 50.
 
-Our `area` function is now defined with one parameter, which we’ve named
-`rectangle`, whose type is an immutable borrow of a struct `Rectangle`
-instance. As mentioned in Chapter 4, we want to borrow the struct rather than
-take ownership of it. This way, `main` retains its ownership and can continue
-using `rect1`, which is the reason we use the `&` in the function signature and
-where we call the function.
+Vår `area`-funktion definieras nu med en parameter vilken vi namngett
+`rectangle`, vars typ är ett oföränderligt lån av en struct
+`Rectangle`-instans. Som vi nämnde i kapitel 4 vi vill låna structen snarare än
+att ta ägandeskap över den. På detta sätt behåller `main` dess ägandeskap och
+kan fortsätta använda `rect1`, vilket är anledningen till att vi använder `&` i
+funktionssignaturen och dår vi anropar funktionen.
 
-The `area` function accesses the `width` and `height` fields of the `Rectangle`
-instance. Our function signature for `area` now says exactly what we mean:
-calculate the area of `Rectangle`, using its `width` and `height` fields. This
-conveys that the width and height are related to each other, and it gives
-descriptive names to the values rather than using the tuple index values of `0`
-and `1`. This is a win for clarity.
+`area`-funktionen använder `width`- och `height`-fälten från
+`Rectangle`-instansen. Vår funktionssignature för `area` uttrycker nu exakt vad
+vi menar: beräkna arean för `Rectangle` genom att använda `width`- och
+`height`-fälten. Detta förmedlar att bredden och höjden är relaterade till
+varandra och ger beskrivande namn på värden snarare än använder
+tupelindexvärdena `0` och `1`. Detta är en vinst för tydligheten.
 
 ### Adding Useful Functionality with Derived Traits
 
